@@ -1,0 +1,71 @@
+﻿using RestSharp;
+
+namespace AYweb.Core.Senders;
+
+public static class Sms
+{
+    public static void SnedRegisterSms(string mobile, string code)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09153329600\"" +
+                   ",\"pass\":  \"Faraz@0702617881\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"a5vys953u2tuyia\"" +
+                   ",\"inputData\" : [{\"code\":\"" + code + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    }
+    public static void SendNewPassword(string mobile, string password)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09153329600\"" +
+                   ",\"pass\":  \"Faraz@0702617881\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"fo18id28zl0qrtt\"" +
+                   ",\"inputData\" : [{\"code\":\"" + password + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    }
+    public static void PayCart(string mobile, string username)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09153329600\"" +
+                   ",\"pass\":  \"Faraz@0702617881\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"7ufimbw9jx5hi00\"" +
+                   ",\"inputData\" : [{\"user-name\":\"" + username + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    }
+    public static void SentCart(string mobile, string username)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09153329600\"" +
+                   ",\"pass\":  \"Faraz@0702617881\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"3706jtp1ms1fslk\"" +
+                   ",\"inputData\" : [{\"user-name\":\"" + username + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    }
+}
