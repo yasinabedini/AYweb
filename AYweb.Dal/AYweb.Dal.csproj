@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<Folder Include="Context\" />
 		<Folder Include="Entities\Company\" />
-		<Folder Include="Entities\News\" />
+		<Folder Include="Entities\Services\" />
 	</ItemGroup>
 
 </Project>

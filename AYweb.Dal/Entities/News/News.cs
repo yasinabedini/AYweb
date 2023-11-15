@@ -15,4 +15,6 @@ public class News
     [Required(ErrorMessage = "لطفا {0} را وارو کنید!")]
     public string Text { get; set; }
     public bool IsDeleted { get; set; }
+
+    public List<NewsGroups> GroupsList { get; set; }
 }

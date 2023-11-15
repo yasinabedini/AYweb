@@ -1,13 +1,5 @@
-﻿using CarSpareParts.Dal.Entities.Discount;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AYweb.Dal.Entities.User;
 
@@ -63,19 +55,9 @@ public class User
     [Display(Name = "تاریخ ثبت نام")]
     public DateTime RegisterDate { get; set; }
 
-    [Display(Name = "آدرس")]
-    public string? Address { get; set; }
 
     [DefaultValue(false)]
     public bool IsDelete { get; set; }
 
-    [Display(Name = "نوع مشتری")]
-    public int CustomerId { get; set; }
-
-    [ForeignKey("CustomerId")]
-    public CustomerType Type { get; set; }
-    public ICollection<Transaction.Transaction> Transactions { get; set; }
-    public ICollection<Order.Order> Orders { get; set; }
-    public ICollection<UserDiscounts> UserDiscounts { get; set; }
-    public ICollection<Comment.Comment> Comments { get; set; }
+   public List<UserRoles> RolesList { get; set; }
 }
