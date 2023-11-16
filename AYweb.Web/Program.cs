@@ -1,8 +1,18 @@
+using AYweb.Core.Services;
+using AYweb.Core.Services.Interfaces;
+using AYweb.Dal.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<AYWebDbContext>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("AyWebConnectionString"), t => t.MigrationsAssembly("AYweb.Web")));
+
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 
