@@ -20,4 +20,8 @@
 		<PackageReference Include="System.Drawing.Common" Version="8.0.0-rc.2.23479.14" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\AYweb.Dal\AYweb.Dal.csproj" />
+	</ItemGroup>
+
 </Project>

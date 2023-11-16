@@ -23,4 +23,13 @@
 		<PackageReference Include="System.Drawing.Common" Version="8.0.0-rc.2.23479.14" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\AdminPanel\User\" />
+	  <Folder Include="wwwroot\img\shop-image\Thumb\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\AYweb.Core\AYweb.Core.csproj" />
+	</ItemGroup>
+
 </Project>

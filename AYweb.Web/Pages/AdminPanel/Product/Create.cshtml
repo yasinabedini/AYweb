@@ -1,0 +1,102 @@
+﻿@page
+@model AYweb.Web.Pages.AdminPanel.Product.CreateModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">افزودن محصول جدید</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    اطلاعات محصول
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>نام کالا </label>
+                        <input type="text" asp-for="Product.Name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>توضیحات محصول</label>
+                        <br />
+                        <span class="text-danger mt-2">لطفا در صورت قید ویژگی، ویژگی را به این صورت معرفی کنید. (وزن : 200 گرم)</span>
+                        <textarea class="form-control" rows="5" asp-for="Product.Description"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>موجودی کالا</label>
+                        <input type="number" asp-for="Product.Inventory" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>وضعیت کالا</label>
+                        <input type="checkbox" asp-for="Product.InventoryStatus"/>
+                    </div>
+                    <div class="form-group">
+                        <label>قیمت</label>
+                        <input type="number" asp-for="Product.Price"/>
+                    </div>
+                    <input type="submit" value="ثبت محصول" class="btn btn-success col-md-12" />
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    تصاویر کالا
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <img id="imgAvatar" class="thumbnail" src="~/images/Logo.webp" />
+                    <div class="form-group">
+                        <label></label>
+                        <input class="form-control-file" name="productPictureUp" id="productPictureUp" type="file" />
+                    </div>
+                    <div class="form-group">
+                        <label>توضیحات سئو</label>
+                        <textarea asp-for="Product.HideDescription" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+@section Scripts
+    {
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#productPictureUp").change(function () {
+            readURL(this);
+        });
+    </script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Product_Description', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+    }

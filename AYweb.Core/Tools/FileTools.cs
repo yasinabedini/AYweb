@@ -8,7 +8,7 @@ public class FileTools
 {
     public void SaveImage(IFormFile profileImage, string imageName, string whichFolder, bool thumbSave)
     {
-        string imagePath = imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\{whichFolder}", imageName);
+        string imagePath = imagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\img\\{whichFolder}", imageName);
 
         using (var stream = new FileStream(imagePath, FileMode.Create))
         {
@@ -18,7 +18,7 @@ public class FileTools
         //save ThumbNail
         if (thumbSave)
         {
-            string thumbImagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\{whichFolder}\\Thumb", imageName);
+            string thumbImagePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\img\\{whichFolder}\\Thumb", imageName);
             ImageConvertor imageConvertor = new ImageConvertor();
             imageConvertor.Image_resize(imagePath, thumbImagePath, 213);
         }
