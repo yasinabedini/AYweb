@@ -4,6 +4,7 @@ using AYweb.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AYweb.Web.Migrations
 {
     [DbContext(typeof(AYWebDbContext))]
-    partial class AYWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231117111609__Mig_AddOrderEntity")]
+    partial class _Mig_AddOrderEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,64 +261,6 @@ namespace AYweb.Web.Migrations
                     b.ToTable("RolePermission");
                 });
 
-            modelBuilder.Entity("AYweb.Dal.Entities.Products.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comment");
-                });
-
-            modelBuilder.Entity("AYweb.Dal.Entities.Products.Feature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Features");
-                });
-
             modelBuilder.Entity("AYweb.Dal.Entities.Products.Plan", b =>
                 {
                     b.Property<int>("Id")
@@ -347,9 +292,9 @@ namespace AYweb.Web.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DiscountedPrice")
+                    b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HideDescription")
                         .HasColumnType("nvarchar(max)");
@@ -366,13 +311,6 @@ namespace AYweb.Web.Migrations
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSpecial")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MainDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -383,10 +321,6 @@ namespace AYweb.Web.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("ShortDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -677,36 +611,6 @@ namespace AYweb.Web.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("AYweb.Dal.Entities.Products.Comment", b =>
-                {
-                    b.HasOne("AYweb.Dal.Entities.Products.Product", "Product")
-                        .WithMany("Comments")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AYweb.Dal.Entities.User.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AYweb.Dal.Entities.Products.Feature", b =>
-                {
-                    b.HasOne("AYweb.Dal.Entities.Products.Product", "Product")
-                        .WithMany("Features")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("AYweb.Dal.Entities.Project.Project", b =>
                 {
                     b.HasOne("AYweb.Dal.Entities.Services.Service", "Service")
@@ -786,10 +690,6 @@ namespace AYweb.Web.Migrations
 
             modelBuilder.Entity("AYweb.Dal.Entities.Products.Product", b =>
                 {
-                    b.Navigation("Comments");
-
-                    b.Navigation("Features");
-
                     b.Navigation("OrderLines");
                 });
 

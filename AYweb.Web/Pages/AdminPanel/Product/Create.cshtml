@@ -24,22 +24,34 @@
                         <input type="text" asp-for="Product.Name" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label>توضیحات مختصر</label>
+                        <textarea class="form-control" rows="5" asp-for="Product.ShortDescription"></textarea>
+                    </div>
+                    <div class="form-group">
                         <label>توضیحات محصول</label>
                         <br />
                         <span class="text-danger mt-2">لطفا در صورت قید ویژگی، ویژگی را به این صورت معرفی کنید. (وزن : 200 گرم)</span>
-                        <textarea class="form-control" rows="5" asp-for="Product.Description"></textarea>
+                        <textarea class="form-control" rows="5" asp-for="Product.MainDescription"></textarea>
                     </div>
                     <div class="form-group col-md-6">
                         <label>موجودی کالا</label>
                         <input type="number" asp-for="Product.Inventory" class="form-control">
                     </div>
-                    <div class="form-group col-md-6">
-                        <label>وضعیت کالا</label>
-                        <input type="checkbox" asp-for="Product.InventoryStatus"/>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-3">
                         <label>قیمت</label>
-                        <input type="number" asp-for="Product.Price"/>
+                        <input type="number" asp-for="Product.Price" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>قیمت با تخفیف</label>
+                        <input type="number" asp-for="Product.DiscountedPrice" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ویژگی ها</label>
+                        @for (int i = 0; i < 10; i++)
+                        {
+                            <input type="text" name="featureList[@i].Title" class="form-control col-md-3" />
+                            <input type="text" name="featureList[@i].Value" class="form-control col-md-3" />
+                        }
                     </div>
                     <input type="submit" value="ثبت محصول" class="btn btn-success col-md-12" />
                 </div>
@@ -57,6 +69,14 @@
                     <div class="form-group">
                         <label></label>
                         <input class="form-control-file" name="productPictureUp" id="productPictureUp" type="file" />
+                    </div>
+                    <div class="form-group">
+                        <label>وضعیت کالا</label>
+                        <input type="checkbox" asp-for="Product.InventoryStatus"/>
+                    </div>
+                    <div class="form-group">
+                        <label>محصول ویژه</label>
+                        <input type="checkbox" asp-for="Product.IsSpecial"/>
                     </div>
                     <div class="form-group">
                         <label>توضیحات سئو</label>
@@ -94,7 +114,7 @@
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script>
 
-        CKEDITOR.replace('Product_Description', {
+        CKEDITOR.replace('Product_MainDescription', {
             customConfig: '/js/Config.js'
         });
 
