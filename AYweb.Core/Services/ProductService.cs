@@ -27,7 +27,7 @@ public class ProductService : IProductService
         product.PictureName = "Defaul-Image.jpeg";
         if (productImageUp != null && productImageUp.IsImage())
         {
-            string imageName = Generator.CreateUniqueText() + Path.GetExtension(productImageUp.FileName);
+            string imageName = $"Product({product.Id})" + Path.GetExtension(productImageUp.FileName);
             product.PictureName = imageName;
 
             FileTools fileTools = new FileTools();
@@ -66,5 +66,69 @@ public class ProductService : IProductService
 
             PageCount = products.Count() / take
         };
+    }
+    public Tuple<List<ShowProductViewModel>, int> GetProducts(int pageId = 1, string filter = "", string orderBy = "", bool orderByCreateDate = true, int take = 12)
+    {
+        var products = _context.Products.Include(t => t.OrderLines).ToList();
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            products = products.Where(t => t.Name.Contains(filter)).ToList();
+        }
+
+
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            switch (orderBy)
+            {
+
+            }
+        }
+
+        if (orderByCreateDate)
+        {
+            products = products.OrderByDescending(t => t.CreateDate).ToList();
+        }
+
+
+        int skip = (pageId - 1) * take;
+
+        var endProductList = products.Select(t => new ShowProductViewModel
+        {
+            Id = t.Id,
+            Name = t.Name,
+            PictureName = t.PictureName,
+            Price = t.Price,
+            CreateDate = t.CreateDate
+        }).Skip(skip).Take(take).ToList();
+
+        int pageCount = products.Count() / take;
+        if (pageCount <= 1)
+        {
+            pageCount = 1;
+            goto endProductList;
+        }
+        if ((pageCount % take) != 0)
+        {
+            pageCount++;
+        }
+
+    endProductList:
+        return Tuple.Create(endProductList, pageCount);
+    }
+
+    public void AddFeatureToProduct(int productId, List<Feature> features)
+    {
+        foreach (var feature in features)
+        {
+           _context.Features.Add(new Feature()
+           {
+               Title = feature.Title,
+               Value = feature.Value,
+               ProductId = productId
+           });
+           _context.SaveChanges();
+        }
+        
     }
 }
