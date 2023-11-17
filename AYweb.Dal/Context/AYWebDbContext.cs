@@ -20,6 +20,7 @@ public class AYWebDbContext:DbContext
     public DbSet<UserRoles> User_Roles { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Feature> Features { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<NewsGroups> News_Groups { get; set; }
     public DbSet<NewsGallery> NewsGalleries { get; set; }
@@ -28,4 +29,9 @@ public class AYWebDbContext:DbContext
     public DbSet<Project> Projects { get; set; }
     public DbSet<ProjectGallery> ProjectGalleries { get; set; }
     public DbSet<Service> Services { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+    }
 }
