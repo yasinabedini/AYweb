@@ -20,7 +20,6 @@ public class ProductService : IProductService
     {
         _context = context;
     }
-
     public void AddProduct(Product product, IFormFile productImageUp)
     {
 
@@ -39,7 +38,6 @@ public class ProductService : IProductService
         _context.Products.Add(product);
         _context.SaveChanges();
     }
-
     public ShowProductForAdminViewModel GetProductsForAdmin(int pageId, string nameFilter)
     {
         IQueryable<Product> products = _context.Products;
@@ -60,6 +58,7 @@ public class ProductService : IProductService
                 Inventory = t.Inventory,
                 Name = t.Name,
                 Price = t.Price
+
             }).ToList(),
 
             CurrentPage = pageId,
@@ -99,7 +98,10 @@ public class ProductService : IProductService
             Name = t.Name,
             PictureName = t.PictureName,
             Price = t.Price,
-            CreateDate = t.CreateDate
+            CreateDate = t.CreateDate,
+            DiscountedPrice = t.DiscountedPrice,
+            IsSpecial = t.IsSpecial
+            
         }).Skip(skip).Take(take).ToList();
 
         int pageCount = products.Count() / take;
@@ -116,19 +118,22 @@ public class ProductService : IProductService
     endProductList:
         return Tuple.Create(endProductList, pageCount);
     }
-
+    public Product GetProductById(int id)
+    {
+        return _context.Products.Include(t => t.Features).Include(t => t.Comments).Include(t => t.OrderLines).First(t => t.Id == id);
+    }
     public void AddFeatureToProduct(int productId, List<Feature> features)
     {
         foreach (var feature in features)
         {
-           _context.Features.Add(new Feature()
-           {
-               Title = feature.Title,
-               Value = feature.Value,
-               ProductId = productId
-           });
-           _context.SaveChanges();
+            _context.Features.Add(new Feature()
+            {
+                Title = feature.Title,
+                Value = feature.Value,
+                ProductId = productId
+            });
+            _context.SaveChanges();
         }
-        
+
     }
 }

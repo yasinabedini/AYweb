@@ -29,7 +29,7 @@ namespace AYweb.Web.Controllers
                 ViewBag.lastPage = 1;
             }
 
-            if (pageId==products.Item2||pageId>products.Item2)
+            if (pageId == products.Item2 || pageId > products.Item2)
             {
                 ViewBag.nextPage = pageId;
             }
@@ -41,6 +41,13 @@ namespace AYweb.Web.Controllers
             ViewBag.take = take;
 
             return View(products);
+        }
+
+        [HttpGet]
+        [Route("Product/{id}")]
+        public IActionResult ProductDetails(int id)
+        {
+            return View(_service.GetProductById(id));
         }
     }
 }

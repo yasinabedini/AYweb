@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AYweb.Core.DTOs;
 
@@ -11,17 +12,39 @@ public class ProductViewModel
     [MaxLength(100)]
     public string Name { get; set; }
 
+    [Display(Name = "توضیح کوتاه")]
+    [Required(ErrorMessage = "{0} را وارد کنید!")]
+    public string? ShortDescription { get; set; }
+
+    [Display(Name = "توضیحات محصول")]
+    [Required(ErrorMessage = "{0} را وارد کنید!")]
+    public string? MainDescription { get; set; }
+
+    [Display(Name = "وضعیت")]
+    [DefaultValue(true)]
+    public bool IsActive { get; set; }
+
+    [Display(Name = "تصویر کالا")]
+    public string? PictureName { get; set; }
+
+    public bool InventoryStatus { get; set; }
+
     [Display(Name = "قیمت")]
     [Required(ErrorMessage = "{0} را وارد کنید!")]
     public int Price { get; set; }
 
-    [Display(Name = "وضعیت موجودی")]
-    public int StatusId { get; set; }
+    [Display(Name = "قیمت با تخفیف")]
+    [Required(ErrorMessage = "{0} را وارد کنید!")]
+    public int? DiscountedPrice { get; set; }
 
     [Display(Name = "موجودی فعلی محصول")]
     [Required(ErrorMessage = "{0} را وارد کنید!")]
     public int Inventory { get; set; }
 
+    [Display(Name = "محصول ویژه")]
+    public bool IsSpecial { get; set; }
+
+    public DateTime CreateDate { get; set; }
 }
 
 public class FullProductViewModel
@@ -43,9 +66,6 @@ public class FullProductViewModel
     [Display(Name = "موجودی فعلی محصول")]
     [Required(ErrorMessage = "{0} را وارد کنید!")]
     public int Inventory { get; set; }
-
-    public List<string> Groups { get; set; }
-    public List<string> Cars { get; set; }
 }
 
 public class ShowProductForAdminViewModel
@@ -68,6 +88,12 @@ public class ShowProductViewModel
     [Display(Name = "قیمت")]
     [Required(ErrorMessage = "{0} را وارد کنید!")]
     public int Price { get; set; }
+
+    [Display(Name = "قیمت با تخفیف")]
+    [Required(ErrorMessage = "{0} را وارد کنید!")]
+    public int? DiscountedPrice { get; set; }
+
+    public bool IsSpecial { get; set; }
 
     [Display(Name = "تصویر کالا")]
     public string? PictureName { get; set; }
