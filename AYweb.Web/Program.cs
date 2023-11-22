@@ -13,6 +13,8 @@ builder.Services.AddDbContext<AYWebDbContext>(option=>option.UseSqlServer(builde
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IBlogService, BlogService>();
+builder.Services.AddTransient<IPermissionService, PermissionService>();
 
 var app = builder.Build();
 

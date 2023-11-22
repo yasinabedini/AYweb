@@ -1,6 +1,6 @@
 using AYweb.Core.Security;
 using AYweb.Core.Services.Interfaces;
-using AYweb.Dal.Entities.Products;
+using AYweb.Dal.Entities.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,7 +19,7 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public Dal.Entities.Products.Product Product { get; set; }
+    public Dal.Entities.Product.Product Product { get; set; }
 
 
     public void OnGet()

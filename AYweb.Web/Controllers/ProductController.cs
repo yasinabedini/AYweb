@@ -1,5 +1,4 @@
 ﻿using AYweb.Core.Services.Interfaces;
-using AYweb.Dal.Entities.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AYweb.Web.Controllers

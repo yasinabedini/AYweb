@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYweb.Web", "AYweb.Web\AYweb.Web.csproj", "{F68B01BB-DAE4-428F-B032-DF24D3EB6492}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYweb.Web", "AYweb.Web\AYweb.Web.csproj", "{F68B01BB-DAE4-428F-B032-DF24D3EB6492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYweb.Core", "AYweb.Core\AYweb.Core.csproj", "{47563E15-BFDD-4067-9F99-F3BFA384AB1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYweb.Core", "AYweb.Core\AYweb.Core.csproj", "{47563E15-BFDD-4067-9F99-F3BFA384AB1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AYweb.Dal", "AYweb.Dal\AYweb.Dal.csproj", "{227E60AB-0946-4C68-A9EC-A1BEC9D69146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AYweb.Dal", "AYweb.Dal\AYweb.Dal.csproj", "{227E60AB-0946-4C68-A9EC-A1BEC9D69146}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
