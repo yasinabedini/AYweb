@@ -5,7 +5,7 @@ using AYweb.Core.Security;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Core.Tools;
 using AYweb.Dal.Context;
-using AYweb.Dal.Entities.Products;
+using AYweb.Dal.Entities.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Polly;

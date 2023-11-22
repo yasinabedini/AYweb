@@ -1,5 +1,5 @@
 ﻿using AYweb.Core.DTOs;
-using AYweb.Dal.Entities.Products;
+using AYweb.Dal.Entities.Product;
 using Microsoft.AspNetCore.Http;
 
 namespace AYweb.Core.Services.Interfaces;
