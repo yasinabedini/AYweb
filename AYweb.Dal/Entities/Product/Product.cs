@@ -1,12 +1,8 @@
-﻿using AYweb.Dal.Entities.Project;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Xml.Linq;
 using AYweb.Dal.Entities.Order;
-using Microsoft.EntityFrameworkCore;
 
-namespace AYweb.Dal.Entities.Products;
+namespace AYweb.Dal.Entities.Product;
 
 public class Product
 {
@@ -58,7 +54,7 @@ public class Product
     [Display(Name = "محصول ویژه")]
     public bool IsSpecial { get; set; }
 
-    
+
     public DateTime CreateDate { get; set; }
 
     public List<Feature>? Features { get; set; }

@@ -18,12 +18,12 @@ public class News
     public bool IsDeleted { get; set; }
     public string Summary { get; set; }
     public int UserId { get; set; }
-    public string Tags { get; set; }
-    public string PictureName { get; set; }
+    public string? Tags { get; set; }
+    public string? PictureName { get; set; }
     public DateTime CreateDate { get; set; }
 
 
-    public List<NewsGallery> NewsGalleries { get; set; }
-    public User.User User { get; set; }
-    public List<NewsGroups> GroupsList { get; set; }
+    public List<NewsGallery>? NewsGalleries { get; set; }
+    public User.User? User { get; set; }
+    public List<NewsGroups>? GroupsList { get; set; }
 }

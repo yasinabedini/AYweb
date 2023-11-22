@@ -13,5 +13,5 @@ public class Project
     public string Link { get; set; }
 
     public List<ProjectGallery> Galleries { get; set; }
-    public Services.Service Service { get; set; }
+    public Service.Service Service { get; set; }
 }

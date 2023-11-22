@@ -1,4 +1,4 @@
-﻿namespace AYweb.Dal.Entities.Products;
+﻿namespace AYweb.Dal.Entities.Product;
 
 public class Comment
 {

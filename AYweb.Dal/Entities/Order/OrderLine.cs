@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using AYweb.Dal.Entities.Products;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AYweb.Dal.Entities.Order;
 
@@ -26,6 +24,6 @@ public class OrderLine
 
 
     public Order Order { get; set; }
-    public Product? Product { get; set; }
+    public Product.Product? Product { get; set; }
 
 }

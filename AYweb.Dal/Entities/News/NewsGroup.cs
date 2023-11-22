@@ -12,6 +12,5 @@ public class NewsGroup
     [Required(ErrorMessage = "لطفا {0} را وارو کنید!")]
     public string Title { get; set; }
 
-    public List<NewsGroup>? ChildGroups { get; set; }
     public List<NewsGroups>? NewsList { get; set; }
 }

@@ -1,9 +1,9 @@
 ﻿using AYweb.Dal.Entities.Company;
 using AYweb.Dal.Entities.News;
 using AYweb.Dal.Entities.Permission;
-using AYweb.Dal.Entities.Products;
+using AYweb.Dal.Entities.Product;
 using AYweb.Dal.Entities.Project;
-using AYweb.Dal.Entities.Services;
+using AYweb.Dal.Entities.Service;
 using AYweb.Dal.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +18,8 @@ public class AYWebDbContext:DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserRoles> User_Roles { get; set; }
+    public DbSet<RolePermission> RolePermissions { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Feature> Features { get; set; }

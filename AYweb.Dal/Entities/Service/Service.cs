@@ -1,4 +1,4 @@
-﻿namespace AYweb.Dal.Entities.Services;
+﻿namespace AYweb.Dal.Entities.Service;
 
 public class Service
 {

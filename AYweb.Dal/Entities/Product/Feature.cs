@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AYweb.Dal.Entities.Products;
+namespace AYweb.Dal.Entities.Product;
 
 public class Feature
 {
