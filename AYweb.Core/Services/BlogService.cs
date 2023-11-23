@@ -1,9 +1,12 @@
-﻿using AYweb.Core.Generators;
+﻿using AYweb.Core.Convertors;
+using AYweb.Core.DTOs;
+using AYweb.Core.Generators;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Core.Tools;
 using AYweb.Dal.Context;
 using AYweb.Dal.Entities.News;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Core.Services;
 
@@ -17,7 +20,7 @@ public class BlogService : IBlogService
     }
 
 
-    public bool CreateBlog(News news, IFormFile newsPicture)
+    public void CreateBlog(News news, IFormFile newsPicture)
     {
         string pictureName;
 
@@ -25,23 +28,53 @@ public class BlogService : IBlogService
         FileTools file = new FileTools();
         file.SaveImage(newsPicture, pictureName, "blog-image", true);
 
-        _context.News.Add(new News()
-        {
-            Title = news.Title,
-            Text = news.Text,
-            Summary = news.Summary,
-            CreateDate = DateTime.Now,
-            UserId = news.UserId,
-            PictureName = pictureName,
-            Tags = news.Tags,
-        });
+        news.PictureName = pictureName;
+        news.CreateDate = DateTime.Now;
 
-        return _context.SaveChanges() == 1;
+        _context.News.Add(news);
+        _context.SaveChanges();
     }
 
-    public List<News> GetAllNews()
+    public Tuple<List<ShowBlogViewModel>, int> GetAllNews(int pageId = 1, string search = "", int take = 8)
     {
-        return null;
+        var newsList = _context.News.Include(t=>t.GroupsList).Include(t=>t.User).Include(t=>t.NewsGalleries).AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            newsList = newsList.Where(t=>t.Title.Contains(search)||t.Summary.Contains(search)||t.Text.Contains(search)||t.Tags.Contains(search)||t.User.Name.Contains(search));
+        }
+
+        int skip = (pageId - 1) * take;
+
+        newsList = newsList.Skip(skip).Take(take);
+
+        var finalList = newsList.Select(t => new ShowBlogViewModel()
+        {
+            Id = t.Id,
+            Title = t.Title,
+            Summery = t.Summary,
+            ImageName = t.PictureName,
+            CreateDate = t.CreateDate,
+            UserName = t.User.Name
+        }).ToList();
+        int pageCount = finalList.Count / take;
+        if (pageCount <= 1)
+        {
+            pageCount = 1;
+            goto endNewsList;
+        }
+        if ((pageCount % take) != 0)
+        {
+            pageCount++;
+        }
+
+        endNewsList:
+        return Tuple.Create(finalList, pageCount);
+    }
+
+    public News GetNewsById(int id)
+    {
+        return _context.News.Include(t=>t.User).Include(t=>t.NewsGalleries).Include(t=>t.GroupsList).Include(t=>t.NewsComments).First(t=>t.Id==id);
     }
 
     public List<NewsGroup> GetAllNewsGroup()
@@ -78,5 +111,23 @@ public class BlogService : IBlogService
         }
 
         return _context.SaveChanges() == 1;
+    }
+
+    public List<string> GetAllTags()
+    {
+        var tagsStr = _context.News.Select(t => t.Tags).ToList();
+
+        List<string> tags = new List<string>(); 
+        foreach (var tag in tagsStr)
+        {
+           tags.AddRange(StringConvertToStringArray.CommaSeparator(tag).ToList());
+        }
+
+        return tags;
+    }
+
+    public int GetTagsNewsCount(string tag)
+    {
+        return _context.News.Where(t => t.Tags.Contains(tag)).ToList().Count();
     }
 }

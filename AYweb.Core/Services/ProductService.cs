@@ -101,7 +101,7 @@ public class ProductService : IProductService
             CreateDate = t.CreateDate,
             DiscountedPrice = t.DiscountedPrice,
             IsSpecial = t.IsSpecial
-            
+
         }).Skip(skip).Take(take).ToList();
 
         int pageCount = products.Count() / take;
