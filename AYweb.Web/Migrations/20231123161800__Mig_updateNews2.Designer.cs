@@ -4,6 +4,7 @@ using AYweb.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AYweb.Web.Migrations
 {
     [DbContext(typeof(AYWebDbContext))]
-    partial class AYWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231123161800__Mig_updateNews2")]
+    partial class _Mig_updateNews2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,40 +92,6 @@ namespace AYweb.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("News");
-                });
-
-            modelBuilder.Entity("AYweb.Dal.Entities.News.NewsComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("User_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("User_phoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId");
-
-                    b.ToTable("NewsComments");
                 });
 
             modelBuilder.Entity("AYweb.Dal.Entities.News.NewsGallery", b =>
@@ -650,17 +619,6 @@ namespace AYweb.Web.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AYweb.Dal.Entities.News.NewsComment", b =>
-                {
-                    b.HasOne("AYweb.Dal.Entities.News.News", "News")
-                        .WithMany("NewsComments")
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("News");
-                });
-
             modelBuilder.Entity("AYweb.Dal.Entities.News.NewsGallery", b =>
                 {
                     b.HasOne("AYweb.Dal.Entities.News.News", "News")
@@ -824,8 +782,6 @@ namespace AYweb.Web.Migrations
             modelBuilder.Entity("AYweb.Dal.Entities.News.News", b =>
                 {
                     b.Navigation("GroupsList");
-
-                    b.Navigation("NewsComments");
 
                     b.Navigation("NewsGalleries");
                 });

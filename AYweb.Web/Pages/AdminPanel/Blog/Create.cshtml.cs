@@ -15,7 +15,8 @@ namespace AYweb.Web.Pages.AdminPanel.Blog
         }
 
         [BindProperty]
-        public News News { get; set; }
+        public Dal.Entities.News.News News { get; set; }
+
         public void OnGet()
         {
             ViewData["newsGroups"] = _service.GetAllNewsGroup();
@@ -26,6 +27,8 @@ namespace AYweb.Web.Pages.AdminPanel.Blog
             if (!ModelState.IsValid) { return Page(); }
 
             _service.CreateBlog(News, blogPicture);
+
+
             _service.AddGroupToNews(News.Id, groups);
             _service.AddPictureToNewsGallery(News.Id, pictures);
             return Page();
