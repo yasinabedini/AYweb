@@ -1,4 +1,6 @@
-﻿namespace AYweb.Dal.Entities.News;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AYweb.Dal.Entities.News;
 
 public class NewsGallery
 {
@@ -6,5 +8,6 @@ public class NewsGallery
     public string ImageName { get; set; }
 
     public int NewsId { get; set; }
+    [ForeignKey("NewsId")]
     public News News { get; set; }
 }

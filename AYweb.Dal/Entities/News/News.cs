@@ -14,6 +14,7 @@ public class News
 
     [Display(Name = "متن خبر")]
     [Required(ErrorMessage = "لطفا {0} را وارو کنید!")]
+    public string Introduction { get; set; }
     public string Text { get; set; }
     public bool IsDeleted { get; set; }
     public string Summary { get; set; }
@@ -26,4 +27,5 @@ public class News
     public List<NewsGallery>? NewsGalleries { get; set; }
     public User.User? User { get; set; }
     public List<NewsGroups>? GroupsList { get; set; }
+    public List<NewsComment>? NewsComments { get; set; }
 }

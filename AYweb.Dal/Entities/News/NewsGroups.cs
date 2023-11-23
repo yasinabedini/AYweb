@@ -11,6 +11,8 @@ public class NewsGroups
     public int NewsGroupId { get; set; }
     public int NewsId { get; set; }
 
+    [ForeignKey("NewsGroupId")]
     public NewsGroup NewsGroup { get; set; }
+    [ForeignKey("NewsId")]
     public News News { get; set; }
 }

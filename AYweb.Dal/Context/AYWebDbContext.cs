@@ -27,6 +27,7 @@ public class AYWebDbContext:DbContext
     public DbSet<NewsGroups> News_Groups { get; set; }
     public DbSet<NewsGallery> NewsGalleries { get; set; }
     public DbSet<NewsGroup> NewsGroups { get; set; }
+    public DbSet<NewsComment> NewsComments { get; set; }
     public DbSet<Plan> Plans { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<ProjectGallery> ProjectGalleries { get; set; }
@@ -35,5 +36,6 @@ public class AYWebDbContext:DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
     }
 }
