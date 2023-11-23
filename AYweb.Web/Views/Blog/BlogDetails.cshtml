@@ -1,4 +1,6 @@
-﻿
+﻿@using AYweb.Core.Convertors
+@using AYweb.Dal.Entities.News
+@model AYweb.Dal.Entities.News.News
 
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg1">
@@ -17,7 +19,7 @@
             </div>
         </div>
     </div>
-
+    <partial name="_Shapes" />
 
 </div>
 <!-- End Page Title Area -->
@@ -28,75 +30,56 @@
             <div class="col-lg-8 col-md-12">
                 <div class="blog-details-desc">
                     <div class="article-image">
-                        <img src="/img/blog-image/2.jpg" alt="image">
+                        <img src="/img/blog-image/@Model.PictureName" alt="image">
                     </div>
 
                     <div class="article-content">
                         <div class="entry-meta">
                             <ul>
-                                <li><span>تاریخ انتشار:</span> <a href="#">20 مهر 1398</a></li>
-                                <li><span>توسط:</span> <a href="#">مدیر</a></li>
+                                <li><span>تاریخ انتشار:</span> <a href="#">@Model.CreateDate.ToShamsi()</a></li>
+                                <li><span>توسط:</span> <a asp-controller="Blog" asp-action="Index" asp-route-search="@Model.User.Name">@Model.User.Name</a></li>
                             </ul>
                         </div>
 
-                        <h3>لورم ایپسوم متن ساختگی است.</h3>
+                        <h3>@Model.Title</h3>
 
-                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
-
-                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود. یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود "خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود. یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود...</p>
+                        <p>@Html.Raw(Model.Introduction)</p>
 
                         <blockquote class="wp-block-quote">
-                            <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
+                            <p>@Model.Summary</p>
 
-                            <cite>تام کروز</cite>
+                            <cite>یاسین عابدینی</cite>
                         </blockquote>
 
-                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
 
                         <ul class="wp-block-gallery columns-3">
-                            <li class="blocks-gallery-item">
-                                <figure>
-                                    <img src="/img/blog-image/1.jpg" alt="image">
-                                </figure>
-                            </li>
+                            @foreach (var picture in Model.NewsGalleries)
+                            {
+                                <li class="blocks-gallery-item">
+                                    <figure>
+                                        <img src="/img/blog-gallery/@picture.ImageName" alt="image">
+                                    </figure>
+                                </li>
 
-                            <li class="blocks-gallery-item">
-                                <figure>
-                                    <img src="/img/blog-image/4.jpg" alt="image">
-                                </figure>
-                            </li>
-
-                            <li class="blocks-gallery-item">
-                                <figure>
-                                    <img src="/img/blog-image/3.jpg" alt="image">
-                                </figure>
-                            </li>
+                            }
                         </ul>
 
-                        <h3>چهار عنصر اصلی که ارائه می دهیم:</h3>
-
-                        <ul class="features-list">
-                            <li><i class="fas fa-check"></i> مهارت های علمی برای به دست آوردن نتیجه بهتر</li>
-                            <li><i class="fas fa-check"></i> مهارت های علمی برای به دست آوردن نتیجه بهتر</li>
-                            <li><i class="fas fa-check"></i> مهارت های علمی برای به دست آوردن نتیجه بهتر</li>
-                            <li><i class="fas fa-check"></i> مهارت های علمی برای به دست آوردن نتیجه بهتر</li>
-                        </ul>
-
-                        <h3>بازاریابی دیجیتال</h3>
-                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود. یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود "خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود. یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود...</p>
-
-                        <h3>ظهور بازاریابی و چرا به آن احتیاج دارید</h3>
-                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
+                        @Html.Raw(@Model.Text)
                     </div>
 
                     <div class="article-footer">
                         <div class="article-tags">
                             <span><i class="fas fa-bookmark"></i></span>
 
-                            <a href="#">مد</a>,
-                            <a href="#">بازی</a>,
-                            <a href="#">سفر</a>
+                            @foreach (var tag in @StringConvertToStringArray.CommaSeparator(Model.Tags ?? ""))
+                            {
+                                <a asp-controller="Blog" asp-action="Index" asp-route-search="@tag">@tag</a>
+                                <span>  </span>
+                            }
+
+
                         </div>
+
 
                         <div class="article-share">
                             <ul class="social">
@@ -122,75 +105,26 @@
                     </div>
 
                     <div class="comments-area">
-                        <h3 class="comments-title">2 نظر:</h3>
+                        <h3 class="comments-title">@Model.NewsComments.Count() نظر:</h3>
 
                         <ol class="comment-list">
-                            <li class="comment">
-                                <article class="comment-body">
-                                    <footer class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img src="/img/client-image/1.jpg" class="avatar" alt="image">
-                                            <b class="fn">جان جونز</b>
-                                            <span class="says">می گوید:</span>
-                                        </div>
-
-                                        <div class="comment-metadata">
-                                            <a href="#">
-                                                <time>24 مهر 1398 ، ساعت 19:30</time>
-                                            </a>
-                                        </div>
-                                    </footer>
-
-                                    <div class="comment-content">
-                                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
-                                    </div>
-
-                                    <div class="reply">
-                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                    </div>
-                                </article>
-
-                            </li>
-
-                            <li class="comment">
-                                <article class="comment-body">
-                                    <footer class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img src="/img/client-image/2.jpg" class="avatar" alt="image">
-                                            <b class="fn">جان جونز</b>
-                                            <span class="says">می گوید:</span>
-                                        </div>
-
-                                        <div class="comment-metadata">
-                                            <a href="#">
-                                                <time>24 مهر 1398 ، ساعت 19:30</time>
-                                            </a>
-                                        </div>
-                                    </footer>
-
-                                    <div class="comment-content">
-                                        <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
-                                    </div>
-
-                                    <div class="reply">
-                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                    </div>
-                                </article>
-
-                            </li>
+                            @foreach (var comment in Model.NewsComments??new List<NewsComment>())
+                            {
+                                <partial name="_blogComment" model="comment"/>
+                            }
                         </ol>
 
                         <div class="comment-respond">
                             <h3 class="comment-reply-title">نظر بدهید</h3>
 
-                            <partial name="_CommentForm"/>
+                            <partial name="_CommentForm" />
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-12">
-                <partial name="_Widget"/>
+                <partial name="_Widget" />
             </div>
         </div>
     </div>

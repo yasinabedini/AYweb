@@ -1,23 +1,24 @@
-﻿@model AYweb.Dal.Entities.News.News
+﻿@using AYweb.Core.Convertors
+@model AYweb.Core.DTOs.ShowBlogViewModel
 
 <div class="col-lg-6 col-md-6">
     <div class="single-blog-post">
         <div class="post-image">
-            <a href="#"><img src="/img/blog-image/1.jpg" alt="image"></a>
+            <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id"><img src="/img/blog-image/@Model.ImageName" alt="image"></a>
         </div>
 
         <div class="post-content">
             <div class="post-meta">
                 <ul>
-                    <li>توسط: <a href="#">سارا تیلور</a></li>
-                    <li>23 دی 1398</li>
+                    <li>توسط: <a href="#">@Model.UserName</a></li>
+                    <li>@Model.CreateDate.ToShamsi()</li>
                 </ul>
             </div>
 
-            <h3><a href="#">آژانس بازاریابی دیجیتال خود را ارتقا دهید</a></h3>
-            <p>یک واقعیت طولانی مدت این است که محتوای قابل خواندن یک صفحه باعث می شود خواننده از تمرکز بر طرح کلی متن یا فرم پاراگراف های قرار داده شده در صفحه مورد نظر خود منحرف شود.</p>
+            <h3><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id">@Model.Title</a></h3>
+            <p>@Model.Summery</p>
 
-            <a href="#" class="read-more-btn">اطلاعات بیشتر <i class="flaticon-left-chevron"></i></a>
+            <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id" class="read-more-btn">اطلاعات بیشتر <i class="flaticon-left-chevron"></i></a>
         </div>
     </div>
 </div>

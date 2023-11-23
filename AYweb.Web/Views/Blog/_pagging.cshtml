@@ -1,7 +1,23 @@
-﻿<div class="pagination-area">
-    <a href="#" class="prev page-numbers"><i class="fas fa-angle-double-right"></i></a>
-    <a href="#" class="page-numbers">1</a>
-    <span class="page-numbers current" aria-current="page">2</span>
-    <a href="#" class="page-numbers">3</a>
-    <a href="#" class="next page-numbers"><i class="fas fa-angle-double-left"></i></a>
+﻿@model int
+@{
+    int pageId = ViewBag.pageId;
+    int lastPage = ViewBag.lastPage;
+    int nextPage = ViewBag.nextPage;
+}
+<div class="pagination-area">
+    <div class="pagination-area">
+        <a asp-controller="Blog" asp-action="Index" asp-route-pageId="@lastPage" class="prev page-numbers"><i class="fas fa-angle-double-right"></i></a>
+        @for (int i = 1; i <= Model; i++)
+        {
+            if (ViewBag.pageId == i)
+            {
+                <span class="page-numbers current" aria-current="page">@i</span>
+            }
+            else
+            {
+                <a asp-controller="Blog" asp-action="Index" asp-route-pageId="@i" class="page-numbers">@i</a>
+            }
+        }
+        <a asp-controller="Blog" asp-action="Index" asp-route-pageId="@nextPage" class="next page-numbers"><i class="fas fa-angle-double-left"></i></a>
+    </div>
 </div>
