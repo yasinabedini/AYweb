@@ -10,6 +10,7 @@ public interface IBlogService
     void CreateBlog(News news, IFormFile newsPicture);
     Tuple<List<ShowBlogViewModel>,int> GetAllNews(int pageId = 1, string search = "", int take = 8);
     News GetNewsById(int id);
+    List<PopularBlogViewModel> GetPopularNews();
     #endregion
 
     #region Blog Groups
@@ -26,9 +27,13 @@ public interface IBlogService
     #endregion
 
     #region Blog Tags
-
     List<string> GetAllTags();
     int GetTagsNewsCount(string tags);
+    #endregion
+
+    #region Blog Comments
+
+    List<BlogLastCommentViewModel> GetLastComment();
 
     #endregion
 }

@@ -1,9 +1,12 @@
-﻿@using AYweb.Core.Services.Interfaces
+﻿@using AYweb.Core.Convertors
+@using AYweb.Core.DTOs
+@using AYweb.Core.Services.Interfaces
+@using AYweb.Dal.Entities.News
 @inject IBlogService _service;
 
 <aside class="widget-area" id="secondary">
     <section class="widget widget_search">
-        <form class="search-form" method="get"  asp-controller="Blog" asp-action="Index">
+        <form class="search-form" method="get" asp-controller="Blog" asp-action="Index">
             <label>
                 <span class="screen-reader-text">جستجو کنید:</span>
                 <input type="search" value="@Context.Request.Query["search"].ToString()" name="search" class="search-field" placeholder="جستجو کنید ...">
@@ -15,94 +18,51 @@
     <section class="widget widget_aronix_posts_thumb">
         <h3 class="widget-title">پست های محبوب</h3>
 
-        <article class="item">
-            <a href="#" class="thumb">
-                <span class="fullimage cover bg1" role="img"></span>
-            </a>
-            <div class="info">
-                <time datetime="2019-06-30">09 تیر 1398</time>
-                <h4 class="title usmall"><a href="#">لورم ایپسوم متن ساختگی است.</a></h4>
-            </div>
+        @foreach (var news in ViewData["PopularNews"] as List<PopularBlogViewModel> ?? new List<PopularBlogViewModel>())
+        {
+            <article class="item">
+                <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@news.Id" class="thumb">
+                    <span class="fullimage cover bg1" role="img">
+                        <img class="fullimage cover bg1" src="/img/blog-image/@news.ImageName" />
+                    </span>
+                </a>
+                <div class="info">
+                    <time datetime="@news.CreateDate">@news.CreateDate.ToShamsi()</time>
+                    <h4 class="title usmall"><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@news.Id">@news.Title</a></h4>
+                </div>
 
-            <div class="clear"></div>
-        </article>
+                <div class="clear"></div>
+            </article>
+        }
 
-        <article class="item">
-            <a href="#" class="thumb">
-                <span class="fullimage cover bg2" role="img"></span>
-            </a>
-            <div class="info">
-                <time datetime="2019-06-30">09 تیر 1398</time>
-                <h4 class="title usmall"><a href="#">لورم ایپسوم متن ساختگی است.</a></h4>
-            </div>
-
-            <div class="clear"></div>
-        </article>
-
-        <article class="item">
-            <a href="#" class="thumb">
-                <span class="fullimage cover bg3" role="img"></span>
-            </a>
-            <div class="info">
-                <time datetime="2019-06-30">09 تیر 1398</time>
-                <h4 class="title usmall"><a href="#">لورم ایپسوم متن ساختگی است.</a></h4>
-            </div>
-
-            <div class="clear"></div>
-        </article>
     </section>
 
     <section class="widget widget_categories">
         <h3 class="widget-title">دسته بندی ها</h3>
 
         <ul>
-            <li><a href="#">پروژه تجاری</a></li>
-            <li><a href="#">سیاست ویژه</a></li>
-            <li><a href="#">فن آوری اشتراکی</a></li>
-            <li><a href="#">نکات</a></li>
-            <li><a href="#">دسته‌بندی نشده</a></li>
+            @foreach (var group in ViewData["newsGroups"] as List<NewsGroup> ?? new List<NewsGroup>())
+            {
+                <li><a asp-controller="Blog" asp-action="Index" asp-route-search="@group.Title">@group.Title</a></li>
+            }
         </ul>
+
     </section>
 
     <section class="widget widget_recent_comments">
         <h3 class="widget-title">آخرین نظرات</h3>
 
         <ul>
-            <li>
-                <span class="comment-author-link">
-                    <a href="#">نظر وردپرس</a>
-                </span>
-                در
-                <a href="#">سلام جهان!</a>
-            </li>
-            <li>
-                <span class="comment-author-link">
-                    <a href="#">نظر وردپرس</a>
-                </span>
-                در
-                <a href="#">سلام جهان!</a>
-            </li>
-            <li>
-                <span class="comment-author-link">
-                    <a href="#">نظر وردپرس</a>
-                </span>
-                در
-                <a href="#">سلام جهان!</a>
-            </li>
-            <li>
-                <span class="comment-author-link">
-                    <a href="#">نظر وردپرس</a>
-                </span>
-                در
-                <a href="#">سلام جهان!</a>
-            </li>
-            <li>
-                <span class="comment-author-link">
-                    <a href="#">نظر وردپرس</a>
-                </span>
-                در
-                <a href="#">سلام جهان!</a>
-            </li>
+            @foreach (var comment in ViewData["LastComment"] as List<BlogLastCommentViewModel> ?? new List<BlogLastCommentViewModel>())
+            {
+                <li>
+                    <span class="comment-author-link">
+                        <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@comment.NewsId">نظر @comment.User_Name</a>
+                    </span>
+                    در
+                    <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@comment.NewsId">@comment.NewsTitle.Substring(0,20)...</a>
+                </li>
+            }
         </ul>
     </section>
 
@@ -110,22 +70,22 @@
         <h3 class="widget-title">پست های اخیر</h3>
 
         <ul>
-            <li><a href="#">چگونه یک طراح حرفه ای شویم</a></li>
-            <li><a href="#">چگونه یک طراح حرفه ای شویم</a></li>
-            <li><a href="#">چگونه یک طراح حرفه ای شویم</a></li>
-            <li><a href="#">چگونه یک طراح حرفه ای شویم</a></li>
-            <li><a href="#">چگونه یک طراح حرفه ای شویم</a></li>
+            @foreach (var news in ViewData["LastNews"] as List<ShowBlogViewModel> ?? new List<ShowBlogViewModel>())
+            {
+                <li><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@news.Id">@news.Title</a></li>
+            }
         </ul>
+
     </section>
 
     <section class="widget widget_tag_cloud">
         <h3 class="widget-title">برچسب ها</h3>
 
         <div class="tagcloud">
-           @foreach (var tag in ViewData["tags"] as List<string> ?? new List<string>())
-           {
-                <a href="#">@tag <span class="tag-link-count"> (@_service.GetTagsNewsCount(tag))</span></a>
-           }
+            @foreach (var tag in ViewData["tags"] as List<string> ?? new List<string>())
+            {
+                <a asp-controller="Blog" asp-action="Index" asp-route-search="@tag">@tag <span class="tag-link-count"> (@_service.GetTagsNewsCount(tag))</span></a>
+            }
         </div>
     </section>
 </aside>

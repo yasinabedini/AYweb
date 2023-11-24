@@ -41,6 +41,13 @@ namespace AYweb.Web.Controllers
             }
 
             ViewBag.take = take;
+
+            ViewData["tags"] = _service.GetAllTags();
+            ViewData["PopularNews"] = _service.GetPopularNews().Take(3).ToList();
+            ViewData["NewsGroups"] = _service.GetAllNewsGroup();
+            ViewData["LastNews"] = _service.GetAllNews().Item1.Take(6).ToList();
+            ViewData["LastComment"] = _service.GetLastComment();
+
             return View(newsList);
         }
 
@@ -53,8 +60,14 @@ namespace AYweb.Web.Controllers
             }
 
             ViewData["tags"] = _service.GetAllTags();
+            ViewData["PopularNews"] = _service.GetPopularNews().Take(3).ToList();
+            ViewData["NewsGroups"] = _service.GetAllNewsGroup();
+            ViewData["LastNews"] = _service.GetAllNews().Item1.Take(6).ToList();
+            ViewData["LastComment"] = _service.GetLastComment();
 
             return View(news);
         }
+
+        //TODO I Should Complete Add Comment For News
     }
 }

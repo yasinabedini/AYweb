@@ -37,11 +37,11 @@ public class BlogService : IBlogService
 
     public Tuple<List<ShowBlogViewModel>, int> GetAllNews(int pageId = 1, string search = "", int take = 8)
     {
-        var newsList = _context.News.Include(t=>t.GroupsList).Include(t=>t.User).Include(t=>t.NewsGalleries).AsQueryable();
+        var newsList = _context.News.Include(t=>t.GroupsList).ThenInclude(t=>t.NewsGroup).Include(t=>t.User).Include(t=>t.NewsGalleries).AsQueryable();
 
         if (!string.IsNullOrEmpty(search))
         {
-            newsList = newsList.Where(t=>t.Title.Contains(search)||t.Summary.Contains(search)||t.Text.Contains(search)||t.Tags.Contains(search)||t.User.Name.Contains(search));
+            newsList = newsList.Where(t=>t.Title.Contains(search)||t.Summary.Contains(search)||t.Text.Contains(search)||t.Tags.Contains(search)||t.User.Name.Contains(search)||t.GroupsList.Select(c=>c.NewsGroup.Title).Any(g=>g.Contains(search)));
         }
 
         int skip = (pageId - 1) * take;
@@ -75,6 +75,17 @@ public class BlogService : IBlogService
     public News GetNewsById(int id)
     {
         return _context.News.Include(t=>t.User).Include(t=>t.NewsGalleries).Include(t=>t.GroupsList).Include(t=>t.NewsComments).First(t=>t.Id==id);
+    }
+
+    public List<PopularBlogViewModel> GetPopularNews()
+    {
+        return _context.News.OrderBy(t => t.NewsComments.Count).Select(t=>new PopularBlogViewModel()
+        {
+            Id = t.Id,
+            Title = t.Title,
+            CreateDate = t.CreateDate,
+            ImageName = t.PictureName
+        }).ToList();
     }
 
     public List<NewsGroup> GetAllNewsGroup()
@@ -129,5 +140,17 @@ public class BlogService : IBlogService
     public int GetTagsNewsCount(string tag)
     {
         return _context.News.Where(t => t.Tags.Contains(tag)).ToList().Count();
+    }
+
+    public List<BlogLastCommentViewModel> GetLastComment()
+    {
+        return _context.NewsComments.Include(t=>t.News).OrderByDescending(t => t.CreateDate).Take(6).Select(t =>
+            new BlogLastCommentViewModel()
+            {
+                Id = t.Id,
+                User_Name = t.User_name,
+                NewsTitle = t.News.Title,
+                NewsId = t.NewsId
+            }).ToList();
     }
 }
