@@ -1,0 +1,63 @@
+﻿@model AYweb.Core.DTOs.LoginViewModel
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>ورود</h2>
+
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">آی وب</a></li>
+                        <li>ورود</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_Shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Login Area -->
+<div class="container">
+    <div class="form-content">
+        <div class="form-header">
+            <h3>ورود</h3>
+            <p>اگر حساب کاربری دارید ، وارد شوید</p>
+        </div>
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <label>شماره موبایل</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control" id="your-email" placeholder="شماره موبایل شما">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <input type="password" asp-for="Password" class="form-control" id="your-password" placeholder="رمز عبور">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" asp-for="RemmemberMe" for="exampleCheck1">مرا بخاطر بسپار</label>
+                    </div>
+                </div>
+                <div class="col-6 text-right">
+                    <a class="form-link right" href="#">فراموشی رمز عبور؟</a>
+                </div>
+            </div>
+
+            <button type="submit" class="default-btn">ورود</button>
+        </form>
+
+        <div class="form-footer">
+            <p>حساب کاربری ندارید؟ <a class="form-link" href="signup.html">ثبت نام</a></p>
+        </div>
+    </div>
+</div>
+<!-- End Login Area -->

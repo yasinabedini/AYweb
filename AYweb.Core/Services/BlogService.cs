@@ -24,7 +24,7 @@ public class BlogService : IBlogService
     {
         string pictureName;
 
-        pictureName = Generator.CreateUniqueText() + Path.GetExtension(newsPicture.FileName);
+        pictureName = Generator.CreateUniqueText(12) + Path.GetExtension(newsPicture.FileName);
         FileTools file = new FileTools();
         file.SaveImage(newsPicture, pictureName, "blog-image", true);
 
@@ -37,11 +37,11 @@ public class BlogService : IBlogService
 
     public Tuple<List<ShowBlogViewModel>, int> GetAllNews(int pageId = 1, string search = "", int take = 8)
     {
-        var newsList = _context.News.Include(t=>t.GroupsList).ThenInclude(t=>t.NewsGroup).Include(t=>t.User).Include(t=>t.NewsGalleries).AsQueryable();
+        var newsList = _context.News.Include(t => t.GroupsList).ThenInclude(t => t.NewsGroup).Include(t => t.User).Include(t => t.NewsGalleries).AsQueryable();
 
         if (!string.IsNullOrEmpty(search))
         {
-            newsList = newsList.Where(t=>t.Title.Contains(search)||t.Summary.Contains(search)||t.Text.Contains(search)||t.Tags.Contains(search)||t.User.Name.Contains(search)||t.GroupsList.Select(c=>c.NewsGroup.Title).Any(g=>g.Contains(search)));
+            newsList = newsList.Where(t => t.Title.Contains(search) || t.Summary.Contains(search) || t.Text.Contains(search) || t.Tags.Contains(search) || (t.User.FirstName+" "+t.User.LastName).Contains(search) || t.GroupsList.Select(c => c.NewsGroup.Title).Any(g => g.Contains(search)));
         }
 
         int skip = (pageId - 1) * take;
@@ -55,7 +55,7 @@ public class BlogService : IBlogService
             Summery = t.Summary,
             ImageName = t.PictureName,
             CreateDate = t.CreateDate,
-            UserName = t.User.Name
+            UserName = t.User.FirstName + " " + t.User.LastName
         }).ToList();
         int pageCount = finalList.Count / take;
         if (pageCount <= 1)
@@ -68,18 +68,18 @@ public class BlogService : IBlogService
             pageCount++;
         }
 
-        endNewsList:
+    endNewsList:
         return Tuple.Create(finalList, pageCount);
     }
 
     public News GetNewsById(int id)
     {
-        return _context.News.Include(t=>t.User).Include(t=>t.NewsGalleries).Include(t=>t.GroupsList).Include(t=>t.NewsComments).First(t=>t.Id==id);
+        return _context.News.Include(t => t.User).Include(t => t.NewsGalleries).Include(t => t.GroupsList).Include(t => t.NewsComments).First(t => t.Id == id);
     }
 
     public List<PopularBlogViewModel> GetPopularNews()
     {
-        return _context.News.OrderBy(t => t.NewsComments.Count).Select(t=>new PopularBlogViewModel()
+        return _context.News.OrderBy(t => t.NewsComments.Count).Select(t => new PopularBlogViewModel()
         {
             Id = t.Id,
             Title = t.Title,
@@ -111,7 +111,7 @@ public class BlogService : IBlogService
     {
         foreach (var picture in newsPictures)
         {
-            string pictureName = Generators.Generator.CreateUniqueText() + Path.GetExtension(picture.FileName);
+            string pictureName = Generators.Generator.CreateUniqueText(12) + Path.GetExtension(picture.FileName);
             FileTools file = new FileTools();
             file.SaveImage(picture, pictureName, "blog-gallery", false);
             _context.NewsGalleries.Add(new NewsGallery()
@@ -128,10 +128,10 @@ public class BlogService : IBlogService
     {
         var tagsStr = _context.News.Select(t => t.Tags).ToList();
 
-        List<string> tags = new List<string>(); 
+        List<string> tags = new List<string>();
         foreach (var tag in tagsStr)
         {
-           tags.AddRange(StringConvertToStringArray.CommaSeparator(tag).ToList());
+            tags.AddRange(StringConvertToStringArray.CommaSeparator(tag).ToList());
         }
 
         return tags;
@@ -144,7 +144,7 @@ public class BlogService : IBlogService
 
     public List<BlogLastCommentViewModel> GetLastComment()
     {
-        return _context.NewsComments.Include(t=>t.News).OrderByDescending(t => t.CreateDate).Take(6).Select(t =>
+        return _context.NewsComments.Include(t => t.News).OrderByDescending(t => t.CreateDate).Take(6).Select(t =>
             new BlogLastCommentViewModel()
             {
                 Id = t.Id,

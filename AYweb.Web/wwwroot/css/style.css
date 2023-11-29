@@ -8759,7 +8759,9 @@ Login Page CSS
   background-color: #fafbfd;
   max-width: 500px;
   margin: 100px auto;
+  margin-top:0;
   padding: 40px 30px;
+  padding-top:0;
 }
 
 .form-content .form-header {

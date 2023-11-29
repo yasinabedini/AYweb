@@ -37,7 +37,7 @@
                         <div class="entry-meta">
                             <ul>
                                 <li><span>تاریخ انتشار:</span> <a href="#">@Model.CreateDate.ToShamsi()</a></li>
-                                <li><span>توسط:</span> <a asp-controller="Blog" asp-action="Index" asp-route-search="@Model.User.Name">@Model.User.Name</a></li>
+                                <li><span>توسط:</span> <a asp-controller="Blog" asp-action="Index" asp-route-search="(@Model.User.FirstName) (@Model.User.LastName)">(@Model.User.FirstName) (@Model.User.LastName)</a></li>
                             </ul>
                         </div>
 

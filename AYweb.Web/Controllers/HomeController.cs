@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AYWeb.Web.Controllers
 {
@@ -7,6 +8,12 @@ namespace AYWeb.Web.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult TestAuth()
+        {
+            return null;
         }
     }
 }
