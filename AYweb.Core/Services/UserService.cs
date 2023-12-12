@@ -50,4 +50,16 @@ public class UserService : IUserService
         var userFound = _context.Users.SingleOrDefault(t=>t.PhoneNumber==user.PhoneNumber&&t.Password==hashPass);
         return userFound;
     }
+
+    public void AddEmailToNewsLatters(string email)
+    {
+        if (!_context.Newsletters.Any(t=>t.Email==email))
+        {
+            _context.Newsletters.Add(new Newsletters()
+            {
+                Email = email
+            });
+            _context.SaveChanges();
+        }
+    }
 }

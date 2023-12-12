@@ -11,8 +11,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IPlanService, PlanService>();
 builder.Services.AddTransient<IBlogService, BlogService>();
 builder.Services.AddTransient<IPermissionService, PermissionService>();
+builder.Services.AddTransient<IProjectService, ProjectService>();
 #endregion
 
 #region Context

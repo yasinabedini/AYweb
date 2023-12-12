@@ -4974,28 +4974,48 @@ Subscribe Area CSS
   color: #737b9a;
 }
 
-.subscribe-content .newsletter-form button {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  background-color: #0000ff;
-  color: #ffffff;
-  border: none;
-  height: 55px;
-  padding: 0 30px;
-  border-radius: 70px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  line-height: 60px;
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 700;
-}
+    .subscribe-content .newsletter-form button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background-color: #0000ff;
+        color: #ffffff;
+        border: none;
+        height: 55px;
+        padding: 0 30px;
+        border-radius: 70px;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        line-height: 60px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 700;
+    }
 
-.subscribe-content .newsletter-form button:hover {
-  background-color: #fa7070;
-  color: #ffffff;
-}
+    .subscribe-content .newsletter-form input[type=submit] {
+        position: absolute;
+        float:left;        
+        top: 5px;
+        right:auto;
+        left:5px;
+        background-color: #0000ff;
+        color: #ffffff;
+        border: none;
+        height: 55px;
+        padding: 0 30px;
+        border-radius: 70px;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        line-height: 60px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .subscribe-content .newsletter-form button:hover {
+        background-color: #fa7070;
+        color: #ffffff;
+    }
 
 .subscribe-content .newsletter-form #validator-newsletter {
   position: absolute;

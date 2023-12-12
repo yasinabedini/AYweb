@@ -113,5 +113,13 @@ namespace AYweb.Web.Controllers
             HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        public IActionResult AddEmailToNewsletters(string email)
+        {
+            _service.AddEmailToNewsLatters(email);
+            ViewBag.Subscribe = true;
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

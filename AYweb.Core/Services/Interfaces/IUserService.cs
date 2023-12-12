@@ -10,4 +10,6 @@ public interface IUserService
     User GetUserByUsername(string username);
     string UserRegister(SignUpViewModel user);
     User LoginUser(LoginViewModel user);
+
+    void AddEmailToNewsLatters(string email);
 }

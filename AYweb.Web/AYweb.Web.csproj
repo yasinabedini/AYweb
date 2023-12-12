@@ -34,4 +34,12 @@
 	  <ProjectReference Include="..\AYweb.Core\AYweb.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Views\Shared\Components\ProjectViewComponents\Projects.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Views\Shared\Components\ProjectViewComponents\Projects.cshtml" />
+	</ItemGroup>
+
 </Project>
