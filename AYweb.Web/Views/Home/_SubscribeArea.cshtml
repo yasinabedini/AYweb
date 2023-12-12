@@ -5,10 +5,17 @@
                 <span class="sub-title">فوراً شروع کنید!</span>
                 <h2>از خبرنامه به روزرسانی دریافت کنید</h2>
 
-                <form class="newsletter-form" data-toggle="validator">
-                    <input type="email" class="input-newsletter" placeholder="آدرس ایمیل خود را وارد کنید" name="EMAIL" required autocomplete="off">
+                <form asp-controller="Account" id="SubscribeForm" asp-action="AddEmailToNewsletters" class="newsletter-form" data-toggle="validator" method="post">
+                    <input type="email" class="input-newsletter" placeholder="آدرس ایمیل خود را وارد کنید" name="email" required autocomplete="off">
 
-                    <button type="submit">مشترک شدن</button>
+                    @if (ViewBag.Subscribe == true)
+                    {
+                        <button type="button" >عضو شدم</button>
+                    }
+                    else
+                    {
+                        <input type="submit" value="مشترک شدن"/>
+                    }
                     <div id="validator-newsletter" class="form-result"></div>
                 </form>
             </div>

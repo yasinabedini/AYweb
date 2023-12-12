@@ -1,0 +1,43 @@
+﻿@using AYweb.Core.Convertors
+@model List<AYweb.Core.DTOs.ShowBlogViewModel>
+
+<section class="blog-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <h2>آخرین اخبار</h2>
+        </div>
+
+        <div class="row">
+
+            
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-blog-post">
+                        <div class="post-image">
+                            <a href="single-blog.html"><img src="/img/blog-image/@item.ImageName" alt="image"></a>
+                        </div>
+
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <ul>
+                                    <li>توسط: <a href="#">@item.UserName</a></li>
+                                    <li>@item.CreateDate.ToShamsi()</li>
+                                </ul>
+                            </div>
+
+                            <h3><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <p>@item.Summery</p>
+
+                            <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@item.Id" class="read-more-btn">اطلاعات بیشتر <i class="flaticon-left-chevron"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <div class="shape-img2"><img src="/img/shape/2.svg" alt="image"></div>
+    <div class="shape-img3"><img src="/img/shape/3.svg" alt="image"></div>
+</section>

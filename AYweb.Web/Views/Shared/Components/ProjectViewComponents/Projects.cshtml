@@ -1,0 +1,36 @@
+﻿@model List<AYweb.Dal.Entities.Project.Project>
+
+<!-- Start Projects Area -->
+<section class="projects-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <span class="sub-title">گالری پروژه</span>
+            <h2>پروژه های ما را ببینید</h2>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="projects-slides owl-carousel owl-theme">
+            
+            @foreach (var project in Model)
+            {
+                <div class="single-projects-box">
+                    <img src="img/projects-image/@project.ImageName" alt="image">
+
+                    <div class="projects-content">
+                        <h3><a href="#">@project.Name</a></h3>
+                        <span class="category">@project.RelatedService</span>
+                    </div>
+
+                    <div class="plus-icon">
+                        <a href="img/projects-image/@project.ImageName" class="popup-btn">
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!-- End Projects Area -->

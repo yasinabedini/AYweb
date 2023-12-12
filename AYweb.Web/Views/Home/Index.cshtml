@@ -7,22 +7,22 @@
 
     <partial name="_SolutionArea"/>
 
-    <partial name="_WorksArea"/>
+    @await Component.InvokeAsync("ProjectViewComponents");
 
     <partial name="_FunFacts"/>
 
     <partial name="_FeedbackArea"/>
 
-    <partial name="_Pricing"/>
-    
+    @await Component.InvokeAsync("PlansViewComponents")
+
     <partial name="_TeamArea"/>
     
     <partial name="_LetsWorkArea"/>
    
-    <partial name="_PartnerArea"/>
-    
-    <partial name="_BlogArea"/>
-    
+    @* <partial name="_PartnerArea"/> *@
+
+    @await Component.InvokeAsync("LastNewsViewComponents")
+
     <partial name="_SubscribeArea"/>
     
 
