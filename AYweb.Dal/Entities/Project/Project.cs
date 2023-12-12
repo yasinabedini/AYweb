@@ -9,9 +9,9 @@ public class Project
     public string Description { get; set; }
     public DateTime Date { get; set; }
     public string CustomerName { get; set; }
-    public int ServiceId { get; set; }
+    public string RelatedService { get; set; }
     public string Link { get; set; }
+    public string ImageName { get; set; }
 
     public List<ProjectGallery> Galleries { get; set; }
-    public Service.Service Service { get; set; }
 }

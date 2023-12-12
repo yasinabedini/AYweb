@@ -1,6 +1,7 @@
 ﻿using AYweb.Dal.Entities.Company;
 using AYweb.Dal.Entities.News;
 using AYweb.Dal.Entities.Permission;
+using AYweb.Dal.Entities.Plan;
 using AYweb.Dal.Entities.Product;
 using AYweb.Dal.Entities.Project;
 using AYweb.Dal.Entities.Service;
@@ -29,13 +30,15 @@ public class AYWebDbContext:DbContext
     public DbSet<NewsGroup> NewsGroups { get; set; }
     public DbSet<NewsComment> NewsComments { get; set; }
     public DbSet<Plan> Plans { get; set; }
+    public DbSet<UserPlans> User_Plans { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<ProjectGallery> ProjectGalleries { get; set; }
     public DbSet<Service> Services { get; set; }
+    public DbSet<Newsletters> Newsletters { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Plan>().OwnsMany(t => t.PlanFeatures);
     }
 }
