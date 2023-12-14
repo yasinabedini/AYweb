@@ -24,5 +24,4 @@ public interface IProductService
     void AddFeatureToProduct(int productId, List<Feature> features);
 
     #endregion
-
 }

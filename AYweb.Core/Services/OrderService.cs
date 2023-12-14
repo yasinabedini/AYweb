@@ -10,6 +10,11 @@ public class OrderService : IOrderService
 {
     private readonly AYWebDbContext _context;
 
+    public OrderService(AYWebDbContext context)
+    {
+        _context = context;
+    }
+
     public void AddProductToOrder(int orderId, Product product, int count)
     {
         Order order = _context.Orders.Include(t => t.OrderLines).First(t => t.Id == orderId);

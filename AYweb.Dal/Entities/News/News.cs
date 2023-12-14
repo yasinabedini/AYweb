@@ -24,7 +24,7 @@ public class News
     public DateTime CreateDate { get; set; }
 
 
-    public List<NewsGallery>? NewsGalleries { get; set; }
+    public List<Gallery.Gallery>? NewsGalleries { get; set; }
     public User.User? User { get; set; }
     public List<NewsGroups>? GroupsList { get; set; }
     public List<NewsComment>? NewsComments { get; set; }

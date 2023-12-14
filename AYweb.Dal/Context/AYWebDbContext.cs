@@ -1,5 +1,8 @@
 ﻿using AYweb.Dal.Entities.Company;
+using AYweb.Dal.Entities.Gallery;
 using AYweb.Dal.Entities.News;
+using AYweb.Dal.Entities.Notification;
+using AYweb.Dal.Entities.Order;
 using AYweb.Dal.Entities.Permission;
 using AYweb.Dal.Entities.Plan;
 using AYweb.Dal.Entities.Product;
@@ -26,19 +29,26 @@ public class AYWebDbContext:DbContext
     public DbSet<Feature> Features { get; set; }
     public DbSet<News> News { get; set; }
     public DbSet<NewsGroups> News_Groups { get; set; }
-    public DbSet<NewsGallery> NewsGalleries { get; set; }
     public DbSet<NewsGroup> NewsGroups { get; set; }
     public DbSet<NewsComment> NewsComments { get; set; }
     public DbSet<Plan> Plans { get; set; }
     public DbSet<UserPlans> User_Plans { get; set; }
     public DbSet<Project> Projects { get; set; }
-    public DbSet<ProjectGallery> ProjectGalleries { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<Newsletters> Newsletters { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderLine> OrderLines { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<UserNotification> UserNotifications { get; set; }
+    public DbSet<Gallery> Galleries { get; set; }
+
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Plan>().OwnsMany(t => t.PlanFeatures);
+        modelBuilder.Entity<News>().OwnsMany(t => t.NewsGalleries);
+        modelBuilder.Entity<Project>().OwnsMany(t => t.Galleries);
+        modelBuilder.Entity<Order>().OwnsOne(t => t.Status);
     }
 }

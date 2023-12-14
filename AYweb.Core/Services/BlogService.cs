@@ -4,6 +4,7 @@ using AYweb.Core.Generators;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Core.Tools;
 using AYweb.Dal.Context;
+using AYweb.Dal.Entities.Gallery;
 using AYweb.Dal.Entities.News;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -114,11 +115,9 @@ public class BlogService : IBlogService
             string pictureName = Generators.Generator.CreateUniqueText(12) + Path.GetExtension(picture.FileName);
             FileTools file = new FileTools();
             file.SaveImage(picture, pictureName, "blog-gallery", false);
-            _context.NewsGalleries.Add(new NewsGallery()
-            {
-                NewsId = newsId,
-                ImageName = pictureName
-            });
+            var news = _context.News.Find(newsId);
+            news.NewsGalleries.Add(new Gallery(){ImageName = pictureName});
+            _context.Update(news);
         }
 
         return _context.SaveChanges() == 1;

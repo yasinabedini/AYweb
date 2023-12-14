@@ -13,5 +13,5 @@ public class Project
     public string Link { get; set; }
     public string ImageName { get; set; }
 
-    public List<ProjectGallery> Galleries { get; set; }
+    public List<Gallery.Gallery> Galleries { get; set; }
 }
