@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AYweb.Dal.Entities.Order;
-
-public class OrderStatus
+namespace AYweb.Dal.Entities.Order
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public int Id { get; set; }
-    public string Title { get; set; }
-
-    public List<Order> Orders  { get; set; }
+    public class OrderStatus
+    {
+        public string Status { get; set; }
+    }
 }

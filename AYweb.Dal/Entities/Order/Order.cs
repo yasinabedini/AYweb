@@ -7,23 +7,24 @@ public class Order
     [Key]
     public int Id { get; set; }
 
-    [Required]
-    public int ProductId { get; set; }
+    public User.User User { get; set; }
+    public int UserId { get; set; }
+    public int ForwardId { get; set; }
+    public OrderStatus Status { get; set; }
 
-    [Required]
-    public int OrderId { get; set; }
-
-    [Required]
-    public int Count { get; set; }
-
-    [Required]
-    public int Price { get; set; }
-
-    [Required]
-    public int SumPrice { get; set; }
-
-    public int StatusId { get; set; }
-
-    public OrderStatus Status  { get; set; }
     public List<OrderLine>? OrderLines { get; set; }
+    public Forward Forward { get; set; }
+
+
+
+    
+
+    public void SendOrder(string address, string trackingCode)
+    {
+        Forward = new Forward()
+        {
+            Address = address,
+            TrackingCode = trackingCode,
+        };
+    }
 }

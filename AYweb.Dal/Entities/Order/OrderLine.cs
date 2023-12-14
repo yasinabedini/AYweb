@@ -16,8 +16,7 @@ public class OrderLine
     [Required]
     public int Count { get; set; }
 
-    [Required]
-    public int Price { get; set; }
+    public int UnitPrice { get; set; }
 
     [Required]
     public int SumPrice { get; set; }
@@ -26,4 +25,14 @@ public class OrderLine
     public Order Order { get; set; }
     public Product.Product? Product { get; set; }
 
+
+    public void IncreaseProductCount(int count)
+    {
+        count += count;
+        CalculateSumPrice();
+    }
+    public void CalculateSumPrice()
+    {
+        SumPrice = Count * UnitPrice;
+    }
 }
