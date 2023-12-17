@@ -2,7 +2,7 @@ using AYweb.Core.DTOs;
 using AYweb.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AYweb.Web.Pages.AdminPanel.Product;
+namespace AYweb.Web.Pages.Admin.Product;
 
 public class IndexModel : PageModel
 {

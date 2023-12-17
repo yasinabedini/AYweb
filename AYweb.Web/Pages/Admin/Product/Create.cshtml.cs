@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AYweb.Web.Pages.AdminPanel.Product;
+namespace AYweb.Web.Pages.Admin.Product;
 
 public class CreateModel : PageModel
 {

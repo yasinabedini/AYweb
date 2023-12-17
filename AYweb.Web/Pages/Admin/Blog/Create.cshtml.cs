@@ -3,7 +3,7 @@ using AYweb.Dal.Entities.News;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AYweb.Web.Pages.AdminPanel.Blog
+namespace AYweb.Web.Pages.Admin.Blog
 {
     public class CreateModel : PageModel
     {
