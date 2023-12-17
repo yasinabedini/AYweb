@@ -23,16 +23,11 @@ public class ProductService : IProductService
     }
     public void AddProduct(Product product, IFormFile productImageUp)
     {
+        string imageName = Generator.CreateUniqueText(20) + Path.GetExtension(productImageUp.FileName);
+        product.PictureName = imageName;
 
-        product.PictureName = "Defaul-Image.jpeg";
-        if (productImageUp != null && productImageUp.IsImage())
-        {
-            string imageName = $"Product({product.Id})" + Path.GetExtension(productImageUp.FileName);
-            product.PictureName = imageName;
-
-            FileTools fileTools = new FileTools();
-            fileTools.SaveImage(productImageUp, imageName, "shop-image", true);
-        }
+        FileTools fileTools = new FileTools();
+        fileTools.SaveImage(productImageUp, imageName, "shop-image", true);
 
         product.CreateDate = DateTime.Now;
         product.IsActive = true;

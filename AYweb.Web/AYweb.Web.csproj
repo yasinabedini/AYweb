@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\AdminPanel\User\" />
+	  <Folder Include="Pages\Admin\User\" />
 	  <Folder Include="wwwroot\img\blog-gallery\" />
 	  <Folder Include="wwwroot\img\blog-image\Thumb\" />
 	  <Folder Include="wwwroot\img\shop-image\Thumb\" />

@@ -47,8 +47,7 @@ public class AYWebDbContext:DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Plan>().OwnsMany(t => t.PlanFeatures);
-        modelBuilder.Entity<News>().OwnsMany(t => t.NewsGalleries);
-        modelBuilder.Entity<Project>().OwnsMany(t => t.Galleries);
+        modelBuilder.Entity<News>().OwnsMany(t => t.NewsGalleries);        
         modelBuilder.Entity<Order>().OwnsOne(t => t.Status);
     }
 }

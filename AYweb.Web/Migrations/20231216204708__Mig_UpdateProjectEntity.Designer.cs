@@ -4,6 +4,7 @@ using AYweb.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AYweb.Web.Migrations
 {
     [DbContext(typeof(AYWebDbContext))]
-    partial class AYWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231216204708__Mig_UpdateProjectEntity")]
+    partial class _Mig_UpdateProjectEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,6 +532,10 @@ namespace AYweb.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RelatedService")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -538,14 +545,6 @@ namespace AYweb.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShamsiDateString")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

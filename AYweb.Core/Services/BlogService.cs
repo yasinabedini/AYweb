@@ -42,7 +42,7 @@ public class BlogService : IBlogService
 
         if (!string.IsNullOrEmpty(search))
         {
-            newsList = newsList.Where(t => t.Title.Contains(search) || t.Summary.Contains(search) || t.Text.Contains(search) || t.Tags.Contains(search) || (t.User.FirstName+" "+t.User.LastName).Contains(search) || t.GroupsList.Select(c => c.NewsGroup.Title).Any(g => g.Contains(search)));
+            newsList = newsList.Where(t => t.Title.Contains(search) || t.Summary.Contains(search) || t.Text.Contains(search) || t.Tags.Contains(search) || (t.User.FirstName + " " + t.User.LastName).Contains(search) || t.GroupsList.Select(c => c.NewsGroup.Title).Any(g => g.Contains(search)));
         }
 
         int skip = (pageId - 1) * take;
@@ -110,13 +110,14 @@ public class BlogService : IBlogService
 
     public bool AddPictureToNewsGallery(int newsId, List<IFormFile> newsPictures)
     {
+        var news = _context.News.Find(newsId);
+        news.NewsGalleries = new List<Gallery>();
         foreach (var picture in newsPictures)
         {
             string pictureName = Generators.Generator.CreateUniqueText(12) + Path.GetExtension(picture.FileName);
             FileTools file = new FileTools();
             file.SaveImage(picture, pictureName, "blog-gallery", false);
-            var news = _context.News.Find(newsId);
-            news.NewsGalleries.Add(new Gallery(){ImageName = pictureName});
+            news.NewsGalleries.Add(new Gallery { ImageName = pictureName });
             _context.Update(news);
         }
 

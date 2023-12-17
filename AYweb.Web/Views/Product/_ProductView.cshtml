@@ -17,7 +17,7 @@
         </div>
 
         <div class="product-content">
-            <h3><a href="#">@Model.Name</a></h3>
+            <h3><a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@Model.Id">@Model.Name</a></h3>
             <div class="price">
                 @if (Model.DiscountedPrice != 0)
                 {
