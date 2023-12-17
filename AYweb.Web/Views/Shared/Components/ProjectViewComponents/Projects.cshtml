@@ -9,28 +9,33 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="projects-slides owl-carousel owl-theme">
-            
+
             @foreach (var project in Model)
             {
                 <div class="single-projects-box">
-                    <img src="img/projects-image/@project.ImageName" alt="image">
+                    <img src="img/projects-image/@project.MainImageName" alt="image">
 
                     <div class="projects-content">
-                        <h3><a href="#">@project.Name</a></h3>
+                        <h3><a asp-controller="Project" asp-action="ProjectDetails" asp-route-id="@project.Id">@project.Title</a></h3>
                         <span class="category">@project.RelatedService</span>
                     </div>
 
                     <div class="plus-icon">
-                        <a href="img/projects-image/@project.ImageName" class="popup-btn">
+                        <a href="img/projects-image/@project.SecondImageName" class="popup-btn">
                             <span></span>
                         </a>
                     </div>
                 </div>
             }
-
+        </div>
+        <div class="more-work text-center">
+            <a asp-controller="Project" asp-action="Index" class="default-btn">
+                مشاهده پروژه ها <span></span>
+            </a>
         </div>
     </div>
+
 </section>
 <!-- End Projects Area -->

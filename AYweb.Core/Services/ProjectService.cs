@@ -16,12 +16,12 @@ public class ProjectService:IProjectService
 
     public List<Project> GetAllProject()
     {
-        return _context.Projects.Include(t=>t.Galleries).ToList();
+        return _context.Projects.ToList();
     }
 
     public Project GetProjectById(int id)
     {
-        return _context.Projects.Include(t => t.Galleries).First(t => t.Id == id);
+        return _context.Projects.First(t => t.Id == id);
     }
 
     public void CreateProject(Project project)

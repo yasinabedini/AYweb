@@ -1,0 +1,66 @@
+﻿@using AYweb.Dal.Entities.Project
+@model List<Project>    
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>نمونه کارهای آی وب</h2>
+
+                    <ul>
+                        <li><a href="#">صفحه اصلی</a></li>
+                        <li>پروژه ها</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_Shapes"/>
+</div>
+<!-- End Page Title Area -->
+<!-- Project area -->
+<div class="works-area pb-100">
+    <div class="container">
+       
+        <div class="row">
+            
+            @foreach (var project in Model)
+            {
+                <div class="col-lg-4 col-sm-6">
+                    <div class="work-card">
+                        <img src="/img/projects-image/@project.MainImageName" alt="image">
+
+                        <div class="content">
+                            <span>
+                                <a href="#">@project.RelatedService</a>
+                            </span>
+                            <h3>
+                                <a href="single-projects.html">@project.ShortDescription</a>
+                            </h3>
+
+                            <a class="work-btn" asp-asp-controller="Project" asp-action="ProjectDetails" asp-route-id="@project.Id">مطالعه موردی</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            @* <!-- Pagination -->
+            <div class="col-lg-12 col-sm-12">
+                <div class="pagination-area">
+                    <a href="#" class="prev page-numbers">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                    <a href="#" class="page-numbers">1</a>
+                    <span class="page-numbers current" aria-current="page">2</span>
+                    <a href="#" class="page-numbers">3</a>
+                    <a href="#" class="next page-numbers">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </div>
+            </div> *@
+        </div>
+    </div>
+</div>
+<!-- End project area -->
