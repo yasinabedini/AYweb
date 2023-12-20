@@ -1,21 +1,34 @@
+using AYweb.Core.Serializer;
 using AYweb.Core.Services;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Dal.Context;
+using AYweb.Dal.Entities.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region IOC
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+
+builder.Services.AddDistributedSqlServerCache(option =>
+{
+    option.SchemaName = "dbo";
+    option.TableName = "CacheData";
+    option.ConnectionString = builder.Configuration.GetConnectionString("AyWebConnectionString");
+});
+
+builder.Services.AddSingleton<IJsonSerializer, NewtonSoftSerializer>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IPlanService, PlanService>();
 builder.Services.AddTransient<IBlogService, BlogService>();
 builder.Services.AddTransient<IPermissionService, PermissionService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
-builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
 #endregion
 
