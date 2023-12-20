@@ -9,6 +9,7 @@ public interface IPermissionService
     #region Role
     string GetAuthonticatedUserUsername(HttpContext context);
     int GetAuthonticatedUserUserId(HttpContext context);
+    User GetAuthonticatedUser(HttpContext context);
     bool CheckPermission(string username, int permissionId);
     List<Role> GetRoles();
     void CreateRole(Role role);

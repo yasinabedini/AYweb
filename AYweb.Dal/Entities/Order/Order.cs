@@ -7,10 +7,13 @@ public class Order
     [Key]
     public int Id { get; set; }
 
-    public User.User User { get; set; }
-    public int UserId { get; set; }
+    public User.User? User { get; set; }
+    public int? UserId { get; set; }
     public int ForwardId { get; set; }
     public OrderStatus Status { get; set; }
+    public int EndPrice { get; set; }
+    public DateTime CreateDate { get; set; }
+    public bool IsDelete { get; set; }
 
     public List<OrderLine>? OrderLines { get; set; }
     public Forward Forward { get; set; }

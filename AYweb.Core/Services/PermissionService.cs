@@ -25,6 +25,11 @@ public class PermissionService : IPermissionService
         return username;
     }
 
+    public User GetAuthonticatedUser(HttpContext context)
+    {
+        return _context.Users.First(t => t.Username == GetAuthonticatedUserUsername(context));
+    }
+
     public int GetAuthonticatedUserUserId(HttpContext context)
     {
 
@@ -147,4 +152,6 @@ public class PermissionService : IPermissionService
         _context.Update(role);
         _context.SaveChanges();
     }
+
+  
 }

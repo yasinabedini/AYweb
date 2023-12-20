@@ -1,5 +1,6 @@
 ﻿@using AYweb.Core.Services.Interfaces
 @inject IPlanService _PlanService;  
+@inject IOrderService _orderService;
 
 <!-- Start Navbar Area -->
 <div class="navbar-area">
@@ -99,9 +100,9 @@
 
                     <div class="others-options">
                         <div class="cart-items">
-                            <a href="cart.html">
+                            <a asp-controller="Order" asp-action="MyCart">
                                 <i class="fas fa-shopping-cart"></i>
-                                <span>5</span>
+                                <span>@_orderService.GetCurrentCart(Context).OrderLines.Count</span>
                             </a>
                         </div>
 

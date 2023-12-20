@@ -61,13 +61,16 @@
                     <p>@Model.ShortDescription</p>
 
                     <div class="product-add-to-cart">
+                        <form asp-controller="Product" asp-action="AddProductToCart" method="post">
+                            <input type="hidden" name="addInfo.ProductId" value="@Model.Id"/>
                         <div class="input-counter">
                             <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                            <input type="text" min="1" value="1">
+                                <input type="text" name="addInfo.Count" min="1" value="1">
                             <span class="plus-btn"><i class="fas fa-plus"></i></span>
                         </div>
 
                         <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> افزودن سبد خرید <span></span></button>
+                        </form>
                     </div>
 
                     <div class="buy-checkbox-btn">
