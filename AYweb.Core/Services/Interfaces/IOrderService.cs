@@ -9,10 +9,12 @@ public interface IOrderService
     void AddOrder(Order order);
     void UpdateOrder(Order order);
     Order GetOrderById(int id);
-    void AddProductToOrder(int orderId, Product product, int count, bool IsAuthenticated);
+    void AddProductToOrder(HttpContext context,Product product, int count);
     Order GetCurrentCart(HttpContext context);
+    void SynchronizationCart(int userId);
 
     #region OrderLine
     void UpdateOrderLine(OrderLine orderLine);
+    void AddOrderLine(OrderLine orderLine);
     #endregion
 }
