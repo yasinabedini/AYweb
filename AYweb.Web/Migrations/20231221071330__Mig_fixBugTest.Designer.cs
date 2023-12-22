@@ -4,6 +4,7 @@ using AYweb.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AYweb.Web.Migrations
 {
     [DbContext(typeof(AYWebDbContext))]
-    partial class AYWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231221071330__Mig_fixBugTest")]
+    partial class _Mig_fixBugTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,7 +253,7 @@ namespace AYweb.Web.Migrations
                     b.Property<int>("EndPrice")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ForwardId")
+                    b.Property<int>("ForwardId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDelete")
@@ -1002,7 +1005,8 @@ namespace AYweb.Web.Migrations
 
             modelBuilder.Entity("AYweb.Dal.Entities.Order.Order", b =>
                 {
-                    b.Navigation("Forward");
+                    b.Navigation("Forward")
+                        .IsRequired();
 
                     b.Navigation("OrderLines");
                 });

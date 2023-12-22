@@ -58,21 +58,8 @@ namespace AYweb.Web.Controllers
         [HttpPost]
         public IActionResult AddProductToCart(AddProductToOrderViewModel addInfo)
         {
-            Order currentCart = _orderService.GetCurrentCart(HttpContext);
-            Product product = _service.GetProductById(addInfo.ProductId);
-            if (currentCart is null)
-            {
-                currentCart = new Order()
-                {
-                    Status = new OrderStatus("Cart"),
-                    CreateDate = DateTime.Now,
-                    EndPrice = 0,
-                    IsDelete = false
-                };
-                _orderService.AddOrder(currentCart);                
-            }            
+            _orderService.AddProductToOrder(HttpContext, _service.GetProductById(addInfo.ProductId), addInfo.Count);
 
-            _orderService.AddProductToOrder(currentCart.Id, product, addInfo.Count, HttpContext.User.Identity.IsAuthenticated);            
             return RedirectToAction("ProductDetails", "Product", new { Id = addInfo.ProductId });
         }
     }

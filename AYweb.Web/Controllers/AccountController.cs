@@ -10,10 +10,12 @@ namespace AYweb.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _service;
+        private readonly IOrderService _orderService;
 
-        public AccountController(IUserService service)
+        public AccountController(IUserService service, IOrderService orderService)
         {
             _service = service;
+            _orderService = orderService;
         }
 
         [HttpGet]
@@ -64,7 +66,7 @@ namespace AYweb.Web.Controllers
 
             var userFound = _service.LoginUser(user);
             if (userFound is not null)
-            {
+            {                
                 if (userFound.PhoneNumberConfrimation)
                 {
                     var claims = new List<Claim>()
@@ -81,7 +83,7 @@ namespace AYweb.Web.Controllers
 
                     };
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
-
+                    _orderService.SynchronizationCart(userFound.UserId);
                     ViewBag.IsSuccess = true;
 
                     if (user.ReturnUrl == "/")

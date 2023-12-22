@@ -61,4 +61,11 @@ public class Product
     public List<OrderLine>? OrderLines { get; set; }
     public List<Comment>? Comments { get; set; }
 
+
+    public int GetPrice()
+    {
+        if (DiscountedPrice != 0) return DiscountedPrice.Value;
+        else return Price;
+    }
+
 }

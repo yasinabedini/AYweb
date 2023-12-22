@@ -8,7 +8,6 @@ namespace AYweb.Dal.Entities.Order
 {
     public class OrderStatus
     {
-
         public OrderStatus(string status)
         {
             Status = status;

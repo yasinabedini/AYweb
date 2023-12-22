@@ -1,3 +1,4 @@
+using AYweb.Core.Caching;
 using AYweb.Core.Serializer;
 using AYweb.Core.Services;
 using AYweb.Core.Services.Interfaces;
@@ -21,6 +22,7 @@ builder.Services.AddDistributedSqlServerCache(option =>
     option.ConnectionString = builder.Configuration.GetConnectionString("AyWebConnectionString");
 });
 
+builder.Services.AddSingleton<ICacheAdaptor, DistributedCacheAdaptor>();
 builder.Services.AddSingleton<IJsonSerializer, NewtonSoftSerializer>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IUserService, UserService>();
