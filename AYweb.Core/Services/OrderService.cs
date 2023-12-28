@@ -1,6 +1,10 @@
 ﻿using AYweb.Core.Caching;
+using AYweb.Core.DTOs;
+using AYweb.Core.DTOs.Enums;
+using AYweb.Core.Generators;
 using AYweb.Core.Serializer;
 using AYweb.Core.Services.Interfaces;
+using AYweb.Core.Tools;
 using AYweb.Dal.Context;
 using AYweb.Dal.Entities.Order;
 using AYweb.Dal.Entities.Product;
@@ -10,19 +14,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Polly;
+
 namespace AYweb.Core.Services;
 
 public class OrderService : IOrderService
 {
     private readonly AYWebDbContext _context;
     private readonly IPermissionService _permissionService;
+    private readonly IProductService _productService;
     private readonly ICacheAdaptor _cache;
 
-    public OrderService(AYWebDbContext context, IPermissionService permissionService, ICacheAdaptor cache)
+    public OrderService(AYWebDbContext context, IPermissionService permissionService, ICacheAdaptor cache, IProductService productService)
     {
         _context = context;
         _permissionService = permissionService;
         _cache = cache;
+        _productService = productService;
     }
 
     public void AddOrder(Order order)
@@ -103,6 +110,27 @@ public class OrderService : IOrderService
         }
     }
 
+    public void ApproveOrder(int orderId)
+    {
+        Order order = GetOrderById(orderId);
+
+        foreach (var orderLine in order.OrderLines)
+        {
+            Product product = _productService.GetProductById(orderLine.ProductId);
+            product.Inventory -= orderLine.Count;
+            if (product.Inventory < 0)
+            {
+                product.Inventory = 0;
+                product.InventoryStatus = false;
+            }
+            //_productService.UpdateProduct(product);
+        }
+
+        order.IsApprove = true;
+        order.PayDate = DateTime.Now;
+        UpdateOrder(order);
+    }
+
     public Order GetCurrentCart(HttpContext context)
     {
         if (context.User.Identity.IsAuthenticated)
@@ -126,7 +154,49 @@ public class OrderService : IOrderService
 
     public Order GetOrderById(int id)
     {
-        return _context.Orders.Include(t => t.OrderLines).ThenInclude(t => t.Product).First(t => t.Id == id);
+        return _context.Orders.Include(t => t.OrderLines).ThenInclude(t => t.Product).FirstOrDefault(t => t.Id == id);
+    }
+
+    public List<Order> GetOrdersByUserId(int userId)
+    {
+        return _context.Orders.Where(t => t.UserId == userId).ToList();
+    }
+
+    public void OrderPayRequest(PayOrderViewModel order, IFormFile? TransactionScreenShot, bool isAuth)
+    {
+        Order mainOrder = GetOrderById(order.Id);
+
+        mainOrder.Notes = order.Notes;
+        mainOrder.Forward = new Forward()
+        {
+            Province = order.province,
+            City = order.City,
+            PostalCode = order.PostalCode,
+            Address = order.Address,
+            TransfereeName = order.CustomerName            
+        };
+
+        if (order.PaymentMethod == (int)PaymentMethods.PaymentGateway)
+        {
+            mainOrder.Status = new OrderStatus("Preparing to send");
+            ApproveOrder(mainOrder.Id);
+        }
+
+        if (order.PaymentMethod == (int)PaymentMethods.CardByCard)
+        {
+            mainOrder.Status = new OrderStatus("Awaiting approval");
+
+            FileTools file = new FileTools();
+
+            if (TransactionScreenShot != null)
+            {
+                string fileName = Generator.CreateUniqueText(15) + Path.GetExtension(TransactionScreenShot.FileName);
+                file.SaveImage(TransactionScreenShot, fileName, "Transaction-ScreenShots", false);
+                mainOrder.TransactionPictureName = fileName;
+            }
+        }
+
+        UpdateOrder(mainOrder);
     }
 
     public void SynchronizationCart(int userId)
@@ -134,7 +204,7 @@ public class OrderService : IOrderService
         Order orderCache = _cache.Get<Order>("UserCart");
         if (orderCache is not null)
         {
-            Order authUserCart = _context.Orders.Include(t=>t.OrderLines).ThenInclude(t=>t.Product).Include(t=>t.User).FirstOrDefault(t => t.UserId == userId && t.Status.Status == "Cart");
+            Order authUserCart = _context.Orders.Include(t => t.OrderLines).ThenInclude(t => t.Product).Include(t => t.User).FirstOrDefault(t => t.UserId == userId && t.Status.Status == "Cart");
 
             //If Auth User Has A Cart
             if (authUserCart is not null)
@@ -153,7 +223,8 @@ public class OrderService : IOrderService
                     //If the product is not already in the shopping cart
                     else
                     {
-                        OrderLine newOrderLine = OrderLine.AddOrderLine(authUserCart, orderLine.Product, orderLine.Count);
+                        OrderLine newOrderLine = OrderLine.AddOrderLine(authUserCart, _productService.GetProductById(orderLine.ProductId), orderLine.Count);
+
                         AddOrderLine(newOrderLine);
                     }
 
@@ -166,12 +237,14 @@ public class OrderService : IOrderService
             else
             {
                 authUserCart = Order.CreateCart();
+                authUserCart.UserId = userId;
                 authUserCart.CreateDate = orderCache.CreateDate;
                 AddOrder(authUserCart);
 
                 foreach (var orderLine in orderCache.OrderLines)
-                {                    
-                    OrderLine newOrderLine = OrderLine.AddOrderLine(authUserCart, orderLine.Product, orderLine.Count);
+                {
+                    Product product = _productService.GetProductById(orderLine.ProductId);
+                    OrderLine newOrderLine = OrderLine.AddOrderLine(authUserCart, product, orderLine.Count);
                     AddOrderLine(newOrderLine);
 
                     authUserCart.CalculateEndPrice();

@@ -1,0 +1,134 @@
+﻿@using AYweb.Core.Convertors
+@using AYweb.Dal.Entities.Order
+@model List<Order>
+
+@if (Context.Request.Query["successPay"].ToString().ToLower() == "true")
+{
+    <div class="modal" tabindex="-1" role="dialog" id="notification-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">عملیات موفق</h5>
+
+                </div>
+                <div class="modal-body">
+                    <p>سفارش با موفقیت ثبت شد <a class="alert-link">در صورت تایید رسید واریز سفارش در اسرع وقت به دست شما می رسد.</a></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">بستن</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>سفارشات</h2>
+
+                    <ul>
+                        <li><a href="#">پنل کاربری</a></li>
+                        <li>سفارشات</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Start Cart Area -->
+<section class="cart-area pb-100 pt-4">
+    <div class="container">
+        @if (Model == null)
+        {
+            <div class="row">
+                <div class="cart-table table-responsive">
+                    <div>
+                        <p class="text-center">کالایی در سبد خرید موجود نیست</p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <form>
+                        <div class="cart-table table-responsive">
+                            @if (Model != null)
+                            {
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>کد سفارش</th>
+                                            <th scope="col">وضعیت سفارش</th>
+                                            <th scope="col">تاریخ</th>
+                                            <th scope="col">قیمت نهایی</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var order in Model ?? new List<Order>())
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Guid.NewGuid().ToString().Substring(0, 10)
+                                                </td>
+                                                <td>
+                                                    @switch (order.Status.Status.ToLower())
+                                                    {
+                                                        case "cart":
+                                                            <p class="text-primary">در حال تکمیل</p>
+                                                            break;
+                                                        case "Approved":
+                                                            <p class="text-warning">در انتظار تایید</p>
+                                                            break;
+                                                        case "NotApproved":
+                                                            <p class="text-danger">رد شده</p>
+                                                            break;
+                                                        case "Sent":
+                                                            <p class="text-success">ارسال شده</p>
+                                                            break;
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a>@order.CreateDate.ToShamsi()</a>
+                                                </td>
+                                                <td>
+                                                    <a>@order.EndPrice تومان</a>
+                                                </td>
+                                                <td>
+                                                    @if (order.Status.Status.ToLower() == "cart")
+                                                    {
+                                                        <a asp-controller="Order" asp-action="MyCart" class="btn btn-success text-white">مشاهده سفارش</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-area="UserPanel" asp-controller="Order" asp-action="OrderDetails" asp-route-id="@order.Id" class="btn btn-success text-white">مشاهده سفارش</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!-- End Cart Area -->
