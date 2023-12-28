@@ -22,6 +22,9 @@ builder.Services.AddDistributedSqlServerCache(option =>
     option.ConnectionString = builder.Configuration.GetConnectionString("AyWebConnectionString");
 });
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 builder.Services.AddSingleton<ICacheAdaptor, DistributedCacheAdaptor>();
 builder.Services.AddSingleton<IJsonSerializer, NewtonSoftSerializer>();
 builder.Services.AddTransient<IOrderService, OrderService>();
@@ -60,24 +63,30 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
-app.UseAuthorization();
-app.UseAuthentication();
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "Default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"            
+          ).RequireAuthorization();
+
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();

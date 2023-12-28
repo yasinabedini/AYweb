@@ -14,7 +14,11 @@ public class Order
     public OrderStatus Status { get; set; }
     public int EndPrice { get; set; }
     public DateTime CreateDate { get; set; }
+    public bool IsApprove { get; set; }
+    public string? TransactionPictureName { get; set; }
     public bool IsDelete { get; set; }
+    public string? Notes { get; set; }
+    public DateTime PayDate { get; set; }
 
     public List<OrderLine> OrderLines { get; set; }
     public Forward? Forward { get; set; }

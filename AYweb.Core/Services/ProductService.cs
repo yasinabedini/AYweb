@@ -133,4 +133,9 @@ public class ProductService : IProductService
 
     }
 
+    public void UpdateProduct(Product product)
+    {
+        _context.Update(product);
+        _context.SaveChanges();
+    }
 }

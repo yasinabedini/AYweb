@@ -50,12 +50,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a asp-controller="Blog" asp-action="Index" class="nav-link">
-                                مقالات <i class="fas "></i>
-                            </a>
-                        </li>
-
+                      
                         <li class="nav-item">
                             <a asp-controller="Blog" asp-action="Index" class="nav-link">
                                 وبلاگ <i class="fas "></i>
@@ -74,10 +69,13 @@
                                     </li>
                                     <hr />
                                     <li class="nav-item">
-                                        <a href="services.html" class="nav-link">اطلاعات حساب</a>
+                                        <a href="services.html" class="nav-link">پنل کاربری</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="services2.html" class="nav-link">نمایش فاکتور ها</a>
+                                        <a asp-area="UserPanel" asp-controller="Order" asp-action="Index" class="nav-link">سفارشات</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">پرداختی ها</a>
                                     </li>
                                     <li class="nav-item">
                                         <a asp-controller="Account" asp-action="LogOut" class="nav-link text-danger">خروج</a>

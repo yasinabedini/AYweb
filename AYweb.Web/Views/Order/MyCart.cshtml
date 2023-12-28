@@ -27,7 +27,17 @@
 <!-- Start Cart Area -->
 <section class="cart-area pb-100 pt-4">
     <div class="container">
-        @if (Model != null)
+        @if (Model==null)
+        {
+            <div class="row">
+                <div class="cart-table table-responsive">
+                    <div>
+                        <p class="text-center">کالایی در سبد خرید موجود نیست</p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
         {
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -50,15 +60,7 @@
                                         @foreach (var orderLine in Model.OrderLines ?? new List<OrderLine>())
                                         {
                                             Product product = _productService.GetProductById(orderLine.ProductId);
-                                            int price;
-                                            if (product.DiscountedPrice != 0 || product.DiscountedPrice != null)
-                                            {
-                                                price = product.DiscountedPrice.Value;
-                                            }
-                                            else
-                                            {
-                                                price = product.Price;
-                                            }
+                                           
 
                                             <tr>
                                                 <td class="product-thumbnail">
@@ -72,7 +74,7 @@
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="unit-amount">@price تومان</span>
+                                                    <span class="unit-amount">@product.GetPrice()   تومان</span>
                                                 </td>
 
                                                 <td class="product-quantity">
@@ -118,23 +120,11 @@
                                 <li>کرایه <span>35000 تومان</span></li>
                                 <li>مجموع <span><b>@(@Model.EndPrice + 35000) تومان</b></span></li>
                             </ul>
-                            <a href="#" class="default-btn">پرداخت <span></span></a>
+                            <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut"  class="default-btn">پرداخت <span></span></a>
                         </div>
                     </form>
                 </div>
             </div>
-        }
-
-        <!--If Cart Is Null-->
-        else
-        {
-        <div class="row">
-            <div class="cart-table table-responsive">
-                <div>
-                    <p class="text-center">کالایی در سبد خرید موجود نیست</p>
-                </div>
-            </div>
-        </div>
         }
     </div>
 </section>

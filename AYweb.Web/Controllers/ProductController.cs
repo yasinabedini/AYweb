@@ -1,9 +1,6 @@
 ﻿using AYweb.Core.DTOs;
 using AYweb.Core.Services.Interfaces;
-using AYweb.Dal.Entities.Order;
-using AYweb.Dal.Entities.Product;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 
 namespace AYweb.Web.Controllers
 {
@@ -62,5 +59,6 @@ namespace AYweb.Web.Controllers
 
             return RedirectToAction("ProductDetails", "Product", new { Id = addInfo.ProductId });
         }
+        
     }
 }

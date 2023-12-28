@@ -26,10 +26,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Areas\UserPanel\Views\Shared\" />
 	  <Folder Include="Pages\Admin\User\" />
 	  <Folder Include="wwwroot\img\blog-gallery\" />
 	  <Folder Include="wwwroot\img\blog-image\Thumb\" />
+	  <Folder Include="wwwroot\img\Transaction-ScreenShots\" />
 	  <Folder Include="wwwroot\img\shop-image\Thumb\" />
+	  <Folder Include="wwwroot\wwwroot-userArea\css\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,6 +48,93 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.babelrc" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.github\FUNDING.yml" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.github\ISSUE_TEMPLATE\bug_report.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.github\ISSUE_TEMPLATE\feature_request.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.gitignore" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.npmignore" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\changelog.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\index.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\index.js.gz" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\index.var.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\index.var.js.gz" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\modern.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\modern.js.gz" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\modern.var.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\modern.var.js.gz" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\dist\style.css.gz" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\.gitignore" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\assets\css\style.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\assets\images\awesome-notifications-logo.svg" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\dist\index.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\dist\index.var.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\dist\modern.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\dist\modern.var.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\changelog.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\durations.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\general.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\icons.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\index.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\labels.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\messages.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\min-durations.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\customization\replacements.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\how-to-use.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\index.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\integrations\vue.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\meta\browser-compatibility.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\meta\security-notes.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\meta\styles.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\migrations\from-2-to-3.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\popups\async-block.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\popups\confirmation-window.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\popups\modal-window.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\alert.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\async.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\general.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\info.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\success.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\tip.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\toasts\warning.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\docs\why-such-awesome.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\Gemfile" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\index.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_config.yml" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_includes\awn-example.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_includes\param-desc.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_buttons.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_footer.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_general.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_header.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_helpers.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_layout.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_sidebar.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\app\_typo.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\main.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\pages\_landing.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\docs\_sass\_variables.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\LICENSE" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\README.md" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\constants.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\elem.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\index.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\index.var.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\options.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\popup.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\styles\animations.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\styles\popups.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\styles\style.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\styles\toasts.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\styles\variables.scss" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\timer.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\src\toast.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\test\elem.spec.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\test\options.spec.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\test\popup.spec.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\test\toast.spec.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\webpack.config.js" />
+	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\yarn.lock" />
 	  <None Include="wwwroot\wwwroot-admin\js\main.js" />
 	  <None Include="wwwroot\wwwroot-admin\lib\chart\chart.min.js" />
 	  <None Include="wwwroot\wwwroot-admin\lib\easing\easing.js" />
@@ -140,6 +230,46 @@
 	  <None Include="wwwroot\wwwroot-admin\scss\bootstrap\scss\_type.scss" />
 	  <None Include="wwwroot\wwwroot-admin\scss\bootstrap\scss\_utilities.scss" />
 	  <None Include="wwwroot\wwwroot-admin\scss\bootstrap\scss\_variables.scss" />
+	  <None Include="wwwroot\wwwroot-userArea\fonts\nucleo-icons.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\fonts\nucleo-icons.woff2" />
+	  <None Include="wwwroot\wwwroot-userArea\fonts\nucleo.woff2" />
+	  <None Include="wwwroot\wwwroot-userArea\img\down-arrow-dark.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\down-arrow-white.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\down-arrow.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\illustrations\pattern-tree.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-coinbase.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-nasa.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-netflix.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-pinterest.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-spotify.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\logos\gray-logos\logo-vodafone.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\shapes\pattern-lines.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\shapes\waves-white.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\bootstrap.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\creative-tim.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\devto.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\github.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\google-webdev.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\icon-bulb.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-asana.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-atlassian.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-invision.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-jira.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-slack.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-spotify.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\img\small-logos\logo-xd.svg" />
+	  <None Include="wwwroot\wwwroot-userArea\js\core\bootstrap.bundle.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\core\bootstrap.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\core\popper.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\material-dashboard.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\material-dashboard.js.map" />
+	  <None Include="wwwroot\wwwroot-userArea\js\material-dashboard.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\bootstrap-notify.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\Chart.extension.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\chartjs.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\perfect-scrollbar.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\smooth-scrollbar.min.js" />
+	  <None Include="wwwroot\wwwroot-userArea\js\plugins\world.js" />
 	</ItemGroup>
 
 </Project>
