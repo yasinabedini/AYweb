@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AYweb.Dal.Entities.Transaction
 {
-    public class TransactionType
+    public class TransactionStatus
     {
-        public string Type { get; set; }
+        public string Status { get; set; }
 
-        public TransactionType(string type)
+        public TransactionStatus(string status)
         {
-            Type = type;
+            Status = status;
         }
     }
 }
