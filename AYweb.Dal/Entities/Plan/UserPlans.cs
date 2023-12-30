@@ -9,4 +9,5 @@ public class UserPlans
     public DateTime EndDate { get; set; }
     public User.User User { get; set; }
     public Plan Plan { get; set; }
+    public int TransactionId { get; set; }
 }

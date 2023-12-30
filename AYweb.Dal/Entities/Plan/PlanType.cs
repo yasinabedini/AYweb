@@ -2,5 +2,5 @@
 
 public enum PlanType
 {
-    Gold = 1, Silver = 2, Bronze = 3
+    Gold = 1, Silver = 2, Bronze = 3,Normal = 4
 }
