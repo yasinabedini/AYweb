@@ -35,6 +35,7 @@ builder.Services.AddTransient<IBlogService, BlogService>();
 builder.Services.AddTransient<IPermissionService, PermissionService>();
 builder.Services.AddTransient<IProjectService, ProjectService>();
 builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services.AddTransient<ITransactionService, TransactionService>();
 #endregion
 
 #region Context

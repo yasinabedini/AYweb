@@ -84,7 +84,7 @@ namespace AYweb.Web.Controllers
                     };
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
                     _orderService.SynchronizationCart(userFound.UserId);
-                    ViewBag.IsSuccess = true;
+                    
 
                     if (user.ReturnUrl == "/")
                     {

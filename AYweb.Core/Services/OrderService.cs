@@ -1,19 +1,16 @@
 ﻿using AYweb.Core.Caching;
 using AYweb.Core.DTOs;
-using AYweb.Core.DTOs.Enums;
 using AYweb.Core.Generators;
-using AYweb.Core.Serializer;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Core.Tools;
 using AYweb.Dal.Context;
 using AYweb.Dal.Entities.Order;
 using AYweb.Dal.Entities.Product;
+using AYweb.Dal.Entities.Transaction;
 using AYweb.Dal.Entities.User;
+using AYweb.Dal.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
-using Newtonsoft.Json;
-using Polly;
 
 namespace AYweb.Core.Services;
 
@@ -22,14 +19,16 @@ public class OrderService : IOrderService
     private readonly AYWebDbContext _context;
     private readonly IPermissionService _permissionService;
     private readonly IProductService _productService;
+    private readonly ITransactionService _transactionService;
     private readonly ICacheAdaptor _cache;
 
-    public OrderService(AYWebDbContext context, IPermissionService permissionService, ICacheAdaptor cache, IProductService productService)
+    public OrderService(AYWebDbContext context, IPermissionService permissionService, ICacheAdaptor cache, IProductService productService, ITransactionService transactionService)
     {
         _context = context;
         _permissionService = permissionService;
         _cache = cache;
         _productService = productService;
+        _transactionService = transactionService;
     }
 
     public void AddOrder(Order order)
@@ -126,8 +125,10 @@ public class OrderService : IOrderService
             //_productService.UpdateProduct(product);
         }
 
-        order.IsApprove = true;
-        order.PayDate = DateTime.Now;
+        order.Status = new OrderStatus(_OrderStatus.PreparingSend.ToString());
+        Transaction orderTransaction = _transactionService.GetTransactionById(order.TransactionId);
+        orderTransaction.IsApproved = true;
+        _transactionService.UpdateTransaction(orderTransaction);
         UpdateOrder(order);
     }
 
@@ -165,26 +166,44 @@ public class OrderService : IOrderService
     public void OrderPayRequest(PayOrderViewModel order, IFormFile? TransactionScreenShot, bool isAuth)
     {
         Order mainOrder = GetOrderById(order.Id);
-
-        mainOrder.Notes = order.Notes;
-        mainOrder.Forward = new Forward()
+        if (mainOrder == null)
         {
-            Province = order.province,
-            City = order.City,
-            PostalCode = order.PostalCode,
-            Address = order.Address,
-            TransfereeName = order.CustomerName            
-        };
+            throw new ArgumentNullException();
+        }
 
-        if (order.PaymentMethod == (int)PaymentMethods.PaymentGateway)
+        mainOrder.Notes = order.Notes ?? "";
+
+        //If We Should Post a order
+        if (order.InPersonDelivery == false)
         {
-            mainOrder.Status = new OrderStatus("Preparing to send");
+            mainOrder.Forward = new Forward()
+            {
+                Province = order.province,
+                City = order.City,
+                PostalCode = order.PostalCode,
+                Address = order.Address,
+                TransfereeName = order.CustomerName
+            };
+            mainOrder.InPersonDelivery = false;
+        }
+
+        //If InPersonDelivery == true
+        else
+        {
+            mainOrder.InPersonDelivery = true;
+        }
+
+
+        if (order.PaymentMethod == (int)_PaymentMethods.PaymentGateway)
+        {
+            mainOrder.Status = new OrderStatus(_OrderStatus.PreparingSend.ToString());
+            mainOrder.RequestPayment("PaymentGateway.jpg", $"Payment Order By Id : ({mainOrder.Id})");
             ApproveOrder(mainOrder.Id);
         }
 
-        if (order.PaymentMethod == (int)PaymentMethods.CardByCard)
+        if (order.PaymentMethod == (int)_PaymentMethods.CardByCard)
         {
-            mainOrder.Status = new OrderStatus("Awaiting approval");
+            mainOrder.Status = new OrderStatus(_OrderStatus.AwaitingApproval.ToString());
 
             FileTools file = new FileTools();
 
@@ -192,7 +211,9 @@ public class OrderService : IOrderService
             {
                 string fileName = Generator.CreateUniqueText(15) + Path.GetExtension(TransactionScreenShot.FileName);
                 file.SaveImage(TransactionScreenShot, fileName, "Transaction-ScreenShots", false);
-                mainOrder.TransactionPictureName = fileName;
+                Transaction transaction = mainOrder.RequestPayment(fileName, $"Payment Order By Id : ({mainOrder.Id})");                
+                _transactionService.AddTransaction(transaction);
+                mainOrder.TransactionId = transaction.Id;
             }
         }
 

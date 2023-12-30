@@ -17,6 +17,6 @@ namespace AYweb.Core.DTOs
         public int SumPrice { get; set; }
         public int PaymentMethod { get; set; }
         public string Address { get; set; }
-
+        public bool InPersonDelivery { get; set; }
     }
 }

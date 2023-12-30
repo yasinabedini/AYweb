@@ -8,16 +8,17 @@ using AYweb.Dal.Entities.Plan;
 using AYweb.Dal.Entities.Product;
 using AYweb.Dal.Entities.Project;
 using AYweb.Dal.Entities.Service;
+using AYweb.Dal.Entities.Transaction;
 using AYweb.Dal.Entities.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Dal.Context;
 
-public class AYWebDbContext:DbContext
+public class AYWebDbContext : DbContext
 {
     public AYWebDbContext(DbContextOptions options) : base(options)
     {
-    } 
+    }
 
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
@@ -41,13 +42,15 @@ public class AYWebDbContext:DbContext
     public DbSet<Notification> Notifications { get; set; }
     public DbSet<UserNotification> UserNotifications { get; set; }
     public DbSet<Gallery> Galleries { get; set; }
-
+    public DbSet<Transaction> Transactions { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Plan>().OwnsMany(t => t.PlanFeatures);
-        modelBuilder.Entity<News>().OwnsMany(t => t.NewsGalleries);        
+        modelBuilder.Entity<News>().OwnsMany(t => t.NewsGalleries);
         modelBuilder.Entity<Order>().OwnsOne(t => t.Status);
+        modelBuilder.Entity<Transaction>().OwnsOne(t => t.Status);
+        modelBuilder.Entity<Transaction>().OwnsOne(t => t.Type);                
     }
 }

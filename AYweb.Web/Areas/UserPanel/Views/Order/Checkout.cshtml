@@ -51,6 +51,15 @@
 
                         <div class="row">
 
+
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group form-check form-switch">
+                                    <label>تحویل حضوری</label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" asp-for="InPersonDelivery">
+                                    <br />
+                                </div>
+                            </div>
+
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>نام تحویل گیرنده <span class="required">*</span></label>
@@ -65,39 +74,40 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 post-Method">
                                 <div class="form-group">
                                     <label>استان <span class="required">*</span></label>
                                     <input type="text" class="form-control" asp-for="province">
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 post-Method">
                                 <div class="form-group">
                                     <label>شهر <span class="required">*</span></label>
                                     <input type="text" class="form-control" asp-for="City">
                                 </div>
                             </div>
 
-                            <div class="col-lg-12 col-md-12">
+                            <div class="col-lg-12 col-md-12 post-Method">
                                 <div class="form-group">
                                     <label>آدرس <span class="required">*</span></label>
                                     <textarea id="address" cols="30" rows="5" placeholder="آدرس" class="form-control" asp-for="Address"></textarea>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 post-Method">
                                 <div class="form-group">
                                     <label>کد پستی <span class="required">*</span></label>
                                     <input type="text" class="form-control" asp-for="PostalCode">
                                 </div>
                             </div>
 
-                            <div class="col-lg-12 col-md-12">
+                            <div class="col-lg-12 col-md-12 post-Method">
                                 <div class="form-group">
                                     <textarea id="notes" cols="30" rows="5" placeholder="یادداشت" class="form-control" asp-for="Notes"></textarea>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -140,11 +150,12 @@
 
                                     <tr>
                                         <td class="order-shipping">
-                                            <span>کرایه</span>
+                                            <span>هزینه ارسال</span>
                                         </td>
 
                                         <td class="shipping-price">
-                                            <span>35000 تومان</span>
+                                            <span id="postPrice"> تومان</span>
+                                            <span id="freePost" class="d-none"> ارسال رایگان</span>
                                         </td>
                                     </tr>
 
@@ -154,7 +165,8 @@
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="subtotal-amount">@(order.EndPrice + 35000) تومان</span>
+                                            <span class="subtotal-amount" id="subtotal-amount-with-postal-price">@(order.EndPrice + 35000) تومان</span>
+                                            <span class="subtotal-amount d-none" id="subtotal-amount-without-postal-price">@order.EndPrice تومان</span>
                                         </td>
                                     </tr>
 
@@ -186,7 +198,9 @@
                                     <label for="paypal" class="text-secondary">درگاه پرداخت (به زودی فعال میشود)</label>
                                 </p>
                             </div>
+
                             <input type="hidden" value="@order.EndPrice" asp-for="SumPrice" />
+                            <input type="hidden" value="@order.Id" asp-for="Id" />
                             <input type="submit" class="default-btn order-btn" value="ثبت نهایی سفارش" />
                         </div>
                     </div>
@@ -210,18 +224,36 @@
             img.setAttribute("src", imgSrc);
         }
 
-        $(document).ready(function () {
-            // Display the modal
-            $('#notification-modal').modal('show');
 
-            // Hide the modal after 10 seconds
-            setTimeout(function () {
-                $('#notification-modal').modal('hide');
-            }, 1000);
-        });
+        if (document.querySelector("#direct-bank-transfer").hasAttribute("checked")) {
+            showCardNum()
+        }
+
     </script>
 
-    @if (ViewBag.Notification != null &&(bool) ViewBag.Notification == true)
+    <script>
+        const postalPrice = 35000;
+        document.querySelector("#postPrice").innerHTML = postalPrice + " تومان";
+
+        const btn = document.querySelector("#flexSwitchCheckChecked");
+        const infoDiv = document.querySelectorAll(".post-Method");
+
+        function PostMethod() {            
+            infoDiv.forEach((item, index, array) => {
+                item.classList.toggle("d-none");
+            })
+            document.querySelector("#postPrice").classList.toggle("d-none");
+            document.querySelector("#freePost").classList.toggle("d-none");
+            document.querySelector("#subtotal-amount-with-postal-price").classList.toggle("d-none");
+            document.querySelector("#subtotal-amount-without-postal-price").classList.toggle("d-none");
+        }
+
+        btn.addEventListener("click", PostMethod);
+     
+
+    </script>
+
+    @if (ViewBag.Notification != null && (bool)ViewBag.Notification == true)
     {
         <script>
             $.notify("اطلاعات را به درستی وارد کنید", "error");

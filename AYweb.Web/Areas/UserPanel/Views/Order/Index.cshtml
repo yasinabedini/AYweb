@@ -1,31 +1,8 @@
 ﻿@using AYweb.Core.Convertors
 @using AYweb.Dal.Entities.Order
+@using AYweb.Dal.Enums
 @model List<Order>
 
-@if (Context.Request.Query["successPay"].ToString().ToLower() == "true")
-{
-    <div class="modal" tabindex="-1" role="dialog" id="notification-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">عملیات موفق</h5>
-
-                </div>
-                <div class="modal-body">
-                    <p>سفارش با موفقیت ثبت شد <a class="alert-link">در صورت تایید رسید واریز سفارش در اسرع وقت به دست شما می رسد.</a></p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">بستن</button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-}
 
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg2">
@@ -87,19 +64,22 @@
                                                     @Guid.NewGuid().ToString().Substring(0, 10)
                                                 </td>
                                                 <td>
-                                                    @switch (order.Status.Status.ToLower())
+                                                    @switch (order.Status.Status)
                                                     {
-                                                        case "cart":
-                                                            <p class="text-primary">در حال تکمیل</p>
+                                                        case "Cart":
+                                                            <p class="text-success">در حال تکمیل <i class="fa fa-shopping-basket"></i></p>
                                                             break;
-                                                        case "Approved":
-                                                            <p class="text-warning">در انتظار تایید</p>
+                                                        case "AwaitingApproval":
+                                                            <p class="text-success">در انتظار تایید</p>
                                                             break;
-                                                        case "NotApproved":
-                                                            <p class="text-danger">رد شده</p>
+                                                        case "Failed":
+                                                            <p class="text-danger">رد شده <i class="fa fa-undo"></i></p>
                                                             break;
-                                                        case "Sent":
-                                                            <p class="text-success">ارسال شده</p>
+                                                        case "PreparingSend":
+                                                            <p class="text-success">ارسال شده <i class="fa fa-check-square"></i></p>
+                                                            break;
+                                                        case "Posted":
+                                                            <p class="text-success">در حال آماده سازی برای ارسال <i class="fa fa-check-square"></i></p>
                                                             break;
                                                     }
                                                 </td>
@@ -132,3 +112,11 @@
     </div>
 </section>
 <!-- End Cart Area -->
+@section Scripts {
+    @if (Context.Request.Query["successPay"].ToString().ToLower() == "true")
+    {
+        <script>
+            $.notify("در صورت تایید ، سفارش ارسال خواهد شد", "success");
+        </script>
+    }
+}

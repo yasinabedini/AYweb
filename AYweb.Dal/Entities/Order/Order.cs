@@ -1,4 +1,6 @@
-﻿using StackExchange.Redis;
+﻿using AYweb.Dal.Entities.Transaction;
+using AYweb.Dal.Enums;
+using StackExchange.Redis;
 using System.ComponentModel.DataAnnotations;
 
 namespace AYweb.Dal.Entities.Order;
@@ -9,16 +11,16 @@ public class Order
     public int Id { get; set; }
 
     public User.User? User { get; set; }
-    public int? UserId { get; set; }
+    public int UserId { get; set; }
     public int? ForwardId { get; set; }
     public OrderStatus Status { get; set; }
     public int EndPrice { get; set; }
-    public DateTime CreateDate { get; set; }
-    public bool IsApprove { get; set; }
-    public string? TransactionPictureName { get; set; }
+    public DateTime CreateDate { get; set; }    
+    public int TransactionId { get; set; }
+
     public bool IsDelete { get; set; }
-    public string? Notes { get; set; }
-    public DateTime PayDate { get; set; }
+    public string? Notes { get; set; }    
+    public bool InPersonDelivery { get; set; }
 
     public List<OrderLine> OrderLines { get; set; }
     public Forward? Forward { get; set; }
@@ -28,7 +30,7 @@ public class Order
     {
         return new Order()
         {
-            Status = new OrderStatus("Cart"),
+            Status = new OrderStatus(_OrderStatus.Cart.ToString()),
             CreateDate = DateTime.Now,
             EndPrice = 0,
             IsDelete = false,
@@ -39,15 +41,11 @@ public class Order
     public void CalculateEndPrice()
     {
         EndPrice = OrderLines.Sum(t => t.Product.GetPrice() * t.Count);
+    }   
+
+    public Transaction.Transaction RequestPayment(string transactionScreenShot,string description)
+    {
+        return AYweb.Dal.Entities.Transaction.Transaction.Create(EndPrice, UserId,_TransactionType.PaymentOrder, description, transactionScreenShot);
     }
 
-    public void SendOrder(string address, string trackingCode)
-    {
-        Forward = new Forward()
-        {
-            Address = address,
-            TrackingCode = trackingCode,
-        };
-    }
-  
 }

@@ -54,16 +54,16 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
         [Route("CheckOut")]
         public IActionResult CheckOut(PayOrderViewModel order, IFormFile? transactionPicture)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null||string.IsNullOrEmpty(order.CustomerName))
             {
                 Order orderData = _service.GetCurrentCart(HttpContext);
                 ViewData["Order"] = orderData;
-                ViewBag.Notification = true;                
+                ViewBag.Notification = true;
                 return View(order);
             }
             _service.OrderPayRequest(order, transactionPicture, HttpContext.User.Identity.IsAuthenticated);
 
-            return RedirectToAction("MyOrders", "Order", new { Area = "UserPanel", successPay = true });
+            return RedirectToAction("index", "order", new { area = "userpanel", successPay = true });
         }
     }
 }
