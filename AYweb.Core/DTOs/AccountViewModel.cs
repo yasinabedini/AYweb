@@ -42,4 +42,30 @@ public class SignUpViewModel
     [Display(Name = "رمز عبور")]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
     public string Password { get; set; }
+
+}
+
+public class VerificationUserViewModel
+{
+    [Display(Name = "شماره موبایل")]
+    [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+    [MaxLength(13, ErrorMessage = "{0} نمی تواند بیشتر از {1} باشد")]
+    [Phone(ErrorMessage = "لطفا شماره موبایل خود را به درستی وارد کنید")]
+    public string PhoneNumber { get; set; }
+
+    [Display(Name = "کد فعالسازی")]
+    public string Code { get; set; }
+
+    [Display(Name = "کد فعالسازی کاربر")]
+    public string? VerificationCode { get; set; }
+}
+
+public class UserPhoneNumberViewModel
+{
+    [Display(Name = "شماره موبایل")]
+    [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+    [MaxLength(13, ErrorMessage = "{0} نمی تواند بیشتر از {1} باشد")]
+    [Phone(ErrorMessage = "لطفا شماره موبایل خود را به درستی وارد کنید")]
+    public string PhoneNumber { get; set; }
+
 }

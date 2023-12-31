@@ -1,6 +1,10 @@
-﻿using System.Security.Claims;
+﻿using System.Drawing.Imaging;
+using System.Security.Claims;
 using AYweb.Core.DTOs;
+using AYweb.Core.Senders;
+using AYweb.Core.Services;
 using AYweb.Core.Services.Interfaces;
+using AYweb.Dal.Entities.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -41,18 +45,15 @@ namespace AYweb.Web.Controllers
             else
             {
                 _service.UserRegister(user);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("SendValidationSms",new { phoneNumber=user.PhoneNumber });
             }
-            return View();
         }
-
-
 
         [HttpGet]
         [Route("Login")]
         public IActionResult Login(string returnUrl = "/")
         {
-            return View(new LoginViewModel(){ReturnUrl = returnUrl});
+            return View(new LoginViewModel() { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
@@ -66,7 +67,7 @@ namespace AYweb.Web.Controllers
 
             var userFound = _service.LoginUser(user);
             if (userFound is not null)
-            {                
+            {
                 if (userFound.PhoneNumberConfrimation)
                 {
                     var claims = new List<Claim>()
@@ -84,11 +85,11 @@ namespace AYweb.Web.Controllers
                     };
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
                     _orderService.SynchronizationCart(userFound.UserId);
-                    
+
 
                     if (user.ReturnUrl == "/")
                     {
-                        return RedirectToAction("Index","Home");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -104,7 +105,7 @@ namespace AYweb.Web.Controllers
             }
             else
             {
-                ModelState.AddModelError("PhoneNumber","شماره موبایل یا رمز عبور نادرست است!");
+                ModelState.AddModelError("PhoneNumber", "شماره موبایل یا رمز عبور نادرست است!");
                 return View();
             }
             return View();
@@ -121,6 +122,67 @@ namespace AYweb.Web.Controllers
         {
             _service.AddEmailToNewsLatters(email);
             ViewBag.Subscribe = true;
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Route("SendValidationSms")]
+        public IActionResult SendValidationSms(string phoneNumber)
+        {
+            User user = _service.GetUserByPhoneNumber(phoneNumber);
+            string verificationCode = user.VerificationCode;
+
+            if (string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(verificationCode) || user == null || user.PhoneNumberConfrimation == true)
+            {
+                return NotFound();
+            }
+            Sms.SnedRegisterSms(phoneNumber, verificationCode);
+
+            return RedirectToAction("VerificationPhoneNumber", new UserPhoneNumberViewModel() { PhoneNumber = phoneNumber });
+        }
+
+
+        [HttpGet("VerificationPhoneNumber")]
+        [Route("VerificationPhoneNumber")]
+        public IActionResult VerificationPhoneNumber([Bind] UserPhoneNumberViewModel verification)
+        {
+
+            return View(new VerificationUserViewModel { PhoneNumber = verification.PhoneNumber });
+        }
+
+        [HttpPost]
+        [Route("VerificationPhoneNumber")]
+        public IActionResult VerificationPhoneNumber(VerificationUserViewModel verification)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(new VerificationUserViewModel() { PhoneNumber = verification.PhoneNumber });
+            }
+
+            string verificationCode = _service.GetVerificationCode(verification.PhoneNumber);
+
+            if (verification.Code != verificationCode)
+            {
+                ViewData["ErrorCode"] = true;
+                return View(new VerificationUserViewModel() { PhoneNumber = verification.PhoneNumber });
+            }
+
+            _service.ConfirmPhoneNumber(verification.PhoneNumber);
+
+            User user = _service.GetUserByPhoneNumber(verification.PhoneNumber);
+            var claims = new List<Claim>()
+                    {
+                       new Claim(ClaimTypes.NameIdentifier,user.Username.ToString()),
+                       new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName)
+                    };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            var properties = new AuthenticationProperties
+            {
+                IsPersistent = false
+            };
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
+            _orderService.SynchronizationCart(user.UserId);
+
             return RedirectToAction("Index", "Home");
         }
     }

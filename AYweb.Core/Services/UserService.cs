@@ -62,4 +62,33 @@ public class UserService : IUserService
             _context.SaveChanges();
         }
     }
+
+    public User GetUserByPhoneNumber(string phoneNumber)
+    {
+        return _context.Users.First(t => t.PhoneNumber == phoneNumber);
+    }
+
+    public string GetVerificationCode(string phoneNumber)
+    {
+        User user = _context.Users.First(t => t.PhoneNumber == phoneNumber);
+        string verificationCode = user.VerificationCode;
+        user.VerificationCode = Generator.CreateVerificationCode();
+        UpdateUser(user);
+        return verificationCode;
+    }
+
+    public void ConfirmPhoneNumber(string phoneNumber)
+    {
+        User user = _context.Users.First(t => t.PhoneNumber == phoneNumber);
+        user.PhoneNumberConfrimation = true;
+        UpdateUser(user);
+    }
+
+    public bool UpdateUser(User user)
+    {
+        _context.Update(user);
+        var result = _context.SaveChanges();
+        return result == 1;
+    }
+
 }

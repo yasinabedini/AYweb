@@ -61,7 +61,7 @@ public class PlanService : IPlanService
                 return userPlan.Plan;
             }
         }
-        return GetNormalPlan();
+        return new Plan() { Price = 0, Title = "پنل عادی", PlanType = PlanType.Normal };
     }
 
     public Plan GetNormalPlan()
