@@ -43,6 +43,7 @@ public class AYWebDbContext : DbContext
     public DbSet<UserNotification> UserNotifications { get; set; }
     public DbSet<Gallery> Galleries { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<Counseling> Counselings { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
