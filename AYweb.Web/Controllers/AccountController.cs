@@ -37,6 +37,10 @@ namespace AYweb.Web.Controllers
             {
                 return View();
             }
+            if (_service.IsUserExisting(user.PhoneNumber)&&!_service.GetUserByPhoneNumber(user.PhoneNumber).PhoneNumberConfrimation)
+            {
+                return RedirectToAction("SendValidationSms", new { phoneNumber = user.PhoneNumber });
+            }
             if (_service.IsUserExisting(user.PhoneNumber))
             {
                 ModelState.AddModelError("PhoneNumber", "کاربری با این شماره موبایل ثبت نام کرده است!");
@@ -98,17 +102,14 @@ namespace AYweb.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("PhoneNumber", "شماره موبایل خود دار تایید نکرده اید");
-                    ViewBag.ConfirmPhone = true;
-                    //TODO Confirm Phone
+                    ViewBag.NotVerficationPhoneNotification = true;                                        
                 }
             }
             else
             {
-                ModelState.AddModelError("PhoneNumber", "شماره موبایل یا رمز عبور نادرست است!");
-                return View();
+                ViewBag.NotFoundUser = true;                
             }
-            return View();
+            return View(user);
         }
 
         public IActionResult LogOut()
@@ -181,6 +182,7 @@ namespace AYweb.Web.Controllers
                 IsPersistent = false
             };
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
+            Sms.WellCome(user.PhoneNumber, $"{user.FirstName} {user.LastName}");
             _orderService.SynchronizationCart(user.UserId);
 
             return RedirectToAction("Index", "Home");

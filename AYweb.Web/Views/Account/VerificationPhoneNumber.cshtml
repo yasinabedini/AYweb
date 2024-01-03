@@ -1,5 +1,9 @@
-﻿@using AYweb.Core.DTOs
+﻿
+@using AYweb.Core.DTOs
 @model VerificationUserViewModel
+@{
+   
+}
 
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg2">
@@ -38,9 +42,12 @@
 
             <div class="form-group">
                 <label>کد 6 رقمی</label>
-                <input type="text" asp-for="Code" class="form-control" id="your-email" placeholder="کد تایید 6 رقمی">                
+                <input type="text" asp-for="Code" class="form-control" id="your-email" placeholder="کد تایید 6 رقمی">
             </div>
 
+            <div class="form-group" >
+                <a id="sendCode" class="btn btn-secondary text-white">ارسال مجدد کد</a>
+            </div>
 
             <button type="submit" class="default-btn">تایید کد</button>
         </form>
@@ -48,12 +55,22 @@
 </div>
 <!-- End Login Area -->
 @section Scripts {
-    
-    @if (ViewData["ErrorCode"] != null && (bool)ViewData["ErrorCode"]==true)
-    {    
+
+    @if (ViewData["ErrorCode"] != null && (bool)ViewData["ErrorCode"] == true)
+    {
         <script>
             $.notify("کد تایید را درست وارد کنید!", "error");
         </script>
     }
-    
+
+    <script>
+        function sendCode() {
+            const btnLink = "https://Ayweb.work/SendValidationSms?phoneNumber=0" + @Model.PhoneNumber
+            document.getElementById("sendCode").classList.remove("btn-secondary");
+            document.getElementById("sendCode").classList.add("btn-primary");
+                document.getElementById("sendCode").setAttribute('href', btnLink);
+         
+        }
+        setTimeout(sendCode, 10000);
+    </script>
 }
