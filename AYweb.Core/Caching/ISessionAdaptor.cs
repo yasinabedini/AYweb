@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Core.Caching
 {
-    public interface ICacheAdaptor
+    public interface ISessionAdaptor
     {
         void Add(string key, object value, int absoluteExpirationMinutes, int slidingExpirationMinutes);
         void Remove(string key);
