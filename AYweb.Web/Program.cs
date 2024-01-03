@@ -3,10 +3,10 @@ using AYweb.Core.Serializer;
 using AYweb.Core.Services;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Dal.Context;
-using AYweb.Dal.Entities.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
+using Zamin.Extensions.Caching.Abstractions;
+using Zamin.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,18 +14,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-
-builder.Services.AddDistributedSqlServerCache(option =>
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(t =>
 {
-    option.SchemaName = "dbo";
-    option.TableName = "CacheData";
-    option.ConnectionString = builder.Configuration.GetConnectionString("AyWebConnectionString");
+    t.IOTimeout = TimeSpan.FromDays(15);    
 });
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-builder.Services.AddSingleton<ICacheAdaptor, DistributedCacheAdaptor>();
+
+//builder.Services.AddSingleton<ICacheAdaptor, DistributedCacheAdaptor>();
+builder.Services.AddSingleton<ISessionAdaptor, SessionAdaptor>();
 builder.Services.AddSingleton<IJsonSerializer, NewtonSoftSerializer>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IUserService, UserService>();
@@ -65,6 +67,8 @@ builder.Services.AddAuthentication(options =>
 var app = builder.Build();
 
 
+app.UseSession();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -90,4 +94,5 @@ app.MapControllerRoute(
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStatusCodePagesWithReExecute("/Error/Error");
 app.Run();

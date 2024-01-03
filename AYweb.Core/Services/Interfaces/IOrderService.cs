@@ -25,5 +25,7 @@ public interface IOrderService
     #region OrderLine
     void UpdateOrderLine(OrderLine orderLine);
     void AddOrderLine(OrderLine orderLine);
+    void DeleteOrderLine(int productId, HttpContext context);
+    void ChangeOrderLineCount(int productId, int count, HttpContext context);    
     #endregion
 }

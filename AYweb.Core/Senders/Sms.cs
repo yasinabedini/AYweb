@@ -15,7 +15,7 @@ public static class Sms
                    ",\"pass\":  \"Faraz@4421359831\"" +
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
-                   $",\"patternCode\": \"qpgxm5ifwni13cr\"" +
+                   $",\"patternCode\": \"diyufzcqhhxajo4\"" +
                    ",\"inputData\" : [{\"code\":\"" + code + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
@@ -36,6 +36,22 @@ public static class Sms
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
     }
+    public static void WellCome(string mobile, string username)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09106966244\"" +
+                   ",\"pass\":  \"Faraz@4421359831\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"hvkr7fs8gmcz60v\"" +
+                   ",\"inputData\" : [{\"name\":\"" + username + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    } 
     public static void PayCart(string mobile, string username)
     {
         var client = new RestClient("http://188.0.240.110/api/select");
@@ -65,6 +81,22 @@ public static class Sms
                    $",\"toNum\": \"{mobile}\"" +
                    $",\"patternCode\": \"3706jtp1ms1fslk\"" +
                    ",\"inputData\" : [{\"user-name\":\"" + username + "\"}]}"
+                   , ParameterType.RequestBody);
+        IRestResponse response = client.Execute(request);
+    }
+    public static void CounselingRequest(string mobile, string username)
+    {
+        var client = new RestClient("http://188.0.240.110/api/select");
+        var request = new RestRequest(Method.POST);
+        request.AddHeader("cache-control", "no-cache");
+        request.AddHeader("Content-Type", "application/json");
+        request.AddParameter("undefined", "{\"op\" : \"pattern\"" +
+                   ",\"user\" : \"09106966244\"" +
+                   ",\"pass\":  \"Faraz@4421359831\"" +
+                   ",\"fromNum\" : \"+98EVENT\"" +
+                   $",\"toNum\": \"{mobile}\"" +
+                   $",\"patternCode\": \"1ep2qpzc3q1zxpc\"" +
+                   ",\"inputData\" : [{\"name\":\"" + username + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
     }

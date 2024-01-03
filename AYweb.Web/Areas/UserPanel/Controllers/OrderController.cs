@@ -19,6 +19,8 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
             _permissionService = permissionService;
         }
 
+
+        #region Orders
         [Route("MyOrders")]
         public IActionResult Index(bool successPay)
         {
@@ -38,8 +40,9 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
 
             return View(order);
         }
+        #endregion
 
-
+        #region CheckOut
         [HttpGet]
         [Route("CheckOut")]
         public IActionResult CheckOut()
@@ -49,12 +52,11 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
             ViewData["Order"] = order;
             return View();
         }
-
         [HttpPost]
         [Route("CheckOut")]
         public IActionResult CheckOut(PayOrderViewModel order, IFormFile? transactionPicture)
         {
-            if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null||string.IsNullOrEmpty(order.CustomerName))
+            if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null || string.IsNullOrEmpty(order.CustomerName))
             {
                 Order orderData = _service.GetCurrentCart(HttpContext);
                 ViewData["Order"] = orderData;
@@ -65,5 +67,8 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
 
             return RedirectToAction("index", "order", new { area = "userpanel", successPay = true });
         }
+        #endregion
+
+       
     }
 }

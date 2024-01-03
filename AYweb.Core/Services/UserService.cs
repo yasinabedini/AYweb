@@ -1,8 +1,10 @@
 ﻿using AYweb.Core.DTOs;
 using AYweb.Core.Generators;
 using AYweb.Core.Security;
+using AYweb.Core.Senders;
 using AYweb.Core.Services.Interfaces;
 using AYweb.Dal.Context;
+using Zamin.Utilities.Services.DependentyInjection;
 using AYweb.Dal.Entities.User;
 
 namespace AYweb.Core.Services;
@@ -91,4 +93,18 @@ public class UserService : IUserService
         return result == 1;
     }
 
+    public void CounselingUser(CounselingViewModel Counseling)
+    {
+        _context.Counselings.Add(new Counseling
+        {
+            PhoneNumber = Counseling.PhoneNumber,
+            Message = Counseling.Message,
+            UserName = Counseling.UserName,
+            Title = Counseling.Title,
+            IsCall = false
+        });
+        _context.SaveChanges();
+
+        Sms.CounselingRequest(Counseling.PhoneNumber, Counseling.UserName);
+    }
 }

@@ -20,15 +20,17 @@ public class OrderService : IOrderService
     private readonly IPermissionService _permissionService;
     private readonly IProductService _productService;
     private readonly ITransactionService _transactionService;
-    private readonly ICacheAdaptor _cache;
+    private readonly ISessionAdaptor _cache;
+    private readonly IUserService _useerService;
 
-    public OrderService(AYWebDbContext context, IPermissionService permissionService, ICacheAdaptor cache, IProductService productService, ITransactionService transactionService)
+    public OrderService(AYWebDbContext context, IPermissionService permissionService, ISessionAdaptor cache, IProductService productService, ITransactionService transactionService, IUserService useerService)
     {
         _context = context;
         _permissionService = permissionService;
         _cache = cache;
         _productService = productService;
         _transactionService = transactionService;
+        _useerService = useerService;
     }
 
     public void AddOrder(Order order)
@@ -45,7 +47,7 @@ public class OrderService : IOrderService
 
     public void AddProductToOrder(HttpContext context, Product product, int count)
     {
-        Order order = GetCurrentCart(context);
+        Dal.Entities.Order.Order order = GetCurrentCart(context);
 
         //Auth User 
         if (context.User.Identity.IsAuthenticated)
@@ -211,7 +213,7 @@ public class OrderService : IOrderService
             {
                 string fileName = Generator.CreateUniqueText(15) + Path.GetExtension(TransactionScreenShot.FileName);
                 file.SaveImage(TransactionScreenShot, fileName, "Transaction-ScreenShots", false);
-                Transaction transaction = mainOrder.RequestPayment(fileName, $"Payment Order By Id : ({mainOrder.Id})");                
+                Transaction transaction = mainOrder.RequestPayment(fileName, $"Payment Order By Id : ({mainOrder.Id})");
                 _transactionService.AddTransaction(transaction);
                 mainOrder.TransactionId = transaction.Id;
             }
@@ -288,4 +290,31 @@ public class OrderService : IOrderService
         _context.OrderLines.Update(orderLine);
         _context.SaveChanges();
     }
+
+    public void ChangeOrderLineCount(int productId, int count, HttpContext context)
+    {
+        Order cart = GetCurrentCart(context);
+        OrderLine orderline = cart.OrderLines.FirstOrDefault(t => t.ProductId == productId);
+        orderline.Count = count;
+        orderline.CalculateSumPrice();
+        cart.CalculateEndPrice();
+
+
+        if (context.User.Identity.IsAuthenticated)
+        {
+            UpdateOrderLine(orderline);
+            UpdateOrder(cart);
+        }
+
+        else
+        {
+            _cache.Remove("UserCart");
+            _cache.Add("UserCart", cart, 28800, 21600);
+        }
+    }   
+    public void DeleteOrderLine(int productId, HttpContext context)
+    {
+        throw new NotImplementedException();
+    }
+
 }

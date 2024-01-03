@@ -1,4 +1,5 @@
-﻿@using AYweb.Core.Services.Interfaces
+﻿@using System.Configuration
+@using AYweb.Core.Services.Interfaces
 @using AYweb.Dal.Entities.Order
 @using AYweb.Dal.Entities.Product
 @model Order
@@ -27,7 +28,7 @@
 <!-- Start Cart Area -->
 <section class="cart-area pb-100 pt-4">
     <div class="container">
-        @if (Model==null)
+        @if (Model == null)
         {
             <div class="row">
                 <div class="cart-table table-responsive">
@@ -60,7 +61,7 @@
                                         @foreach (var orderLine in Model.OrderLines ?? new List<OrderLine>())
                                         {
                                             Product product = _productService.GetProductById(orderLine.ProductId);
-                                           
+
 
                                             <tr>
                                                 <td class="product-thumbnail">
@@ -79,9 +80,12 @@
 
                                                 <td class="product-quantity">
                                                     <div class="input-counter">
-                                                        <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                                        <input type="text" min="1" value="@orderLine.Count">
-                                                        <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                                                        <form id="productInfo[@product.Id]" asp-controller="Order" asp-action="ChangeOrderLineCount">
+                                                            <input type="hidden" name="productId" value="@product.Id" />
+                                                            <span class="minus-btn"><i class="fas fa-minus"></i></span>
+                                                            <input type="text" min="1" value="@orderLine.Count" id="productCount[@product.Id]" onchange="changeOrderLineCount(@product.Id)">
+                                                            <span class="plus-btn"><i class="fas fa-plus" ></i></span>
+                                                        </form>
                                                     </div>
                                                 </td>
 
@@ -107,7 +111,7 @@
                                 </div>
 
                                 <div class="col-lg-5 col-sm-5 col-md-5 text-right">
-                                    <a href="#" class="default-btn">بروزرسانی سبد خرید <span></span></a>
+                                    <a asp-controller="order" asp-action="MyCart" class="default-btn">بروزرسانی سبد خرید <span></span></a>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +124,7 @@
                                 <li>کرایه <span>35000 تومان</span></li>
                                 <li>مجموع <span><b>@(@Model.EndPrice + 35000) تومان</b></span></li>
                             </ul>
-                            <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut"  class="default-btn">پرداخت <span></span></a>
+                            <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut" class="default-btn">پرداخت <span></span></a>
                         </div>
                     </form>
                 </div>
@@ -129,3 +133,18 @@
     </div>
 </section>
 <!-- End Cart Area -->
+@section Scripts {
+    <script>
+
+        function changeOrderLineCount(productId) {
+            const productCount = document.getElementById("productCount[" + productId + "]").value;
+            const xhr = new XMLHttpRequest();
+            var params = "productId=" + productId + "&" + "count=" + productCount;
+            xhr.open("POST", "@ConfigurationManager.AppSettings["Domain"]/Order/ChangeOrderLineCount?productId=" + productId + "&count=" + productCount);
+            xhr.setRequestHeader('context-type', 'application/w-xxx-fomr-urlencoded');
+            xhr.send(params);
+        }
+
+
+    </script>
+}

@@ -1,4 +1,5 @@
 ﻿using AYweb.Core.DTOs;
+using Zamin.Utilities.Services.DependentyInjection;
 using AYweb.Dal.Entities.User;
 
 namespace AYweb.Core.Services.Interfaces;
@@ -15,4 +16,6 @@ public interface IUserService
     string GetVerificationCode(string phoneNumber);
     void ConfirmPhoneNumber(string phoneNumber);
     bool UpdateUser(User user);
+
+    void CounselingUser(CounselingViewModel Counseling);
 }

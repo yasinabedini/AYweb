@@ -18,9 +18,19 @@ namespace AYweb.Web.Controllers
         {
             return View(_service.GetCurrentCart(HttpContext));
         }
-        
+
+        [HttpPost]
+        public void ChangeOrderLineCount(int productId, int count)
+        {
+            _service.ChangeOrderLineCount(productId, count, HttpContext);
+        }
+
+        public IActionResult DeleteOrderLine(int productId)
+        {
+            _service.DeleteOrderLine(productId, HttpContext);
+            return RedirectToAction("MyCart", "Index", new { area = "UserPanel" });
+        }
 
 
-        
     }
 }
