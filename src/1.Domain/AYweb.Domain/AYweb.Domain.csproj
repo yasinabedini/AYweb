@@ -8,10 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\AIPFramework\AIPFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Product\ValueObjects\" />
+    <Folder Include="Models\Product\Rules\" />
   </ItemGroup>
 
 </Project>
