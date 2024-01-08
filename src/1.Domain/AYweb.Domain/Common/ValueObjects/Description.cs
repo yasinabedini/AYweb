@@ -1,5 +1,5 @@
-﻿using AIPFramework.Entities;
-using AIPFramework.Exceptions;
+﻿using AIPFramework.Exceptions;
+using AIPFramework.ValueObjects;
 using AYweb.Domain.Common.Rules;
 using System;
 using System.Collections.Generic;
