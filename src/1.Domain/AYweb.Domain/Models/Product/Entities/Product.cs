@@ -1,9 +1,11 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Order.Entities;
+using System.ComponentModel;
 
 namespace AYweb.Domain.Models.Product.Entities;
 
-public class Product : AggregateRoot<int>
+public class Product : AggregateRoot
 {
     #region Properties
     public string Name { get; private set; }
@@ -27,6 +29,8 @@ public class Product : AggregateRoot<int>
     public bool IsActive { get; private set; }
 
     public bool IsDelete { get; private set; }
+
+    public IReadOnlyList<OrderLine> OrderLines { get; set; }
     #endregion
 
     #region Constructor and factories
@@ -148,9 +152,14 @@ public class Product : AggregateRoot<int>
         return (Price) * (DiscountedPercent / 100);
     }
 
+    public int SalesNumber()
+    {
+        return OrderLines.Count == 0 ? 0 : OrderLines.Where(t => t.Order.IsApproved).Sum(t => t.Count);
+    }
+
     public void UpdateProduct(string? name, string? shortDescription, string? mainDescription, string? seoDescription, string? imageName, int? price, int? discountedPercent, int? inventory, bool? isSpecial)
     {
-        if (!string.IsNullOrEmpty(name)) ChangeName(name);        
+        if (!string.IsNullOrEmpty(name)) ChangeName(name);
         if (!string.IsNullOrEmpty(shortDescription)) ChangeShortDescription(shortDescription);
         if (!string.IsNullOrEmpty(mainDescription)) ChangeMainDescription(mainDescription);
         if (!string.IsNullOrEmpty(seoDescription)) ChangeSeoDescription(seoDescription);

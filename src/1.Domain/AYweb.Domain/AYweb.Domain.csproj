@@ -16,8 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Order\Rules\" />
     <Folder Include="Models\Product\ValueObjects\" />
     <Folder Include="Models\Product\Rules\" />
+    <Folder Include="Models\Transaction\Entities\Configs\" />
+    <Folder Include="Models\Transaction\Rules\" />
   </ItemGroup>
 
 </Project>
