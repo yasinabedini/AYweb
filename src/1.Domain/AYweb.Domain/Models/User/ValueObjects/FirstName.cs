@@ -1,4 +1,4 @@
-﻿using AIPFramework.Entities;
+﻿using AIPFramework.ValueObjects;
 using AYweb.Domain.Common.Rules;
 using AYweb.Domain.Models.User.Rules;
 

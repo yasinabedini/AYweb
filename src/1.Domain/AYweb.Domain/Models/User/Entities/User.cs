@@ -1,9 +1,10 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Models.User.ValueObjects;
+using System.Transactions;
 
 namespace AYweb.Domain.Models.User.Entities;
 
-public class User : AggregateRoot<int>
+public class User : AggregateRoot
 {
     #region Properties
     public FirstName FirstName { get; private set; }
@@ -25,6 +26,8 @@ public class User : AggregateRoot<int>
     public bool IsActive { get; private set; }
 
     public bool IsDelete { get; private set; }
+
+    public IReadOnlyList<Transaction.Entities.Transaction> Transactions { get; set; }    
 
     //public List<UserRoles> RolesList { get; set; }
 
@@ -56,7 +59,7 @@ public class User : AggregateRoot<int>
 
     private void Modified()
     {
-        ModifiedAt = DateTime.Now;
+        ModifiedAt = DateTime.Now;       
     }
 
     public void ChangeFirstName(string firstName)
