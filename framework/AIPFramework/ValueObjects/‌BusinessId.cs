@@ -1,4 +1,7 @@
-﻿namespace AIPFramework.Entities;
+﻿using AIPFramework.Exceptions;
+using AIPFramework.ValueObjects.Rule;
+
+namespace AIPFramework.ValueObjects;
 public class BusinessId : BaseValueObject<BusinessId>
 {
     public static BusinessId FromString(string value) => new(value);
@@ -6,10 +9,8 @@ public class BusinessId : BaseValueObject<BusinessId>
 
     public BusinessId(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidValueObjectStateException("ValidationErrorIsRequire", nameof(BusinessId));
-        }
+        CheckRule(new TheValueMustNotBeEmpty(value));
+
         if (Guid.TryParse(value, out Guid tempValue))
         {
             Value = tempValue;

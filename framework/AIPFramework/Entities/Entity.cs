@@ -1,4 +1,6 @@
-﻿namespace AIPFramework.Entities;
+﻿using AIPFramework.ValueObjects;
+
+namespace AIPFramework.Entities;
 /// <summary>
 /// کلاس پایه برای تمامی Entityها موجود در سامانه
 /// </summary>
