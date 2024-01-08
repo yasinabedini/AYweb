@@ -31,6 +31,8 @@ public class Product : AggregateRoot
     public bool IsDelete { get; private set; }
 
     public IReadOnlyList<OrderLine> OrderLines { get; set; }
+    public IReadOnlyList<Comment> Comments { get; set; }
+    public List<Feature> Features { get; set; }    
     #endregion
 
     #region Constructor and factories

@@ -1,6 +1,5 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Blog.ValueObjects;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 

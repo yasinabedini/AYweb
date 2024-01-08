@@ -1,7 +1,6 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Models.User.ValueObjects;
-using System.Transactions;
-
+using AYweb.Domain.Common.ValueObjects;
 namespace AYweb.Domain.Models.User.Entities;
 
 public class User : AggregateRoot
