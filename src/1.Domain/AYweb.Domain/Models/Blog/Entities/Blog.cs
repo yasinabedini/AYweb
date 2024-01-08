@@ -4,7 +4,7 @@ using AYweb.Domain.Models.Blog.ValueObjects;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
-public class Blog : AggregateRoot<int>
+public class Blog : AggregateRoot
 {
     #region Properties
     public Title Title { get; private set; }
