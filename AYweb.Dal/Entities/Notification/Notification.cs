@@ -1,6 +1,4 @@
-﻿using AYweb.Dal.Entities.User;
-
-namespace AYweb.Dal.Entities.Notification;
+﻿namespace AYweb.Dal.Entities.Notification;
 
 public class Notification
 {

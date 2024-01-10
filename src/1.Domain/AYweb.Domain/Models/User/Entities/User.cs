@@ -1,6 +1,8 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Models.User.ValueObjects;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Role.Entities;
+using AYweb.Domain.Models.Notification.Entities;
 namespace AYweb.Domain.Models.User.Entities;
 
 public class User : AggregateRoot
@@ -26,9 +28,11 @@ public class User : AggregateRoot
 
     public bool IsDelete { get; private set; }
 
-    public IReadOnlyList<Transaction.Entities.Transaction> Transactions { get; set; }    
+    public IReadOnlyList<Transaction.Entities.Transaction> Transactions { get; set; }
 
-    //public List<UserRoles> RolesList { get; set; }
+    public List<Role_Users> RolesList { get; set; }
+
+    public List<UserNotification> Notifications { get; set; }
 
     #endregion
 
@@ -58,13 +62,13 @@ public class User : AggregateRoot
 
     private void Modified()
     {
-        ModifiedAt = DateTime.Now;       
+        ModifiedAt = DateTime.Now;
     }
 
     public void ChangeFirstName(string firstName)
     {
         FirstName = new FirstName(firstName);
-        Modified();                            
+        Modified();
     }
 
     public void ChangeLastName(string lastName)
@@ -132,8 +136,18 @@ public class User : AggregateRoot
 
         if (!string.IsNullOrEmpty(phoneNumber))
         {
-           ChangePhoneNumber(phoneNumber);
-        }            
+            ChangePhoneNumber(phoneNumber);
+        }
+    }
+
+    public void AddUserRole(Role.Entities.Role role)
+    {
+        RolesList.Add(Role_Users.Create((int)role.Id, (int)Id));
+    }
+
+    public void AddNotification(int notificationId)
+    {
+        Notifications.Add(UserNotification.Create(notificationId, (int)Id));
     }
 
     public void DeleteUser()

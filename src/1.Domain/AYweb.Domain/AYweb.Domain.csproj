@@ -21,6 +21,8 @@
     <Folder Include="Models\Order\Rules\" />
     <Folder Include="Models\Product\ValueObjects\" />
     <Folder Include="Models\Product\Rules\" />
+    <Folder Include="Models\Role\Rule\" />
+    <Folder Include="Models\Role\ValueObjects\" />
     <Folder Include="Models\Transaction\Rules\" />
   </ItemGroup>
 
