@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AIPFramework.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,13 @@ namespace AYweb.Domain.Models.Academy.Entities.Configs
     {
         public void Configure(EntityTypeBuilder<Academy> builder)
         {
-            throw new NotImplementedException();
+            builder.HasData(new Academy("AyWeb", 2, 3));
+
+            builder.HasKey(x => x.Id);
+            
+            builder.Property(t=>t.Name).HasMaxLength(250).IsRequired();
+            builder.Property(t=>t.ProjectCount).IsRequired();
+            builder.Property(t=>t.TeamCount).IsRequired();            
         }
     }
 }
