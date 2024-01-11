@@ -1,5 +1,6 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
@@ -18,11 +19,16 @@ public class Blog : AggregateRoot
 
     public string? Tags { get; private set; }
 
+    
     public string ImageName { get; private set; }
+
+    public List<Gallery.Entities.Gallery> Galleries { get; set; }
 
     public bool IsActive { get; set; }
 
     public bool IsDeleted { get; private set; }
+
+    public User.Entities.User Author { get; set; }
     #endregion
 
     #region Constructor And Factories
