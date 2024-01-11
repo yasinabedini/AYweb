@@ -11,7 +11,7 @@ public class Academy : Entity
         
     public int ProjectCount { get; private set; }
 
-    private Academy(string name,int teamCount,int projectCount)
+    public Academy(string name,int teamCount,int projectCount)
     {
         Name = name;
         TeamCount = teamCount;
