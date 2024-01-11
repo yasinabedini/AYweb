@@ -1,5 +1,6 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Gallery.Entities;
 using AYweb.Domain.Models.Order.Entities;
 using System.ComponentModel;
 
@@ -18,7 +19,7 @@ public class Product : AggregateRoot
 
     public int Price { get; private set; }
 
-    public string ImageName { get; private set; }
+    public Gallery.Entities.Gallery Image { get; private set; }
 
     public int DiscountedPercent { get; private set; }
 
@@ -43,7 +44,7 @@ public class Product : AggregateRoot
         ShortDescription = new Description(shortDescription);
         MainDescription = new Description(mainDescription);
         SeoDescription = new Description(seoDescription);
-        ImageName = imageName;
+        Image = Gallery.Entities.Gallery.Create(imageName);
         Price = price;
         DiscountedPercent = discountedPercent;
         Inventory = inventory;
@@ -114,7 +115,7 @@ public class Product : AggregateRoot
 
     public void ChangeImageName(string imageName)
     {
-        ImageName = imageName;
+        Image =Gallery.Entities.Gallery.Create( imageName);
         Modified();
     }
 
