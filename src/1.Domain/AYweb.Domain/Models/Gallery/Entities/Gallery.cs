@@ -1,7 +1,11 @@
 ﻿using AIPFramework.Entities;
+using AYweb.Domain.Models.Blog.Entities.Configs;
+using AYweb.Domain.Models.Gallery.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Gallery.Entities;
 
+[EntityTypeConfiguration(typeof(GalleryConfig))]
 public class Gallery : AggregateRoot
 {
     #region Properties

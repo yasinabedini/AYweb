@@ -1,8 +1,11 @@
 ﻿using AIPFramework.Entities;
-using AYweb.Domain.Models.Product.Entities;
+using AYweb.Domain.Models.Academy.Entities.Configs;
+using AYweb.Domain.Models.Order.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
+[EntityTypeConfiguration(typeof(OrderLineConfig))]
 public class OrderLine : Entity
 {
     #region Properties

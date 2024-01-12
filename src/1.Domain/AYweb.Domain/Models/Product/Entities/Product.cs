@@ -1,17 +1,18 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Gallery.Entities;
 using AYweb.Domain.Models.Order.Entities;
-using System.ComponentModel;
+using AYweb.Domain.Models.Product.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Product.Entities;
 
+[EntityTypeConfiguration(typeof(ProductConfig))]
 public class Product : AggregateRoot
 {
     #region Properties
     public string Name { get; private set; }
 
-    public Description ShortDescription { get; private set; }
+    public Description ShortDescription { get; private set; }   
 
     public Description MainDescription { get; private set; }
 
@@ -31,8 +32,8 @@ public class Product : AggregateRoot
 
     public bool IsDelete { get; private set; }
 
-    public IReadOnlyList<OrderLine> OrderLines { get; set; }
-    public IReadOnlyList<Comment> Comments { get; set; }
+    public List<OrderLine> OrderLines { get; set; }
+    public List<Comment> Comments { get; set; }
     public List<Feature> Features { get; set; }    
     #endregion
 

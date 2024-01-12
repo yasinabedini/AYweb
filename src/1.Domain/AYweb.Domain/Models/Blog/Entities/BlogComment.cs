@@ -1,7 +1,11 @@
 ﻿using AIPFramework.Entities;
+using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Blog.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
+[EntityTypeConfiguration(typeof(BlogCommentConfig))]
 public class BlogComment : Entity
 {
     #region Properties
@@ -11,7 +15,7 @@ public class BlogComment : Entity
 
     public string UserName { get; private set; }
 
-    public string UserPhoneNumber { get; private set; }
+    public PhoneNumber UserPhoneNumber { get; private set; }
 
     public Blog Blog { get; set; }    
 

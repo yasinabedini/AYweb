@@ -1,9 +1,11 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
+using AYweb.Domain.Models.Blog.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
+[EntityTypeConfiguration(typeof(BlogConfig))]
 public class Blog : AggregateRoot
 {
     #region Properties
@@ -11,14 +13,13 @@ public class Blog : AggregateRoot
 
     public Description Summary { get; private set; }
 
-    public Description Introduction { get; private set; }
+    public Description Introduction { get; private set; }    
 
     public string Text { get; private set; }
 
     public int AuthorId { get; init; }
 
     public string? Tags { get; private set; }
-
     
     public string ImageName { get; private set; }
 
@@ -29,6 +30,8 @@ public class Blog : AggregateRoot
     public bool IsDeleted { get; private set; }
 
     public User.Entities.User Author { get; set; }
+
+    public List<Blog_Groups> Groups { get; set; } 
     #endregion
 
     #region Constructor And Factories

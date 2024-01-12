@@ -52,6 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
 	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.babelrc" />
 	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.github\FUNDING.yml" />
 	  <None Include="wwwroot\f3oall-awesome-notifications-ede7940\.github\ISSUE_TEMPLATE\bug_report.md" />

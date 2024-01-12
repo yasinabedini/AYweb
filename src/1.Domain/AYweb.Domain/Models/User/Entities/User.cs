@@ -3,8 +3,12 @@ using AYweb.Domain.Models.User.ValueObjects;
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Role.Entities;
 using AYweb.Domain.Models.Notification.Entities;
+using Microsoft.EntityFrameworkCore;
+using AYweb.Domain.Models.User.Entities.Configs;
+
 namespace AYweb.Domain.Models.User.Entities;
 
+[EntityTypeConfiguration(typeof(UserConfig))]
 public class User : AggregateRoot
 {
     #region Properties
@@ -19,16 +23,16 @@ public class User : AggregateRoot
     public bool PhoneNumberConfrimation { get; private set; }
 
     public bool EmailConfrimation { get; private set; }
-
+    
     public string Password { get; private set; }
 
-    private VerificationCode VerificationCode { get; set; }
+    internal VerificationCode VerificationCode { get; set; }
 
     public bool IsActive { get; private set; }
 
     public bool IsDelete { get; private set; }
 
-    public IReadOnlyList<Transaction.Entities.Transaction> Transactions { get; set; }
+    public List<Transaction.Entities.Transaction> Transactions { get; set; }
 
     public List<Role_Users> RolesList { get; set; }
 

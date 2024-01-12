@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AYweb.Domain.Models.User.Entities.Configs;
 
-public class UserConfigs : IEntityTypeConfiguration<User>
+public class UserConfig : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {

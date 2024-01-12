@@ -1,11 +1,15 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Academy.Entities.Configs;
+using AYweb.Domain.Models.Plan.Entities.Configs;
 using AYweb.Domain.Models.Plan.Enums;
 using AYweb.Domain.Models.Plan.ValueObjects;
 using AYweb.Domain.Models.User.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Plan.Entities;
 
+[EntityTypeConfiguration(typeof(PlanConfig))]
 public class Plan : AggregateRoot
 {
     #region Properties

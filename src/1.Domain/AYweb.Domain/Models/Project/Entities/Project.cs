@@ -1,10 +1,14 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Academy.Entities.Configs;
 using AYweb.Domain.Models.Gallery.Entities;
+using AYweb.Domain.Models.Project.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
 namespace AYweb.Domain.Models.Project.Entities;
 
+[EntityTypeConfiguration(typeof(ProjectConfig))]
 public class Project : AggregateRoot
 {
     #region Properties
@@ -24,7 +28,7 @@ public class Project : AggregateRoot
 
     public bool IsDelete { get; set; }
 
-    List<Gallery.Entities.Gallery> Galleries { get; set; }
+   public List<Gallery.Entities.Gallery> Galleries { get; set; }
     #endregion
 
     #region Constructor And Factories

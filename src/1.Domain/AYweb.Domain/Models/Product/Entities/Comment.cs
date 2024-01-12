@@ -1,8 +1,11 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
+using AYweb.Domain.Models.Product.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Product.Entities;
 
+[EntityTypeConfiguration(typeof(CommentConfig))]
 public class Comment : Entity
 {
     #region Properties

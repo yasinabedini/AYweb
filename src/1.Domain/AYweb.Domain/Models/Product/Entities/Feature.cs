@@ -1,10 +1,11 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using AYweb.Domain.Models.Product.Entities.Configs;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Product.Entities;
 
+[EntityTypeConfiguration(typeof(FeatureConfig))]
 public class Feature : Entity
 {
     #region Properties
