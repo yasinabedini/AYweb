@@ -7,6 +7,8 @@ public class UserNotificationConfig : IEntityTypeConfiguration<UserNotification>
 {
     public void Configure(EntityTypeBuilder<UserNotification> builder)
     {
-        throw new NotImplementedException();
+        builder.HasOne(t => t.User);
+        
+        builder.HasOne(t => t.Notification);
     }
 }

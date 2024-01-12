@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AYweb.Domain.Models.Notification.Entities.Configs;
+namespace AYweb.Domain.Models.Blog.Entities.Configs;
 
-public class NotificationConfig : IEntityTypeConfiguration<Notification>
+public class BlogGroupConfig : IEntityTypeConfiguration<BlogGroup>
 {
-    public void Configure(EntityTypeBuilder<Notification> builder)
+    public void Configure(EntityTypeBuilder<BlogGroup> builder)
     {
         builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
     }

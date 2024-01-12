@@ -12,6 +12,6 @@ public class GalleryConfig : IEntityTypeConfiguration<Gallery>
 {
     public void Configure(EntityTypeBuilder<Gallery> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(t => t.ImageName).HasMaxLength(50).IsRequired();
     }
 }

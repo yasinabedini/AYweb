@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AYweb.Domain.Common.ValueObjects.Conversion;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,21 @@ public class ProjectConfig : IEntityTypeConfiguration<Project>
 {
     public void Configure(EntityTypeBuilder<Project> builder)
     {
-        throw new NotImplementedException();
+        builder.Property(t=>t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
+
+        builder.Property(t => t.ShortDescription).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
+        
+        builder.Property(t => t.Description).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
+
+        builder.Property(t => t.ShamsiDateString).HasMaxLength(150).IsRequired();
+
+        builder.Property(t => t.CustomerName).HasMaxLength(100).IsRequired();
+
+        builder.Property(t => t.RelatedService).HasMaxLength(100).IsRequired();
+
+        builder.Property(t => t.Link).HasMaxLength(200).IsRequired();
+
+        builder.HasMany(t => t.Galleries);
+
     }
 }
