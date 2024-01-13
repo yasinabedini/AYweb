@@ -1,14 +1,12 @@
-using AYweb.Domain;
 using AYweb.Infrastructure;
+using AYweb.Domain;
 using AYweb.Application;
-using AYweb.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDomain();
-builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
-builder.Services.AddPresentation();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

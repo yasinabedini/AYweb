@@ -2,14 +2,15 @@
 using AYweb.Domain.Models.Academy.Entities.Configs;
 using AYweb.Domain.Models.Order.Entities.Configs;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
 [EntityTypeConfiguration(typeof(ForwardConfig))]
-public class Forward : Entity
+public class Forward : Entity<long>
 {
     #region Properties
-    public int OrderId { get;private set; }
+    public long OrderId { get;private set; }
 
     public string Province { get; private set; }
 
@@ -25,6 +26,7 @@ public class Forward : Entity
 
     public string TransfereeName { get; private set; }
 
+    [ForeignKey("OrderId")]
     public Order Order { get; set; }
 
     #endregion

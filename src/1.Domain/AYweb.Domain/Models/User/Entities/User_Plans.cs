@@ -2,12 +2,12 @@
 
 namespace AYweb.Domain.Models.User.Entities;
 
-public class User_Plans : Entity
+public class User_Plans : Entity<long>
 {
     #region Properties
-    public int UserId { get; private set; }
+    public long UserId { get; private set; }
 
-    public int PlanId { get; private set; }
+    public long PlanId { get; private set; }
 
     public DateTime EndDate { get; private set; }
 

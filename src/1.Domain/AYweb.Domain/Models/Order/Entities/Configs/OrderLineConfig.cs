@@ -13,7 +13,6 @@ public class OrderLineConfig : IEntityTypeConfiguration<OrderLine>
     public void Configure(EntityTypeBuilder<OrderLine> builder)
     {
         builder.HasOne(t => t.Product);
-        
-        builder.HasOne(t => t.Order);
+                
     }
 }

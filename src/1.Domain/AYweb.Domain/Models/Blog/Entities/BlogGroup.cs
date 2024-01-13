@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
-[EntityTypeConfiguration(typeof(BlogCommentConfig))]
-public class BlogGroup : Entity
+[EntityTypeConfiguration(typeof(BlogGroupConfig))]
+public class BlogGroup : Entity<long>
 {
     #region Properties
     public Title Title { get;private set; }

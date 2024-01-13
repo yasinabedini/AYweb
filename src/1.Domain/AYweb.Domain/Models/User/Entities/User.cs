@@ -32,11 +32,9 @@ public class User : AggregateRoot
 
     public bool IsDelete { get; private set; }
 
-    public List<Transaction.Entities.Transaction> Transactions { get; set; }
-
-    public List<Role_Users> RolesList { get; set; }
-
     public List<UserNotification> Notifications { get; set; }
+
+    public List<Role_Users> RolesList { get; private set; }
 
     #endregion
 

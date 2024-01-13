@@ -18,6 +18,6 @@ public class ProductConfig : IEntityTypeConfiguration<Product>
 
         builder.HasMany(t => t.Comments);
         builder.HasMany(t => t.Features);
-        builder.HasMany(t => t.OrderLines);
+        //builder.HasMany(t => t.OrderLines);
     }
 }

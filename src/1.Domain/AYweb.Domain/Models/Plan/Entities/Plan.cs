@@ -21,8 +21,8 @@ public class Plan : AggregateRoot
 
     public bool IsDelete { get; private set; }
 
-    public List<PlanFeature> planFeatures { get;private set; }
-    public IReadOnlyList<User_Plans> User_Plans { get;private set; }
+    //public List<PlanFeature> planFeatures { get;private set; }
+    //public IReadOnlyList<User_Plans> User_Plans { get;private set; }
     #endregion
 
     #region Constructors And Factories
@@ -32,7 +32,7 @@ public class Plan : AggregateRoot
         Title = new Title(title);
         PlanType = new PlanType(planType.ToString());
         Price = price;
-        planFeatures = new List<PlanFeature>();
+       // planFeatures = new List<PlanFeature>();
         CreateAt = DateTime.Now;
     }
     public static Plan Create(string title, _PlanType planType, int price)
@@ -73,16 +73,16 @@ public class Plan : AggregateRoot
         Modified();
     }
 
-    public void AddFeature(PlanFeature feature)
-    {
-        planFeatures.Add(feature);
-        Modified();
-    }
+    //public void AddFeature(PlanFeature feature)
+    //{
+    //    planFeatures.Add(feature);
+    //    Modified();
+    //}
 
-    public bool CheckUser(int userId)
-    {
-        return User_Plans.Any(t => t.User.Id == userId);
-    }
+    //public bool CheckUser(int userId)
+    //{
+    //    return User_Plans.Any(t => t.User.Id == userId);
+    //}
 
     #endregion
 }

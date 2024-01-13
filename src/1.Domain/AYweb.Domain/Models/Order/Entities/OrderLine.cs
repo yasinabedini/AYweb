@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AYweb.Domain.Models.Order.Entities;
 
 [EntityTypeConfiguration(typeof(OrderLineConfig))]
-public class OrderLine : Entity
+public class OrderLine : Entity<long>
 {
     #region Properties
     public int ProductId { get; private set; }

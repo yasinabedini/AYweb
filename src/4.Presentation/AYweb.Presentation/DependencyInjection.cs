@@ -1,17 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace AYweb.Presentation;
+
+namespace Ayweb.Presentation;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
-
+        services.AddDbContext<AyWebDbContext>(option => option.UseSqlServer("server=YasiAbdn\\ABDN;initial catalog=Db-AyWeb2;integrated Security=true;TrustServerCertificate=True"));
 
         return services;
     }

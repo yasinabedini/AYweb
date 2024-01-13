@@ -9,6 +9,8 @@ public class BlogCommentConfig : IEntityTypeConfiguration<BlogComment>
     public void Configure(EntityTypeBuilder<BlogComment> builder)
     {
         builder.Property(t => t.UserName).HasMaxLength(100).IsRequired();
+        
+
 
         builder.Property(t => t.UserPhoneNumber).HasConversion<PhoneNumberConversion>().HasMaxLength(20).IsRequired();
         

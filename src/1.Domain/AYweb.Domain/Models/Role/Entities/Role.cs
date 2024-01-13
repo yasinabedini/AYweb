@@ -43,10 +43,10 @@ public class Role : AggregateRoot
         Title = new Title(title);
         Modified();
     }
-    
+
     public void AddUserToRole(Role_Users user)
     {
-        Role_Users.Add(user);            
+        Role_Users.Add(user);
     }
 
     public void AddPermissionToRole(Role_Permission role_Permission)

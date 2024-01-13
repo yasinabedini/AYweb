@@ -9,15 +9,15 @@ namespace AYweb.Domain.Models.Blog.Entities;
 public class Blog : AggregateRoot
 {
     #region Properties
-    public Title Title { get; private set; }
+    public string Title { get; private set; }
 
-    public Description Summary { get; private set; }
+    public string Summary { get; private set; }
 
-    public Description Introduction { get; private set; }    
+    public string Introduction { get; private set; }    
 
     public string Text { get; private set; }
 
-    public int AuthorId { get; init; }
+    public long AuthorId { get; init; }
 
     public string? Tags { get; private set; }
     
@@ -38,9 +38,9 @@ public class Blog : AggregateRoot
     private Blog() { }
     public Blog(string title, string summery, string introduction, string text, int authorId, string? tags, string imageName)
     {
-        Title = new Title(title);
-        Summary = new Description(summery);
-        Introduction = new Description(introduction);
+        Title = title;
+        Summary = summery;
+        Introduction = introduction;
         Text = text;
         AuthorId = authorId;
         Tags = tags;
@@ -63,19 +63,19 @@ public class Blog : AggregateRoot
 
     public void ChangeTitle(string title)
     {
-        Title = new Title(title);
+        Title = title;
         Modified();
     }
 
     public void ChangeSummary(string summary)
     {
-        Summary = new Description(summary);
+        Summary = summary;
         Modified();
     }
 
     public void ChangeIntroduction(string introduction)
     {
-        Introduction = new Description(introduction);
+        Introduction =introduction;
         Modified();
     }
 

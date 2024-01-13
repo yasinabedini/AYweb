@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Domain.Models.Role.Entities
 {
-    public class Role_Users : Entity
+    public class Role_Users : Entity<long>
     {
         #region Properties
         public int RoleId { get; set; }

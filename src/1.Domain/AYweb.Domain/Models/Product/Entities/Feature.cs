@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AYweb.Domain.Models.Product.Entities;
 
 [EntityTypeConfiguration(typeof(FeatureConfig))]
-public class Feature : Entity
+public class Feature : Entity<long>
 {
     #region Properties
     public Title Title { get; private set; }

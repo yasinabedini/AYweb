@@ -18,7 +18,7 @@ namespace AYweb.Domain.Models.Plan.Entities.Configs
             
             builder.Property(t => t.PlanType).HasConversion<PlanTypeConversion>().HasMaxLength(100).IsRequired();
             
-            builder.Property(t => t.planFeatures).HasConversion<PlanFeatureConversion>().HasMaxLength(100).IsRequired();
+//            builder.Property(t => t.planFeatures).HasConversion<PlanFeatureConversion>().HasMaxLength(100).IsRequired();
         }
     }
 }

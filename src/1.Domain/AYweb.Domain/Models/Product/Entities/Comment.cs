@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AYweb.Domain.Models.Product.Entities;
 
 [EntityTypeConfiguration(typeof(CommentConfig))]
-public class Comment : Entity
+public class Comment : Entity<long>
 {
     #region Properties
     public Title Title { get; private set; }

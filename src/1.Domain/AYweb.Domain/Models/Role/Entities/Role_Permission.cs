@@ -2,7 +2,7 @@
 using AYweb.Domain.Models.Permission.Entities;
 
 namespace AYweb.Domain.Models.Role.Entities;
-public class Role_Permission : Entity
+public class Role_Permission : Entity<long>
 {
     #region Properties
     public int RoleId { get; set; }

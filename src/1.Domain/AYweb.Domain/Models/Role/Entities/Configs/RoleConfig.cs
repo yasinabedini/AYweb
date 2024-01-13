@@ -15,9 +15,9 @@ namespace AYweb.Domain.Models.Role.Entities.Configs
         {
             builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
 
-            builder.HasMany(t => t.Permissions);
-            
-            builder.HasMany(t => t.Role_Users);
+//            builder.HasMany(t => t.Permissions);
+//            
+//            builder.HasMany(t => t.Role_Users);
         }
     }
 }

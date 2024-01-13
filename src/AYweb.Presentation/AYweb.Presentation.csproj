@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="12.2.0" />
+		<PrivateAssets>all</PrivateAssets>
+		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
+		<ProjectReference Include="..\..\2.Infrastructure\AYweb.Infrastructure\AYweb.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\3.Application\AYweb.Application\AYweb.Application.csproj" />
+	</ItemGroup>
+
+</Project>

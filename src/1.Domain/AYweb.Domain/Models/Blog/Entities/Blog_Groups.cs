@@ -5,7 +5,7 @@ using System.Security.AccessControl;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
-public class Blog_Groups : Entity
+public class Blog_Groups : Entity<long>
 {
     #region Properties
     public int BlogGroupId { get; private set; }

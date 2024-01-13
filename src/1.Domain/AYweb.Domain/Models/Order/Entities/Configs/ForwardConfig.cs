@@ -18,8 +18,7 @@ namespace AYweb.Domain.Models.Order.Entities.Configs
             builder.Property(t => t.TrackingCode).HasMaxLength(40).IsRequired();
 
             builder.Property(t => t.TransfereeName).HasMaxLength(100).IsRequired();
-            
-            builder.HasOne(t => t.Order);
+                        
         }
     }
 }

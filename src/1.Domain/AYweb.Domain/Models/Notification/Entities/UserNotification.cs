@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AYweb.Domain.Models.Notification.Entities;
 
 [EntityTypeConfiguration(typeof(UserNotificationConfig))]
-public class UserNotification : Entity
+public class UserNotification : Entity<long>
 {
     public bool IsSeen { get; private set; }
 
