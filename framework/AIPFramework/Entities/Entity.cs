@@ -1,4 +1,5 @@
 ﻿using AIPFramework.ValueObjects;
+using System.Runtime.CompilerServices;
 
 namespace AIPFramework.Entities;
 /// <summary>
@@ -20,7 +21,7 @@ public abstract class Entity<TId> : IAuditableEntity where TId : struct, ICompar
     /// شناسه اصلی Entity که در همه جا باید مورد استفاده قرار گیرد BusinessId است.
     /// تمامی ارتباطات به کمک این شناسه باید برقرار شود.
     /// </summary>
-    public BusinessId BusinessId { get; protected set; } = BusinessId.FromGuid(Guid.NewGuid());
+    //public BusinessId BusinessId { get; protected set; } = BusinessId.FromGuid(Guid.NewGuid());
 
     /// <summary>
     /// سازنده پیش‌فرض به صورت Protected تعریف شده است.
@@ -57,5 +58,5 @@ public abstract class Entity<TId> : IAuditableEntity where TId : struct, ICompar
 
 public abstract class Entity : Entity<long>
 {
-
+    
 }
