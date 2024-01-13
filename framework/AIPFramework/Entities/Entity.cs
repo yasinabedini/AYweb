@@ -21,7 +21,7 @@ public abstract class Entity<TId> : IAuditableEntity where TId : struct, ICompar
     /// شناسه اصلی Entity که در همه جا باید مورد استفاده قرار گیرد BusinessId است.
     /// تمامی ارتباطات به کمک این شناسه باید برقرار شود.
     /// </summary>
-    //public BusinessId BusinessId { get; protected set; } = BusinessId.FromGuid(Guid.NewGuid());
+    public BusinessId BusinessId { get; protected set; } = BusinessId.FromGuid(Guid.NewGuid());
 
     /// <summary>
     /// سازنده پیش‌فرض به صورت Protected تعریف شده است.

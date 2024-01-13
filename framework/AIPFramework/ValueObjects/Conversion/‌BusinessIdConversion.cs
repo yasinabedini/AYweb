@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AIPFramework.ValueObjects.Conversion
 {
-    //public class BussinesIdConversion : ValueConverter<BusinessId,string>
-    //{
-    //    public BussinesIdConversion() : base(t => t.Value.ToString(), t => BusinessId.FromString(t)) { }
-    //}
+    public class BussinesIdConversion : ValueConverter<BusinessId, string>
+    {
+        public BussinesIdConversion() : base(t => t.Value.ToString(), t => BusinessId.FromString(t)) { }
+    }
 }
