@@ -1,10 +1,12 @@
-﻿using AYweb.Domain.Models.Academy.Entities;
+﻿using AIPFramework.ValueObjects;
+using AYweb.Domain.Models.Academy.Entities;
 using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Gallery.Entities;
 using AYweb.Domain.Models.Notification.Entities;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Permission.Entities;
 using AYweb.Domain.Models.Plan.Entities;
+using AYweb.Domain.Models.Plan.ValueObjects;
 using AYweb.Domain.Models.Product.Entities;
 using AYweb.Domain.Models.Project.Entities;
 using AYweb.Domain.Models.Role.Entities;
@@ -12,16 +14,17 @@ using AYweb.Domain.Models.Service.Entities;
 using AYweb.Domain.Models.Transaction.Entities;
 using AYweb.Domain.Models.User.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Contexts
 {
     public class AyWebDbContext : DbContext
     {
+        public AyWebDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        #region Models
+
         #region Academy
         public DbSet<Academy> Academies { get; set; }
         #endregion
@@ -43,11 +46,11 @@ namespace AYweb.Infrastructure.Contexts
         #endregion
 
         #region Order
-        public DbSet<Forward> Forwards { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
+        public DbSet<Forward> Forwards { get; set; }
         #endregion
-
+        
         #region Permission
         public DbSet<Permission> Permissions { get; set; }
         #endregion
@@ -84,5 +87,18 @@ namespace AYweb.Infrastructure.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<User_Plans> User_Plans { get; set; }
         #endregion
+
+        #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Ignore(typeof(BusinessId));
+            base.OnModelCreating(modelBuilder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("server=YasiAbdn\\ABDN;initial catalog=Db-AyWeb2;integrated Security=true;TrustServerCertificate=True");
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }
