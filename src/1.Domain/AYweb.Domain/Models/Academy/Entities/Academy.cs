@@ -1,10 +1,8 @@
 ﻿using AIPFramework.Entities;
-using AYweb.Domain.Models.Academy.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Academy.Entities;
 
-[EntityTypeConfiguration(typeof(AcademyConfig))]
+
 public class Academy : Entity
 {        
     public string Name { get;private set; }

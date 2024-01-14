@@ -1,12 +1,8 @@
 ﻿using AIPFramework.Entities;
-using AYweb.Domain.Models.Academy.Entities.Configs;
-using AYweb.Domain.Models.Order.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
-[EntityTypeConfiguration(typeof(ForwardConfig))]
 public class Forward : Entity<long>
 {
     #region Properties

@@ -2,13 +2,9 @@
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Order.ValueObjects;
 using AIPFramework.Exceptions;
-using AYweb.Domain.Models.Academy.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
-using AYweb.Domain.Models.Order.Entities.Configs;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
-[EntityTypeConfiguration(typeof(OrderConfig))]
 public class Order : AggregateRoot
 {
     #region Properties

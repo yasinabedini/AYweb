@@ -1,11 +1,8 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Service.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Service.Entities;
 
-[EntityTypeConfiguration(typeof(ServiceConfig))]
 public class Service : AggregateRoot
 {
     #region Properties

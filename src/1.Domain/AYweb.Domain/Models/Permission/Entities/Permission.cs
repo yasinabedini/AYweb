@@ -1,12 +1,8 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Academy.Entities.Configs;
-using AYweb.Domain.Models.Permission.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Permission.Entities;
 
-[EntityTypeConfiguration(typeof(PermissionConfig))]
 public class Permission : AggregateRoot
 {
     #region Properties

@@ -1,11 +1,8 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Blog.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
-[EntityTypeConfiguration(typeof(BlogGroupConfig))]
 public class BlogGroup : Entity<long>
 {
     #region Properties

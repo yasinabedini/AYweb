@@ -1,12 +1,12 @@
 ﻿using AIPFramework.ValueObjects;
 using AYweb.Domain.Models.Academy.Entities;
+using AYweb.Domain.Models.Academy.Entities.Configs;
 using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Gallery.Entities;
 using AYweb.Domain.Models.Notification.Entities;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Permission.Entities;
 using AYweb.Domain.Models.Plan.Entities;
-using AYweb.Domain.Models.Plan.ValueObjects;
 using AYweb.Domain.Models.Product.Entities;
 using AYweb.Domain.Models.Project.Entities;
 using AYweb.Domain.Models.Role.Entities;
@@ -93,8 +93,12 @@ namespace AYweb.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore(typeof(BusinessId));
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AcademyConfig).Assembly);
+
             base.OnModelCreating(modelBuilder);
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=YasiAbdn\\ABDN;initial catalog=Db-AyWeb2;integrated Security=true;TrustServerCertificate=True");

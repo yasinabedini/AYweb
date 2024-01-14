@@ -1,12 +1,8 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.ValueObjects;
-using AYweb.Domain.Models.Academy.Entities.Configs;
-using AYweb.Domain.Models.Role.Entities.Configs;
-using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Domain.Models.Role.Entities;
 
-[EntityTypeConfiguration(typeof(RoleConfig))]
 public class Role : AggregateRoot
 {
     #region Properties

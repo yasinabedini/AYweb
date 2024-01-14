@@ -3,12 +3,9 @@ using AYweb.Domain.Models.User.ValueObjects;
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Role.Entities;
 using AYweb.Domain.Models.Notification.Entities;
-using Microsoft.EntityFrameworkCore;
-using AYweb.Domain.Models.User.Entities.Configs;
 
 namespace AYweb.Domain.Models.User.Entities;
 
-[EntityTypeConfiguration(typeof(UserConfig))]
 public class User : AggregateRoot
 {
     #region Properties

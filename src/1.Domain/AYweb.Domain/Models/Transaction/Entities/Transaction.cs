@@ -3,12 +3,9 @@ using AYweb.Domain.Models.Transaction.ValueObjects;
 using AYweb.Domain.Models.Transaction.Enums;
 using AIPFramework.Exceptions;
 using AYweb.Domain.Common.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-using AYweb.Domain.Models.Transaction.Entities.Configs;
 
 namespace AYweb.Domain.Models.Transaction.Entities;
 
-[EntityTypeConfiguration(typeof(TransactionConfig))]
 public class Transaction : AggregateRoot
 {
     #region Properties
