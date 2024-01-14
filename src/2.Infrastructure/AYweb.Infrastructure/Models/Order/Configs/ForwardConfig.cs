@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AYweb.Domain.Models.Order.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AYweb.Domain.Models.Order.Entities.Configs
+namespace AYweb.Infrastructure.Models.Order.Configs
 {
     public class ForwardConfig : IEntityTypeConfiguration<Forward>
     {
@@ -18,7 +19,7 @@ namespace AYweb.Domain.Models.Order.Entities.Configs
             builder.Property(t => t.TrackingCode).HasMaxLength(40).IsRequired();
 
             builder.Property(t => t.TransfereeName).HasMaxLength(100).IsRequired();
-                        
+
         }
     }
 }

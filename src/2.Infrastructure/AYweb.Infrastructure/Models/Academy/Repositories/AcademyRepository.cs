@@ -1,31 +1,12 @@
 ﻿using AYweb.Domain.Models.Academy.Repositories;
+using AYweb.Infrastructure.Common.Repository;
+using AYweb.Infrastructure.Contexts;
 
 namespace AYweb.Infrastructure.Models.Academy.Repositories;
 
-public class AcademyRepository : IAcademyRepository
+public class AcademyRepository : BaseRepository<Domain.Models.Academy.Entities.Academy>, IAcademyRepository
 {
-    public void Add(Domain.Models.Academy.Entities.Academy entity)
+    public AcademyRepository(AyWebDbContext context) : base(context)
     {
-        throw new NotImplementedException();
-    }
-
-    public Domain.Models.Academy.Entities.Academy GetById(long id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Domain.Models.Academy.Entities.Academy> GetList()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Save()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(Domain.Models.Academy.Entities.Academy entity)
-    {
-        throw new NotImplementedException();
     }
 }

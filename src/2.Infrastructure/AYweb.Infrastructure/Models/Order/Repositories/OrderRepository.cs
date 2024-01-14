@@ -1,31 +1,12 @@
 ﻿using AYweb.Domain.Models.Order.Repositories;
+using AYweb.Infrastructure.Common.Repository;
+using AYweb.Infrastructure.Contexts;
 
 namespace AYweb.Infrastructure.Models.Order.Repositories;
 
-public class OrderRepository : IOrderRepository
+public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order>, IOrderRepository
 {
-    public void Add(Domain.Models.Order.Entities.Order entity)
+    public OrderRepository(AyWebDbContext context) : base(context)
     {
-        throw new NotImplementedException();
-    }
-
-    public Domain.Models.Order.Entities.Order GetById(long id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Domain.Models.Order.Entities.Order> GetList()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Save()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(Domain.Models.Order.Entities.Order entity)
-    {
-        throw new NotImplementedException();
     }
 }

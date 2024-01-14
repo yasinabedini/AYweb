@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Domain.Models.Project.Entities.Configs;
+namespace AYweb.Infrastructure.Models.Project.Configs;
 
 public class ProjectConfig : IEntityTypeConfiguration<Project>
 {
     public void Configure(EntityTypeBuilder<Project> builder)
     {
-        builder.Property(t=>t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
+        builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
 
         builder.Property(t => t.ShortDescription).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
-        
+
         builder.Property(t => t.Description).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
 
         builder.Property(t => t.ShamsiDateString).HasMaxLength(150).IsRequired();

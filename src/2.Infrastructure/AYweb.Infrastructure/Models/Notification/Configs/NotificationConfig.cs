@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AYweb.Domain.Models.Notification.Entities.Configs;
+namespace AYweb.Infrastructure.Models.Notification.Configs;
 
 public class NotificationConfig : IEntityTypeConfiguration<Notification>
 {

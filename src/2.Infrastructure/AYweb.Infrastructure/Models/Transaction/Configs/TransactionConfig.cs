@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Domain.Models.Transaction.Entities.Configs;
+namespace AYweb.Infrastructure.Models.Transaction.Configs;
 
 public class TransactionConfig : IEntityTypeConfiguration<Transaction>
 {

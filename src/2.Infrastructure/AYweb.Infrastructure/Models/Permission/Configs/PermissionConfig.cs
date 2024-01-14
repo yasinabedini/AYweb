@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Domain.Models.Permission.Entities.Configs
+namespace AYweb.Infrastructure.Models.Permission.Configs
 {
     public class PermissionConfig : IEntityTypeConfiguration<Permission>
     {

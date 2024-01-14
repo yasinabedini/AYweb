@@ -3,7 +3,7 @@ using AYweb.Domain.Models.User.ValueObjects.Conversion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AYweb.Domain.Models.User.Entities.Configs;
+namespace AYweb.Infrastructure.Models.User.Configs;
 
 public class UserConfig : IEntityTypeConfiguration<User>
 {

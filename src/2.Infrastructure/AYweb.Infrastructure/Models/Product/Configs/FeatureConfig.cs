@@ -1,8 +1,9 @@
 ﻿using AYweb.Domain.Common.ValueObjects.Conversion;
+using AYweb.Domain.Models.Product.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AYweb.Domain.Models.Product.Entities.Configs;
+namespace AYweb.Infrastructure.Models.Product.Configs;
 
 public class FeatureConfig : IEntityTypeConfiguration<Feature>
 {

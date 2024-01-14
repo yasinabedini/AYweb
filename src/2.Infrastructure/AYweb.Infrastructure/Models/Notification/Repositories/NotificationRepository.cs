@@ -1,4 +1,6 @@
 ﻿using AYweb.Domain.Models.Notification.Repositories;
+using AYweb.Infrastructure.Common.Repository;
+using AYweb.Infrastructure.Contexts;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,30 +10,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Notification.Repositories;
 
-public class NotificationRepository : INotificationRepository
+public class NotificationRepository : BaseRepository<Domain.Models.Notification.Entities.Notification>, INotificationRepository
 {
-    public void Add(Domain.Models.Notification.Entities.Notification entity)
+    public NotificationRepository(AyWebDbContext context) : base(context)
     {
-        throw new NotImplementedException();
-    }
-
-    public Domain.Models.Notification.Entities.Notification GetById(long id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Domain.Models.Notification.Entities.Notification> GetList()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Save()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(Domain.Models.Notification.Entities.Notification entity)
-    {
-        throw new NotImplementedException();
     }
 }

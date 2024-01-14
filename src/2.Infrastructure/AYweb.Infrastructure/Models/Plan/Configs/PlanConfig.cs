@@ -8,17 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Domain.Models.Plan.Entities.Configs
+namespace AYweb.Infrastructure.Models.Plan.Configs
 {
     public class PlanConfig : IEntityTypeConfiguration<Plan>
     {
         public void Configure(EntityTypeBuilder<Plan> builder)
         {
             builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
-            
+
             builder.Property(t => t.PlanType).HasConversion<PlanTypeConversion>().HasMaxLength(100).IsRequired();
-            
-//            builder.Property(t => t.planFeatures).HasConversion<PlanFeatureConversion>().HasMaxLength(100).IsRequired();
+
+            //            builder.Property(t => t.planFeatures).HasConversion<PlanFeatureConversion>().HasMaxLength(100).IsRequired();
         }
     }
 }
