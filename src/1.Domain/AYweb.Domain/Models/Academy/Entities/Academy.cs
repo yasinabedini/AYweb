@@ -3,7 +3,7 @@
 namespace AYweb.Domain.Models.Academy.Entities;
 
 
-public class Academy : Entity
+public class Academy : AggregateRoot
 {        
     public string Name { get;private set; }
    

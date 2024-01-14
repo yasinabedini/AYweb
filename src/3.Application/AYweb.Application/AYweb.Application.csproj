@@ -19,7 +19,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Zamin.Infra.Tools.OM.AutoMapper" Version="6.2.0-beta.2" />
     
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\User\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\framework\AIPFramework\AIPFramework.csproj" />
+    <ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
   </ItemGroup>
 
 </Project>

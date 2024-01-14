@@ -2,7 +2,7 @@
 
 namespace AYweb.Domain.Models.Permission.Repositories
 {
-    public interface IPermissionService: IRepository<Permission.Entities.Permission>
+    public interface IPermissionRepository : IRepository<Entities.Permission>
     {
     }
 }

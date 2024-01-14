@@ -2,6 +2,6 @@
 
 namespace AYweb.Domain.Models.Transaction.Repositories;
 
-public interface ITransactionService : IRepository<Transaction.Entities.Transaction>
+public interface ITransactionRepository : IRepository<Transaction.Entities.Transaction>
 {
 }

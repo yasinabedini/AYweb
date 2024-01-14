@@ -1,6 +1,5 @@
 ﻿using AIPFramework.ValueObjects;
 using AYweb.Domain.Models.Academy.Entities;
-using AYweb.Domain.Models.Academy.Entities.Configs;
 using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Gallery.Entities;
 using AYweb.Domain.Models.Notification.Entities;
@@ -13,6 +12,7 @@ using AYweb.Domain.Models.Role.Entities;
 using AYweb.Domain.Models.Service.Entities;
 using AYweb.Domain.Models.Transaction.Entities;
 using AYweb.Domain.Models.User.Entities;
+using AYweb.Infrastructure.Models.Academy.Configs;
 using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Infrastructure.Contexts

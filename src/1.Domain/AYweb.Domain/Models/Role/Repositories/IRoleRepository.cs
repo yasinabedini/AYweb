@@ -2,7 +2,7 @@
 
 namespace AYweb.Domain.Models.Role.Repositories
 {
-    public interface IProjectRepository : IRepository<Project.Entities.Project>
+    public interface IRoleRepository : IRepository<Role.Entities.Role>
     {
     }
 }
