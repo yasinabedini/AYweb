@@ -11,7 +11,17 @@ namespace AYweb.Application.Models.User.Commands.CreateUser
     {
         public CreateUserValidator()
         {
-            //RuleFor(t=>t.)
+            RuleFor(t => t.FirstName)
+                .NotEmpty().NotNull().MaximumLength(100);
+
+            RuleFor(t => t.LastName)
+                .NotEmpty().NotNull().MaximumLength(100);
+
+            RuleFor(t => t.PhoneNumber)
+                .NotEmpty().NotNull().MaximumLength(15);
+
+            RuleFor(t => t.Password)
+                .NotEmpty().NotNull().MaximumLength(50);
         }
     }
 }
