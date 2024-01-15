@@ -1,14 +1,12 @@
 ﻿using AIPFramework.Commands;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.User.Commands.CreateUser
 {
     public class CreateUserCommand : ICommand<bool>
     {
+        public required string FirstName { get; set; }
+        public  required string LastName { get; set; }
+        public required string PhoneNumber { get; set; }
+        public required string Password { get; set; }      
     }
 }

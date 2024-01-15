@@ -9,6 +9,9 @@ namespace AYweb.Application.Models.User.Commands.CreateUser
 {
     public class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {
-
+        public CreateUserValidator()
+        {
+            //RuleFor(t=>t.)
+        }
     }
 }
