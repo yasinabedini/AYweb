@@ -11,18 +11,26 @@ namespace AYweb.Infrastructure.Models.User.Repositories;
 
 public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, IUserRepository
 {
+    private readonly AyWebDbContext _context;
+
     public UserRepository(AyWebDbContext context) : base(context)
     {
+        _context = context;
     }
 
-    public Domain.Models.User.Entities.User GetUSerByEmail(string email)
+    public Domain.Models.User.Entities.User GetUserByEmail(string email)
     {
-        throw new NotImplementedException();
+        return _context.Users.First(t => t.Email == email);
+    }
+
+    public Domain.Models.User.Entities.User GetUserById(long id)
+    {
+        return _context.Users.Find(id);
     }
 
     public Domain.Models.User.Entities.User GetUSerByPhoneNumber(string phoneNumber)
     {
-        throw new NotImplementedException();
+        return _context.Users.First(t => t.PhoneNumber.Value == phoneNumber);
     }
 
     public Domain.Models.User.Entities.User GetUSerByUsername(string username)

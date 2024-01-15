@@ -15,6 +15,7 @@ public abstract class Entity<TId> : IAuditableEntity where TId : struct, ICompar
     public TId Id { get; protected set; }
     public DateTime CreateAt { get; set; }
     public DateTime? ModifiedAt { get; set; }
+    public bool IsDelete { get; set; }
 
     /// <summary>
     /// شناسه Entity

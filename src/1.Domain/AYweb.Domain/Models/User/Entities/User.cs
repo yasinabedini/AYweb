@@ -105,6 +105,12 @@ public class User : AggregateRoot
         Modified();
     }
 
+    public void ChangeEmail(string email)
+    {
+        Email = email;
+        Modified();
+    }
+
     public void ConfirmEmail()
     {
         EmailConfrimation = true;

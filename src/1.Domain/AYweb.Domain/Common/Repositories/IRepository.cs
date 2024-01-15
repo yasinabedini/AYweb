@@ -13,6 +13,7 @@ namespace AYweb.Domain.Common.Repositories
         void Add(TEntity entity);
         List<TEntity> GetList();
         void Update(TEntity entity);
+        void Delete(long id);
         void Save();
 
     }
