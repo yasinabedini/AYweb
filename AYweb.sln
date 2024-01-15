@@ -30,7 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ayweb.Presentation", "src\4.Presentation\Ayweb.Presentation\Ayweb.Presentation.csproj", "{932DD9EC-9B60-4F50-A170-89D5402C1DF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ayweb.Presentation", "src\4.Presentation\Ayweb.Presentation\Ayweb.Presentation.csproj", "{932DD9EC-9B60-4F50-A170-89D5402C1DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ayweb.Api", "Ayweb.Api\Ayweb.Api.csproj", "{2443635B-9809-477A-89D7-7B68258F7B5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{932DD9EC-9B60-4F50-A170-89D5402C1DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{932DD9EC-9B60-4F50-A170-89D5402C1DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{932DD9EC-9B60-4F50-A170-89D5402C1DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2443635B-9809-477A-89D7-7B68258F7B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2443635B-9809-477A-89D7-7B68258F7B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2443635B-9809-477A-89D7-7B68258F7B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2443635B-9809-477A-89D7-7B68258F7B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{F4685CDC-5C63-45AF-BD23-76436D1A4902} = {A547E9A8-EB2C-4576-A151-462EF0354093}
 		{8F28CD92-A1B6-4F2B-8D01-36BF283888A6} = {CEF5AFEC-246F-4D93-B2F5-D9F8C378E851}
 		{932DD9EC-9B60-4F50-A170-89D5402C1DF1} = {90651D21-D052-4049-9DD6-02BF42472E31}
+		{2443635B-9809-477A-89D7-7B68258F7B5A} = {90651D21-D052-4049-9DD6-02BF42472E31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {500EC1B3-D10A-46A7-BB71-C8D1DF816CEB}

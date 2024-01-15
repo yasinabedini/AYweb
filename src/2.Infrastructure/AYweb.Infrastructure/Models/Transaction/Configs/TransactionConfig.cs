@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Transaction.Configs;
 
-public class TransactionConfig : IEntityTypeConfiguration<Transaction>
+public class TransactionConfig : IEntityTypeConfiguration<Domain.Models.Transaction.Entities.Transaction>
 {
-    public void Configure(EntityTypeBuilder<Transaction> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.Transaction.Entities.Transaction> builder)
     {
         builder.Property(t => t.Status).HasConversion<TransactionStatusConversion>().HasMaxLength(150).IsRequired();
 

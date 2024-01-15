@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Order.Configs
 {
-    public class OrderConfig : IEntityTypeConfiguration<Order>
+    public class OrderConfig : IEntityTypeConfiguration<Domain.Models.Order.Entities.Order>
     {
-        public void Configure(EntityTypeBuilder<Order> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Order.Entities.Order> builder)
         {
             builder.Property(t => t.Notes).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
 

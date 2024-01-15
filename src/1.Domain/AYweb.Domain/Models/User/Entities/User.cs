@@ -20,10 +20,10 @@ public class User : AggregateRoot
     public bool PhoneNumberConfrimation { get; private set; }
 
     public bool EmailConfrimation { get; private set; }
-    
+
     public string Password { get; private set; }
 
-    internal VerificationCode VerificationCode { get; set; }
+    public VerificationCode VerificationCode { get; set; }
 
     public bool IsActive { get; private set; }
 
@@ -36,15 +36,19 @@ public class User : AggregateRoot
     #endregion
 
     #region Constructors And Factories
-    private User() { }
+    private User()
+    {
+        CreateAt = DateTime.Now;
+        IsActive = true;
+        SetVerificationCode();
+    }
     public User(string firstName, string lastName, string phoneNumber, string hashPassword)
     {
         FirstName = new FirstName(firstName);
         LastName = new LastName(lastName);
         PhoneNumber = new PhoneNumber(phoneNumber);
 
-        Random random = new Random();
-        VerificationCode = new VerificationCode(random.Next(111111, 999999).ToString());
+        SetVerificationCode();
 
         Password = hashPassword;
         CreateAt = DateTime.Now;
@@ -62,6 +66,12 @@ public class User : AggregateRoot
     private void Modified()
     {
         ModifiedAt = DateTime.Now;
+    }
+
+    private void SetVerificationCode()
+    {
+        Random random = new Random();
+        VerificationCode = new VerificationCode(random.Next(111111, 999999).ToString());
     }
 
     public void ChangeFirstName(string firstName)

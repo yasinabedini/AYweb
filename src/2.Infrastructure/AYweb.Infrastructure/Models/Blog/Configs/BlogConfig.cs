@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AYweb.Infrastructure.Models.Blog.Configs;
 
-public class BlogConfig : IEntityTypeConfiguration<Blog>
+public class BlogConfig : IEntityTypeConfiguration<Domain.Models.Blog.Entities.Blog>
 {
-    public void Configure(EntityTypeBuilder<Blog> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.Blog.Entities.Blog> builder)
     {
 
         builder.Property(t => t.Text).HasMaxLength(500).IsRequired();

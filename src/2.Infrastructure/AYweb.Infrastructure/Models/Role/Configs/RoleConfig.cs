@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Role.Configs
 {
-    public class RoleConfig : IEntityTypeConfiguration<Role>
+    public class RoleConfig : IEntityTypeConfiguration<Domain.Models.Role.Entities.Role>
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Role.Entities.Role> builder)
         {
             builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
 

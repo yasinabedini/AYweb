@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.15">
@@ -19,7 +20,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Zamin.Infra.Tools.OM.AutoMapper" Version="6.2.0-beta.2" />
+    <PackageReference Include="Zamin.Extensions.DependencyInjection" Version="7.0.0-beta.1" />
+    <PackageReference Include="Zamin.Extensions.DependencyInjection.Abstractions" Version="7.0.0-beta.1" />
+    <PackageReference Include="Zamin.Extensions.ObjectMappers.Abstractions" Version="7.0.0-beta.1" />
+    <PackageReference Include="Zamin.Extensions.ObjectMappers.AutoMapper" Version="7.0.0-beta.1" />
     
   </ItemGroup>
 

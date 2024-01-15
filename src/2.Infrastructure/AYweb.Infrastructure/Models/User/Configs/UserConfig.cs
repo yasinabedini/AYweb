@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AYweb.Infrastructure.Models.User.Configs;
 
-public class UserConfig : IEntityTypeConfiguration<User>
+public class UserConfig : IEntityTypeConfiguration<Domain.Models.User.Entities.User>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.User.Entities.User> builder)
     {
         builder.Property(t => t.FirstName).HasConversion<FirstNameConversion>().HasMaxLength(60).IsRequired();
 
@@ -15,7 +15,7 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.Property(t => t.PhoneNumber).HasConversion<PhoneNumberConversion>().HasMaxLength(20).IsRequired();
 
-        builder.Property(t => t.Email).HasMaxLength(100).IsRequired();
+        builder.Property(t => t.Email).HasMaxLength(100);
 
         builder.Property(t => t.VerificationCode).HasConversion<VerificationCodeConversion>().HasMaxLength(100).IsRequired();
 

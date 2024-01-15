@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AYweb.Infrastructure.Models.Gallery.Configs;
 
-public class GalleryConfig : IEntityTypeConfiguration<Gallery>
+public class GalleryConfig : IEntityTypeConfiguration<Domain.Models.Gallery.Entities.Gallery>
 {
-    public void Configure(EntityTypeBuilder<Gallery> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.Gallery.Entities.Gallery> builder)
     {
 
 

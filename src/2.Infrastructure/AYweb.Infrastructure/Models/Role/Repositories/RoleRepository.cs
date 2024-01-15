@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace AYweb.Infrastructure.Models.Role.Repositories;
 
 public class RoleRepository : BaseRepository<Domain.Models.Role.Entities.Role>, IRoleRepository
-{
+{    
     public RoleRepository(AyWebDbContext context) : base(context)
     {
     }

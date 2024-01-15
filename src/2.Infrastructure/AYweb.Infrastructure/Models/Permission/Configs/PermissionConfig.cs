@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Permission.Configs
 {
-    public class PermissionConfig : IEntityTypeConfiguration<Permission>
+    public class PermissionConfig : IEntityTypeConfiguration<Domain.Models.Permission.Entities.Permission>
     {
-        public void Configure(EntityTypeBuilder<Permission> builder)
+        public void Configure(EntityTypeBuilder<Domain.Models.Permission.Entities.Permission> builder)
         {
             builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
         }

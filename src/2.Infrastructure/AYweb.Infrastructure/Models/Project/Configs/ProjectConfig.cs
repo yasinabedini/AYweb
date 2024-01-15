@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Project.Configs;
 
-public class ProjectConfig : IEntityTypeConfiguration<Project>
+public class ProjectConfig : IEntityTypeConfiguration<Domain.Models.Project.Entities.Project>
 {
-    public void Configure(EntityTypeBuilder<Project> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.Project.Entities.Project> builder)
     {
         builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
 

@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace AYweb.Infrastructure.Models.Product.Configs;
 
-public class ProductConfig : IEntityTypeConfiguration<Product>
+public class ProductConfig : IEntityTypeConfiguration<Domain.Models.Product.Entities.Product>
 {
-    public void Configure(EntityTypeBuilder<Product> builder)
+    public void Configure(EntityTypeBuilder<Domain.Models.Product.Entities.Product> builder)
     {
         builder.Property(t => t.Name).HasMaxLength(400).IsRequired();
 
