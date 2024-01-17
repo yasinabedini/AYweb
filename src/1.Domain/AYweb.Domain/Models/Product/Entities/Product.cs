@@ -17,7 +17,7 @@ public class Product : AggregateRoot
 
     public int Price { get; private set; }
 
-    public Gallery.Entities.Gallery Image { get; private set; }
+    public string ImageName { get; set; }
 
     public int DiscountedPercent { get; private set; }
 
@@ -35,21 +35,24 @@ public class Product : AggregateRoot
     #endregion
 
     #region Constructor and factories
-    private Product() { }
+    public Product()
+    {
+        IsDelete = false;
+        IsActive = true;
+        CreateAt = DateTime.Now;
+    }
     public Product(string name, string shortDescription, string mainDescription, string seoDescription, string imageName, int price, int discountedPercent, int inventory, bool isSpecial)
     {
         Name = name;
         ShortDescription = new Description(shortDescription);
         MainDescription = new Description(mainDescription);
         SeoDescription = new Description(seoDescription);
-        Image = Gallery.Entities.Gallery.Create(imageName);
+        ImageName = imageName;
         Price = price;
         DiscountedPercent = discountedPercent;
         Inventory = inventory;
         IsSpecial = isSpecial;
-        IsDelete = false;
-        IsActive = true;
-        CreateAt = DateTime.Now;
+      
     }
     public static Product Create(string name, string shortDescription, string mainDescription, string seoDescription, string imageName, int price, int discountedPercent, int inventory, bool isSpecial)
     {
@@ -113,7 +116,7 @@ public class Product : AggregateRoot
 
     public void ChangeImageName(string imageName)
     {
-        Image =Gallery.Entities.Gallery.Create( imageName);
+        ImageName = imageName;
         Modified();
     }
 
