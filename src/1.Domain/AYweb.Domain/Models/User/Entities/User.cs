@@ -165,6 +165,11 @@ public class User : AggregateRoot
         Notifications.Add(UserNotification.Create(notificationId, (int)Id));
     }
 
+    public string GetFullName()
+    {
+        return FirstName + " " + LastName;
+    }
+
     public void DeleteUser()
     {
         IsDelete = true;
