@@ -1,4 +1,5 @@
 ﻿using AIPFramework.Queries;
+using AYweb.Application.Models.User.Queries.Common;
 using AYweb.Domain.Models.User.Entities;
 using AYweb.Domain.Models.User.Repositories;
 using MediatR;

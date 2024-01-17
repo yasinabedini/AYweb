@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.User.Queries.GetUser
+namespace AYweb.Application.Models.User.Queries.Common
 {
     public class UserResult
     {

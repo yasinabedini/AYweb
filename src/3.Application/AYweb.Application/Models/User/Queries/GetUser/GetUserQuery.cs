@@ -1,4 +1,5 @@
 ﻿using AIPFramework.Queries;
+using AYweb.Application.Models.User.Queries.Common;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\User\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\framework\AIPFramework\AIPFramework.csproj" />
     <ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
   </ItemGroup>

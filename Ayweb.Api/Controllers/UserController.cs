@@ -13,7 +13,7 @@ namespace Ayweb.Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly ISender _sernder;
-    
+
 
     public UserController(ISender sernder)
     {
@@ -27,11 +27,18 @@ public class UserController : ControllerBase
         return Ok(true);
     }
 
-    [HttpPost("/User/GetUserById")]
-    public IActionResult GetAll(GetUserQuery request)
+    [HttpGet("/user/getAll")]
+    public IActionResult GetAll(int pagenumber = 1)
     {
-        var res = _sernder.Send(request);
+        var res = _sernder.Send(new GetAllUserQuery() { PageNumber = pagenumber });
         return Ok(res.Result);
-        
+    }
+
+    [HttpGet("/User/GetUserById/{id}")]
+    public IActionResult GetById(int id)
+    {
+        var res = _sernder.Send(new GetUserQuery() { Id = id });
+        return Ok(res.Result);
+
     }
 }
