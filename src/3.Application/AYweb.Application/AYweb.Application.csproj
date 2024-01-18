@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Product\Common\" />
-    <Folder Include="Models\Product\Queries\" />
   </ItemGroup>
 
 </Project>

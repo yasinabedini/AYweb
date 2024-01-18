@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Common.Repository
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : AggregateRoot
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : AggregateRoot  
     {
         private readonly AyWebDbContext _context;
 

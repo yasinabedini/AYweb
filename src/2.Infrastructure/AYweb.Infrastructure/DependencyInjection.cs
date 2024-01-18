@@ -46,7 +46,16 @@ public static class DependencyInjection
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddTransient<IPermissionRepository, PermissionRepository>();
         services.AddTransient<IPlanRepository, PlanRepository>();
-        services.AddTransient<IProductRepository, ProductRepository>();
+
+
+        #region Product
+        services.AddTransient<IProductRepository, ProductRepository>(); 
+        services.AddTransient<ICommentRepository, ProductRepository>(); 
+        services.AddTransient<IFeatureRepository, ProductRepository>();
+        #endregion
+
+
+
         services.AddTransient<IProjectRepository, ProjectRepository>();
         services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IServiceRepository, ServiceRepository>();

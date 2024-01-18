@@ -23,7 +23,7 @@ public class Comment : Entity<long>
 
     #region Constructors And Factories
 
-    private Comment() { }
+    public Comment() { CreateAt = DateTime.Now; }
     public Comment(string title, string text, string userName, string phoneNumber, int productId)
     {
         Title = new Title(title);
@@ -31,7 +31,7 @@ public class Comment : Entity<long>
         UserName = userName;
         UserPhoneNumber = new PhoneNumber(phoneNumber);
         ProductId = productId;
-        CreateAt = DateTime.Now;
+        
     }
     public static Comment Create(string title, string text, string userName, string phoneNumber, int productId)
     {

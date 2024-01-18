@@ -14,7 +14,7 @@ public class Feature : Entity<long>
     #endregion
 
     #region Constructors And Factories
-    private Feature() { }
+    public Feature() { CreateAt = DateTime.Now; }
     public Feature(string title, string value)
     {
         Title = new Title(title);

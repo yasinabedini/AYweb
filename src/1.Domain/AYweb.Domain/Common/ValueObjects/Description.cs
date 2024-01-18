@@ -39,4 +39,8 @@ public class Description : BaseValueObject<Description>
 
     public static implicit operator Description(string value) => new(value);
     #endregion
+
+    #region Methods
+    public override string ToString() => Value;
+    #endregion
 }
