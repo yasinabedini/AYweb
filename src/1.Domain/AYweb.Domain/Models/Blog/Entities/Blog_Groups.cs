@@ -8,9 +8,9 @@ namespace AYweb.Domain.Models.Blog.Entities;
 public class Blog_Groups : Entity<long>
 {
     #region Properties
-    public int BlogGroupId { get; private set; }
+    public long BlogGroupId { get; private set; }
 
-    public int BlogId { get; private set; }
+    public long BlogId { get; private set; }
 
     public BlogGroup BlogGroup { get; private set; }
 
@@ -21,13 +21,13 @@ public class Blog_Groups : Entity<long>
 
     #region Constructors And Factories
     private Blog_Groups() { }
-    public Blog_Groups(int blogGroupId, int blogId)
+    public Blog_Groups(long blogGroupId, long blogId)
     {
         BlogGroupId = blogGroupId;
         BlogId = blogId;
         CreateAt = DateTime.Now;
     }
-    public static Blog_Groups Create(int blogGroupId, int blogId)
+    public static Blog_Groups Create(long blogGroupId, long blogId)
     {
         return new Blog_Groups(blogGroupId, blogId);
     }

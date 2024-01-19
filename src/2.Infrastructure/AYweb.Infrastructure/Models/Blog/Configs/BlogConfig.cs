@@ -12,6 +12,12 @@ public class BlogConfig : IEntityTypeConfiguration<Domain.Models.Blog.Entities.B
         builder.Property(t => t.Text).HasMaxLength(500).IsRequired();
         builder.HasOne(t => t.Author);
 
+        builder.Property(t => t.Title).HasConversion<TitleConversion>();
+
+        builder.Property(t => t.Summary).HasConversion<DescriptionConversion>();
+
+        builder.Property(t => t.Introduction).HasConversion<DescriptionConversion>();
+
         builder.Property(t => t.ImageName).IsRequired();
 
         // builder.HasMany(t => t.Galleries);       

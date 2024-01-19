@@ -1,15 +1,16 @@
 ﻿using AIPFramework.Entities;
+using AYweb.Domain.Common.ValueObjects;
 
 namespace AYweb.Domain.Models.Blog.Entities;
 
 public class Blog : AggregateRoot
 {
     #region Properties
-    public string Title { get; private set; }
+    public Title Title { get; private set; }
 
-    public string Summary { get; private set; }
+    public Description Summary { get; private set; }
 
-    public string Introduction { get; private set; }    
+    public Description Introduction { get; private set; }    
 
     public string Text { get; private set; }
 
@@ -31,7 +32,7 @@ public class Blog : AggregateRoot
     #endregion
 
     #region Constructor And Factories
-    private Blog() { }
+    public Blog() { CreateAt = DateTime.Now; }
     public Blog(string title, string summery, string introduction, string text, int authorId, string? tags, string imageName)
     {
         Title = title;
@@ -97,6 +98,11 @@ public class Blog : AggregateRoot
     {
         Tags.Concat("," + tags);
         Modified();
+    }
+
+    public void AddGroup(int groupId)
+    {
+        Groups.Add(new Blog_Groups(groupId, Id));
     }
 
     public void DeleteBlog()
