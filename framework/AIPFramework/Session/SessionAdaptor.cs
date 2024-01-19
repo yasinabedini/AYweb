@@ -1,12 +1,8 @@
-﻿using Abp.CachedUniqueKeys;
-using AYweb.Core.Serializer;
+﻿using AIPFramework.Serializer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AIPFramework.Session
 {
@@ -26,7 +22,7 @@ namespace AIPFramework.Session
         {
             string valueStr = _serializer.Serialize(value);
 
-            _context.HttpContext.Session.SetString(key, valueStr);
+            _context.HttpContext.Session.SetString(key, valueStr);            
         }
 
         public T Get<T>(string key)
