@@ -5,9 +5,9 @@ namespace AYweb.Domain.Models.Order.Entities;
 public class OrderLine : Entity<long>
 {
     #region Properties
-    public int ProductId { get; private set; }
+    public long ProductId { get; private set; }
 
-    public int? OrderId { get; private set; }
+    public long? OrderId { get; private set; }
 
     public int Count { get; private set; }
 
@@ -22,17 +22,17 @@ public class OrderLine : Entity<long>
 
     #region Constructor And Factories
     private OrderLine() { }
-    public OrderLine(Product.Entities.Product product, int count, int unitPrice)
+    public OrderLine(long productId, int count, int unitPrice)
     {
-        ProductId = (int)product.Id;
+        ProductId = productId;
         Count = count;
         UnitPrice = Product.Price;
         CreateAt = DateTime.Now;
     }
 
-    public static OrderLine Create(Product.Entities.Product product, int unitPrice, int count)
+    public static OrderLine Create(long productId, int unitPrice, int count)
     {
-        return new OrderLine(product, count, unitPrice);
+        return new OrderLine(productId, count, unitPrice);
     }
     #endregion
 

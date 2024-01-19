@@ -18,7 +18,7 @@ public class Order : AggregateRoot
 
     public bool InPersonDelivery { get; private set; }
 
-    public int UserId { get; private set; }
+    public long UserId { get; private set; }
 
     public int? ForwardId { get; private set; }
 
@@ -34,7 +34,7 @@ public class Order : AggregateRoot
 
     #region Constructor And Factories
     private Order() { }
-    public Order(int? userId)
+    public Order(long? userId)
     {
         OrderLines = new List<OrderLine>();
         if (userId.HasValue) UserId = userId.Value;
@@ -43,7 +43,11 @@ public class Order : AggregateRoot
         CreateAt = DateTime.Now;
     }
 
-    public static Order Create(int? userId)
+    public static Order Create()
+    {
+        return new Order();
+    }
+    public static Order Create(long? userId)
     {
         return new Order(userId);
     }
@@ -76,28 +80,30 @@ public class Order : AggregateRoot
         return OrderLines;
     }
 
-    public OrderLine AddOrderLine(OrderLine orderLine)
+    public OrderLine AddOrderLine(long productId,int unitPrice,int amount)
     {
-        if (!IsOrderlineAvailable(orderLine))
+        if (IsOrderlineAvailable(productId))
         {
-            orderLine.SetOrderId((int)Id);
-            OrderLines.Add(orderLine);
+            var orderLine = OrderLines.Single(t => t.ProductId == productId);                        
+            orderLine.IncreaseProductCount(amount);
             CalculateEndPrice();
+
             return orderLine;
         }
 
         else
         {
-            OrderLine orderLineFound = OrderLines.First(t => t.ProductId == orderLine.ProductId);
-            orderLine.IncreaseProductCount(orderLine.Count);
+            OrderLine orderLine = OrderLine.Create(productId, unitPrice,amount);
+            OrderLines.Add(orderLine);
             CalculateEndPrice();
-            return orderLineFound;
+
+            return orderLine;
         }
     }
 
-    public bool IsOrderlineAvailable(OrderLine orderLine)
+    public bool IsOrderlineAvailable(long productId)
     {
-        if (OrderLines.Any(t => t.ProductId == orderLine.ProductId)) return true;
+        if (OrderLines.Any(t => t.ProductId == productId)) return true;
         return false;
     }
 
@@ -125,7 +131,7 @@ public class Order : AggregateRoot
     {
         foreach (var orderLine in order.OrderLines)
         {
-            AddOrderLine(orderLine);
+            AddOrderLine(orderLine.ProductId,orderLine.UnitPrice,orderLine.Count);
         }
     }
 
