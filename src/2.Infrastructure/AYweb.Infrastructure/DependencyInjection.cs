@@ -25,10 +25,8 @@ using AYweb.Infrastructure.Models.Role.Repositories;
 using AYweb.Infrastructure.Models.Service.Repositories;
 using AYweb.Infrastructure.Models.Transaction.Repositories;
 using AYweb.Infrastructure.Models.User.Repositories;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
 
 
 namespace AYweb.Infrastructure;
@@ -40,7 +38,15 @@ public static class DependencyInjection
         services.AddDbContext<AyWebDbContext>(option => option.UseSqlServer("server=YasiAbdn\\ABDN;initial catalog=Db-AyWeb2;integrated Security=true;TrustServerCertificate=True"));
 
         services.AddTransient<IAcademyRepository, AcademyRepository>();
+
+        #region Blog
         services.AddTransient<IBlogRepository, BlogRepository>();
+        services.AddTransient<IBlogGroupRepository, BlogRepository>(); 
+        services.AddTransient<IBlogCommentRepository, BlogRepository>();
+
+        #endregion
+
+
         services.AddTransient<IGalleryRepository, GelleryRepository>();
         services.AddTransient<INotificationRepository, NotificationRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
