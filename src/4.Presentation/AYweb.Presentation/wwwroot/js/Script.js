@@ -1,0 +1,3 @@
+﻿function SubEmail() {
+    $("#SubscribeForm").submit();
+}

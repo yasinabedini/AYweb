@@ -1,0 +1,48 @@
+/*
+Flaticon icon font: Flaticon
+*/
+@font-face {
+	font-family: "Flaticon";
+	src: url("../fonts/Flaticon.eot");
+	src: url("../fonts/Flaticond41d.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/Flaticon.woff2") format("woff2"),
+	url("../fonts/Flaticon.woff") format("woff"),
+	url("../fonts/Flaticon.ttf") format("truetype"),
+	url("../fonts/Flaticon.svg#Flaticon") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	@font-face {
+		font-family: "Flaticon";
+		src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
+	}
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+	font-family: Flaticon;
+	font-style: normal;
+}
+
+.flaticon-research:before { content: "\f100"; }
+.flaticon-analytics:before { content: "\f101"; }
+.flaticon-mail:before { content: "\f102"; }
+.flaticon-digital-marketing:before { content: "\f103"; }
+.flaticon-analysis:before { content: "\f104"; }
+.flaticon-seo:before { content: "\f105"; }
+.flaticon-right-arrow:before { content: "\f106"; }
+.flaticon-tick:before { content: "\f107"; }
+.flaticon-achievement:before { content: "\f108"; }
+.flaticon-architecture:before { content: "\f109"; }
+.flaticon-data:before { content: "\f10a"; }
+.flaticon-play-button:before { content: "\f10b"; }
+.flaticon-copyright:before { content: "\f10c"; }
+.flaticon-phone-call:before { content: "\f10d"; }
+.flaticon-email:before { content: "\f10e"; }
+.flaticon-social-media:before { content: "\f10f"; }
+.flaticon-close:before { content: "\f110"; }
+.flaticon-marker:before { content: "\f111"; }
+.flaticon-shopping-cart:before { content: "\f112"; }
+.flaticon-search:before { content: "\f113"; }
+.flaticon-left-chevron:before { content: "\f114"; }
+.flaticon-right-chevron:before { content: "\f115"; }
