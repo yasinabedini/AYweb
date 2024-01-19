@@ -1,4 +1,6 @@
-﻿using AYweb.Domain.Models.Academy.Repositories;
+﻿using AIPFramework.Serializer;
+using AIPFramework.Session;
+using AYweb.Domain.Models.Academy.Repositories;
 using AYweb.Domain.Models.Blog.Repositories;
 using AYweb.Domain.Models.Gallery.Repositories;
 using AYweb.Domain.Models.Notification.Repositories;
@@ -49,7 +51,13 @@ public static class DependencyInjection
 
         services.AddTransient<IGalleryRepository, GelleryRepository>();
         services.AddTransient<INotificationRepository, NotificationRepository>();
+        
+        #region Order
         services.AddTransient<IOrderRepository, OrderRepository>();
+        services.AddTransient<IOrderLineRepository, OrderRepository>();
+        services.AddTransient<IForwardRepository, OrderRepository>(); 
+        #endregion
+
         services.AddTransient<IPermissionRepository, PermissionRepository>();
         services.AddTransient<IPlanRepository, PlanRepository>();
 
@@ -68,6 +76,8 @@ public static class DependencyInjection
         services.AddTransient<ITransactionRepository, TransactionRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
 
+        services.AddTransient<ISessionAdaptor, SessionAdaptor>();
+        services.AddTransient<IJsonSerializer, NewtonSoftSerializer>();
 
         return services;
     }

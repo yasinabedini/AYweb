@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation" Version="11.8.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.15">
       <PrivateAssets>all</PrivateAssets>
@@ -30,6 +31,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\framework\AIPFramework\AIPFramework.csproj" />
     <ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Order\Commands\CreateOrderLine\" />
+    <Folder Include="Models\Order\Commands\CreateForward\" />
+    <Folder Include="Models\Order\Commands\RemoveProductToOrder\" />
+    <Folder Include="Models\Order\Queries\GetOrders\" />
+    <Folder Include="Models\Order\Queries\GetUserOrders\" />
+    <Folder Include="Models\Order\Queries\GetOrderOrderlines\" />
+    <Folder Include="Models\Order\Queries\GetForwards\" />
   </ItemGroup>
 
 </Project>

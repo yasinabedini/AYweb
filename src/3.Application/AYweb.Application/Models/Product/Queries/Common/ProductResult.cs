@@ -8,6 +8,8 @@ namespace AYweb.Application.Models.Product.Queries.Common;
 
 public class ProductResult
 {
+    public long Id { get; set; }
+
     public required string Name { get; set; }
 
     public required string ShortDescription { get; set; }

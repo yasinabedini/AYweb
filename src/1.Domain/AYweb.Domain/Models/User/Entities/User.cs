@@ -3,6 +3,9 @@ using AYweb.Domain.Models.User.ValueObjects;
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Role.Entities;
 using AYweb.Domain.Models.Notification.Entities;
+using AYweb.Domain.Models.Order.Entities;
+using AYweb.Domain.Models.Order.Enums;
+using System.Linq;
 
 namespace AYweb.Domain.Models.User.Entities;
 
@@ -32,6 +35,7 @@ public class User : AggregateRoot
     public List<UserNotification> Notifications { get; set; }
 
     public List<Role_Users> RolesList { get; private set; }
+    public List<Order.Entities.Order> MyOrders { get; set; }
 
     #endregion
 
@@ -168,6 +172,16 @@ public class User : AggregateRoot
     public string GetFullName()
     {
         return FirstName + " " + LastName;
+    }
+
+    public Order.Entities.Order GetUserOrderWithCompletingStatus()
+    {
+        return MyOrders.SingleOrDefault(t => t.OrderStatus.Value ==_OrderStatus.completing.ToString());
+    }
+    
+    public bool HasActiveOrder()
+    {
+        return MyOrders.Any(t => t.OrderStatus.Value == _OrderStatus.completing.ToString());
     }
 
     public void DeleteUser()

@@ -9,6 +9,6 @@ public interface IUserRepository : IRepository<User.Entities.User>
     Entities.User GetUserById(long id);
     User.Entities.User GetUserByEmail(string email);
     User.Entities.User GetUSerByUsername(string username);
- 
+    User.Entities.User GetAuthenticatedUser();
 
 }

@@ -14,6 +14,7 @@ namespace Ayweb.Api.Controllers
         public BlogController(ISender sender)
         {
             _sender = sender;
+        
         }
 
         [HttpGet]
