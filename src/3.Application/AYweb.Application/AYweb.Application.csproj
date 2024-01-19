@@ -32,8 +32,4 @@
     <ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Product\Common\" />
-  </ItemGroup>
-
 </Project>
