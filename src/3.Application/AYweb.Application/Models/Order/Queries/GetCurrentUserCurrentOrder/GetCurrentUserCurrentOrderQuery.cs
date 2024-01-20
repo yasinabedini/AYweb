@@ -1,4 +1,5 @@
 ﻿using AIPFramework.Queries;
+using AYweb.Application.Models.Order.Queries.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
 {
-    public class GetUserCurrentOrderQuery:IQuery<OrderResult>
+    public class GetCurrentUserCurrentOrderQuery : IQuery<OrderResult>
     {
     }
 }

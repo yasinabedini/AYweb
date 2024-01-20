@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
+namespace AYweb.Application.Models.Order.Queries.Common
 {
     public class OrderToOrderResultAutoMapper : Profile
     {

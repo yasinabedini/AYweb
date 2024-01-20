@@ -1,6 +1,7 @@
 ﻿using AIPFramework.Queries;
 using AIPFramework.Session;
 using AutoMapper;
+using AYweb.Application.Models.Order.Queries.Common;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Domain.Models.Order.Entities;
 using MediatR;
@@ -14,14 +15,14 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
 {
-    public class GetUserCurrentOrderQueryHandler : IQueryHandler<GetUserCurrentOrderQuery, OrderResult>
+    public class GetCurrentUserCurrentOrderQueryHandler : IQueryHandler<GetCurrentUserCurrentOrderQuery, OrderResult>
     {
         private readonly ISender _Sender;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpcontext;
         private readonly ISessionAdaptor _session;
 
-        public GetUserCurrentOrderQueryHandler(ISender sender, IMapper mapper, IHttpContextAccessor httpcontext, ISessionAdaptor session)
+        public GetCurrentUserCurrentOrderQueryHandler(ISender sender, IMapper mapper, IHttpContextAccessor httpcontext, ISessionAdaptor session)
         {
             _Sender = sender;
             _mapper = mapper;
@@ -29,7 +30,7 @@ namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
             _session = session;
         }
 
-        public Task<OrderResult> Handle(GetUserCurrentOrderQuery request, CancellationToken cancellationToken)
+        public Task<OrderResult> Handle(GetCurrentUserCurrentOrderQuery request, CancellationToken cancellationToken)
         {
             Domain.Models.Order.Entities.Order order;
 
