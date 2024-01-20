@@ -14,6 +14,13 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
         _context = context; 
     }
 
+    #region Order
+    public List<Domain.Models.Order.Entities.Order> GetOrdersByUserId(long userId)
+    {
+        return _context.Orders.Where(t => t.UserId == userId).ToList();
+    }
+    #endregion
+
     #region OrderLine
     public void Add(OrderLine entity)
     {
@@ -60,6 +67,7 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
     List<Forward> IRepository<Forward>.GetList()
     {
         return _context.Forwards.ToList();
-    } 
+    }
+  
     #endregion
 }
