@@ -1,6 +1,8 @@
 using AYweb.Domain;
 using AYweb.Infrastructure;
 using AYweb.Application;
+using AYweb.Domain.Models.Service.Entities;
+using AYweb.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDomain();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
-builder.Services.AddInfrastructure();
+builder.Services.AddPresentation();
 
 
 var app = builder.Build();
@@ -23,6 +25,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

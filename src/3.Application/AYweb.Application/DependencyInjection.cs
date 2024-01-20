@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AIPFramework.Session;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
@@ -23,7 +24,8 @@ public static class DependencyInjection
             configuration.RegisterServicesFromAssemblies(assembly));
 
         services.AddValidatorsFromAssembly(assembly);
-        
+
+        services.AddTransient<ISessionAdaptor, SessionAdaptor>();
 
         return services;
     }

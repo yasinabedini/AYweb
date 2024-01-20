@@ -34,12 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Order\Commands\CreateOrderLine\" />
     <Folder Include="Models\Order\Commands\CreateForward\" />
     <Folder Include="Models\Order\Commands\RemoveProductToOrder\" />
     <Folder Include="Models\Order\Queries\GetOrders\" />
     <Folder Include="Models\Order\Queries\GetUserOrders\" />
-    <Folder Include="Models\Order\Queries\GetOrderOrderlines\" />
+    <Folder Include="Models\Order\Queries\GetOrderOrderLines\" />
     <Folder Include="Models\Order\Queries\GetForwards\" />
   </ItemGroup>
 

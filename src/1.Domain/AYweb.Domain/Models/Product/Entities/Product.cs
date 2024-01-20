@@ -144,6 +144,11 @@ public class Product : AggregateRoot
         return Inventory;
     }
 
+    public int CalculateDiscountedPrice()
+    {
+        return Price - (Price * (DiscountedPercent / 100));
+
+    }
     public int DecreaseInventory(int amount)
     {
         Inventory -= amount;

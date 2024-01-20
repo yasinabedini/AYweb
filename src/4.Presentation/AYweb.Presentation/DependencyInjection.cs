@@ -1,4 +1,5 @@
-﻿using AYweb.Infrastructure.Contexts;
+﻿using AIPFramework.Session;
+using AYweb.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +17,14 @@ namespace AYweb.Presentation
             services.AddRazorPages();
 
             services.AddDistributedMemoryCache();
+           
+            services.AddAuthentication();
+
+            services.AddTransient<ISessionAdaptor, SessionAdaptor>();
             services.AddSession(t =>
             {
                 t.IOTimeout = TimeSpan.FromDays(15);
             });
-
-            services.AddAuthentication();
 
 
             services.AddAuthentication(options =>

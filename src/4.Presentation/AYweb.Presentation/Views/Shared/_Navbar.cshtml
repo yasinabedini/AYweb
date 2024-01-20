@@ -1,6 +1,6 @@
-﻿@* @using AYweb.Core.Services.Interfaces
-@inject IPlanService _PlanService;  
-@inject IOrderService _orderService; *@
+﻿@using AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
+@using MediatR
+@inject ISender _sender;
 
 <!-- Start Navbar Area -->
 <div class="navbar-area">
@@ -101,10 +101,10 @@
                         <div class="cart-items">
                             <a asp-controller="Order" asp-action="MyCart">
                                 <i class="fas fa-shopping-cart"></i>
-                          @*       @if (_orderService.GetCurrentCart(Context)!=null)
+                                @if (_sender.Send(new GetUserCurrentOrderQuery()).Result!=null)
                                 {
-                                    <span>@_orderService.GetCurrentCart(Context).OrderLines.Count</span>
-                                } *@
+                                    <span>@_sender.Send(new GetUserCurrentOrderQuery()).Result.OrderLines.Count</span>
+                                }
                             </a>
                         </div>
 
