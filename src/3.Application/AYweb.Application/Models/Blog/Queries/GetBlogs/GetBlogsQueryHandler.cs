@@ -1,10 +1,5 @@
 ﻿using AIPFramework.Queries;
 using AYweb.Domain.Models.Blog.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zamin.Extensions.ObjectMappers.Abstractions;
 
 namespace AYweb.Application.Models.Blog.Queries.GetBlogs
@@ -22,10 +17,11 @@ namespace AYweb.Application.Models.Blog.Queries.GetBlogs
 
         public Task<PagedData<BlogListResult>> Handle(GetBlogsQuery request, CancellationToken cancellationToken)
         {
-            var blogs = _mapper.Map<List<Domain.Models.Blog.Entities.Blog>,List<BlogListResult>>(_repository.GetList());
+            var blogList = _repository.GetList();
+            var blogs = _mapper.Map<List<Domain.Models.Blog.Entities.Blog>,List<BlogListResult>>(blogList.Skip(request.SkipCount).Take(request.PageSize).ToList());
             
-            ;
-            return Task.FromResult(new PagedData<BlogListResult>() { QueryResult = blogs.Skip(request.SkipCount).Take(request.PageSize).ToList(), PageSize = request.PageSize, PageNumber = request.PageNumber, TotalCount = blogs.Count });
+            
+            return Task.FromResult(new PagedData<BlogListResult>() { QueryResult = blogs.Skip(request.SkipCount).Take(request.PageSize).ToList(), PageSize = request.PageSize, PageNumber = request.PageNumber, TotalCount = blogList.Count });
         }
     }
 }
