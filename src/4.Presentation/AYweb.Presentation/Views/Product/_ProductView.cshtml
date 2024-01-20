@@ -1,0 +1,43 @@
+﻿@using AYweb.Application.Models.Product.Queries.Common
+@model ProductResult
+
+<div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="single-product-box">
+        <div class="product-image">
+            <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@Model.Id">
+                <img style="height:fit-content" src="img/shop-image/@Model.ImageName" alt="image">
+                <img style="transform:rotateY(180deg)" src="img/shop-image/@Model.ImageName" alt="image">
+            </a>
+
+            <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+
+            @if (Model.IsSpecial)
+            {
+                <div class="sale-btn">ویژه!</div>
+            }
+        </div>
+
+        <div class="product-content">
+            <h3><a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@Model.Id">@Model.Name</a></h3>
+            <div class="price">
+                @if (Model.DiscountedPercent != 0)
+                {
+                    float discount = Model.DiscountedPercent;
+                    <span class="new">@((Model.Price - (Model.Price * (discount / 100))).ToString("#,0 تومان"))</span>
+                    <span class="old">@Model.Price.ToString("#,0 تومان") </span>
+                }
+                else
+                {
+                    <span class="price">@Model.Price.ToString("#,0 تومان") </span>
+                }
+            </div>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+    </div>
+</div>
