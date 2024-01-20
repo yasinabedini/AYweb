@@ -31,6 +31,7 @@ public class PageQuery<TData> : IPageQuery<TData>
     /// جهت مرتب سازی داده‌ها که به صورت صعودی انجام می‌شود یا نزولی
     /// </summary>
     public bool SortAscending { get; set; }
+    public int PageCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }
 
 
@@ -64,7 +65,7 @@ public record PageQueryRecord<TData> : IPageQuery<TData>
     /// <summary>
     /// جهت مرتب سازی داده‌ها که به صورت صعودی انجام می‌شود یا نزولی
     /// </summary>
-    public bool SortAscending { get; set; }
+    public bool SortAscending { get; set; }    
 }
 
 

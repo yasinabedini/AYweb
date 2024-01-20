@@ -33,5 +33,5 @@ public interface IPageQuery<TData> : IQuery<TData>
     /// <summary>
     /// جهت مرتب سازی داده‌ها که به صورت صعودی انجام می‌شود یا نزولی
     /// </summary>
-    public bool SortAscending { get; set; }
+    public bool SortAscending { get; set; }    
 }

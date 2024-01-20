@@ -9,5 +9,20 @@ public class PagedData<T>
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
     public int TotalCount { get; set; }
+    public int pageCount => calculatePageCount();
+
+    public int calculatePageCount()
+    {
+        int pageCount = TotalCount / PageSize;
+        if (pageCount <= 1)
+        {
+            pageCount = 1;
+        }
+        if ((pageCount % PageSize) != 0)
+        {
+            pageCount++;
+        }
+        return pageCount;
+    }
 
 }
