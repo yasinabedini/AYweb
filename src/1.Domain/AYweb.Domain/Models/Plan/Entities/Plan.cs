@@ -2,6 +2,7 @@
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Plan.Enums;
 using AYweb.Domain.Models.Plan.ValueObjects;
+using AYweb.Domain.Models.User.Entities;
 
 namespace AYweb.Domain.Models.Plan.Entities;
 
@@ -13,24 +14,22 @@ public class Plan : AggregateRoot
     public PlanType PlanType { get; private init; }
 
     public int Price { get; private set; }
-
-    public bool IsDelete { get; private set; }
-
-    //public List<PlanFeature> planFeatures { get;private set; }
-    //public IReadOnlyList<User_Plans> User_Plans { get;private set; }
+    
+    public List<PlanFeature> planFeatures { get;private set; }
+        
     #endregion
 
     #region Constructors And Factories
     private Plan() { }
-    public Plan(string title, _PlanType planType, int price)
+    public Plan(string title, string planType, int price)
     {
         Title = new Title(title);
-        PlanType = new PlanType(planType.ToString());
+        PlanType = new PlanType(planType);
         Price = price;
        // planFeatures = new List<PlanFeature>();
         CreateAt = DateTime.Now;
     }
-    public static Plan Create(string title, _PlanType planType, int price)
+    public static Plan Create(string title, string planType, int price)
     {
         return new Plan(title, planType, price);
     }

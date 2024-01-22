@@ -35,6 +35,7 @@ public class User : AggregateRoot
     public List<UserNotification> Notifications { get; set; }
 
     public List<Role_Users> RolesList { get; private set; }
+
     public List<Order.Entities.Order> MyOrders { get; set; }
 
     #endregion

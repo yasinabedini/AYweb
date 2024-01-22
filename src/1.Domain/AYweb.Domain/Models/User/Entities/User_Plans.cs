@@ -15,14 +15,14 @@ public class User_Plans : Entity<long>
 
     public Plan.Entities.Plan Plan { get; private set; }
 
-    public int TransactionId { get; private set; }
+    public long TransactionId { get; private set; }
 
     public bool IsDelete { get; set; } 
     #endregion
 
     #region Constructors And Factories
     private User_Plans() { }
-    public User_Plans(int userId, int planId, int transactionId)
+    public User_Plans(long userId, long planId, long transactionId)
     {
         UserId = userId;
         PlanId = planId;
@@ -30,7 +30,7 @@ public class User_Plans : Entity<long>
         CreateAt = DateTime.Now;
         EndDate = DateTime.Now.AddDays(30);
     }
-    public static User_Plans Create(int userId, int planId, int transactionId)
+    public static User_Plans Create(long userId, long planId, long transactionId)
     {
         return new User_Plans(userId, planId, transactionId);
     } 
@@ -40,6 +40,12 @@ public class User_Plans : Entity<long>
     private void Modified()
     {
         ModifiedAt = DateTime.Now;
+    }
+
+    public bool ActivateCheck()
+    {
+        if (EndDate >= DateTime.Now) return true;
+        return false;
     }
 
     public void Delete()

@@ -1,7 +1,9 @@
-﻿using AYweb.Domain.Models.User.Repositories;
+﻿using AYweb.Domain.Models.User.Entities;
+using AYweb.Domain.Models.User.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,11 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         _httpContext = httpContext;
     }
 
+    public void AddPlanToUser(User_Plans user_Plans)
+    {
+        _context.User_Plans.Add(user_Plans);
+    }
+
     public Domain.Models.User.Entities.User GetAuthenticatedUser()
     {
         if (!_httpContext.HttpContext.User.Identity.IsAuthenticated)
@@ -33,6 +40,11 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         var username = claimsIdentity.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value;
 
         return GetUSerByUsername(username);
+    }
+
+    public Domain.Models.Plan.Entities.Plan GetUserActivePlan(long userId)
+    {
+        return _context.User_Plans.Include(t=>t.Plan).Single(t => t.UserId == userId && t.ActivateCheck()).Plan;
     }
 
     public Domain.Models.User.Entities.User GetUserByEmail(string email)
