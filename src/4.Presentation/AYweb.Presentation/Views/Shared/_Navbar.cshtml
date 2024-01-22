@@ -101,9 +101,9 @@
                         <div class="cart-items">
                             <a asp-controller="Order" asp-action="MyCart">
                                 <i class="fas fa-shopping-cart"></i>
-                                @if (_sender.Send(new GetUserCurrentOrderQuery()).Result!=null)
+                                @if (_sender.Send(new GetCurrentUserCurrentOrderQuery()).Result!=null)
                                 {
-                                    <span>@_sender.Send(new GetUserCurrentOrderQuery()).Result.OrderLines.Count</span>
+                                    <span>@_sender.Send(new GetCurrentUserCurrentOrderQuery()).Result.OrderLines.Count</span>
                                 }
                             </a>
                         </div>
