@@ -9,5 +9,6 @@ namespace AYweb.Application.Models.Notification.Commands.CreateNotification
 {
     public class CreateNotificationCommand:ICommand
     {
+        public required string Title { get; set; }
     }
 }

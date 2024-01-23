@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AIPFramework.Commands;
 
 namespace AYweb.Application.Models.Notification.Commands.SendNotifiactionByRoleType
 {
-    internal class SendNotifiactionByRoleTypeCommand
+    public class SendNotifiactionByRoleTypeCommand:ICommand
     {
+        public long RoleId { get; set; }
+        public long NotificationId { get; set; }
     }
 }
