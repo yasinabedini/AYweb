@@ -5,6 +5,7 @@ using AYweb.Infrastructure.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,15 @@ public class RoleRepository : BaseRepository<Domain.Models.Role.Entities.Role>, 
 {    
     public RoleRepository(AyWebDbContext context) : base(context)
     {
+    }
+
+    public void AddPermissionToRole(LingerOption roleId, long permissionId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DeletePermissionFromRole(LingerOption roleId, long permissionId)
+    {
+        throw new NotImplementedException();
     }
 }
