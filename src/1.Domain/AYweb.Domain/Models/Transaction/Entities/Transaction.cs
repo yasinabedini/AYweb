@@ -9,7 +9,7 @@ namespace AYweb.Domain.Models.Transaction.Entities;
 public class Transaction : AggregateRoot
 {
     #region Properties
-    public int UserId { get; private set; }
+    public long UserId { get; private set; }
 
     public int Price { get; private set; }
 
@@ -30,7 +30,7 @@ public class Transaction : AggregateRoot
 
     #region Constructor And Factories
     private Transaction() { }
-    public Transaction(int userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public Transaction(long userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
     {
         UserId = userId;
         Price = price;
@@ -44,7 +44,7 @@ public class Transaction : AggregateRoot
         }
         TransactionScreenShot = transactionScreenShot;
     }
-    public static Transaction Create(int userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public static Transaction Create(long userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
     {
         return new Transaction(userId, price, transactionType, paymentMethod, description, transactionScreenShot);
     }
@@ -67,6 +67,26 @@ public class Transaction : AggregateRoot
     {
         Status = new TransactionStatus(_TransactionStatus.Approved.ToString());
         IsApproved = true;
+        Modified();
+    }
+
+    public void RejectTransaction()
+    {
+        Status = new TransactionStatus(_TransactionStatus.Failed.ToString());
+        IsApproved = false;        
+        Modified();
+    }
+
+    void ChangeScreenShot(string screenShot)
+    {
+        TransactionScreenShot = screenShot;
+        Modified();
+    }
+
+    public void RequestForPay(string screenShot)
+    {
+        Status = _TransactionStatus.AwaitingApproval.ToString();
+        ChangeScreenShot(screenShot); 
         Modified();
     }
 

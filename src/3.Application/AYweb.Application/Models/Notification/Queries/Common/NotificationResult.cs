@@ -8,5 +8,7 @@ namespace AYweb.Application.Models.Notification.Queries.Common
 {
     public class NotificationResult
     {
+        public required string Title { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }

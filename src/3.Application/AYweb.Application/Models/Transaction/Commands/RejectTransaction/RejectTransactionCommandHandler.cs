@@ -1,10 +1,5 @@
 ﻿using AIPFramework.Commands;
 using AYweb.Domain.Models.Transaction.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Transaction.Commands.RejectTransaction
 {
