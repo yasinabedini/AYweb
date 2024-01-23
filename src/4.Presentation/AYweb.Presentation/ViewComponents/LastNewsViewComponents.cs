@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.ViewComponents;
+namespace AYweb.Presentation.ViewComponents;
 
-public class LastNewsViewComponents:ViewComponent
+public class LastNewsViewComponents : ViewComponent
 {
     private readonly ISender _sender;
 
@@ -16,6 +16,6 @@ public class LastNewsViewComponents:ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        return await Task.FromResult((IViewComponentResult)View("LastNews",_sender.Send(new GetBlogsQuery()).Result.QueryResult.Take(3).ToList()));
+        return await Task.FromResult((IViewComponentResult)View("LastNews", _sender.Send(new GetBlogsQuery()).Result.QueryResult.Take(3).ToList()));
     }
 }

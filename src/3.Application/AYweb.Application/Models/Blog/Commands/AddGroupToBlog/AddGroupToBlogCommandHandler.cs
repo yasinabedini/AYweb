@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Blog.Commands.AddGroup
+namespace AYweb.Application.Models.Blog.Commands.AddGroupToBlog
 {
     public class AddGroupToBlogCommandHandler : ICommandHandler<AddGroupToBlogCommand>
     {
@@ -18,7 +18,7 @@ namespace AYweb.Application.Models.Blog.Commands.AddGroup
             _repository = repository;
         }
 
-      
+
         public Task Handle(AddGroupToBlogCommand request, CancellationToken cancellationToken)
         {
             var blog = _repository.GetById(request.BlogId);

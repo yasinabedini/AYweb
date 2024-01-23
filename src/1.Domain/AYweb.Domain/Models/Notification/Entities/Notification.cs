@@ -23,4 +23,17 @@ public class Notification : AggregateRoot
         return new Notification(title);
     }
     #endregion
+
+    #region Command
+    private void Modified()
+    {
+        ModifiedAt = DateTime.Now;
+    }
+
+    public void Delete()
+    {
+        IsDelete = true;
+        Modified()
+    }
+    #endregion
 }

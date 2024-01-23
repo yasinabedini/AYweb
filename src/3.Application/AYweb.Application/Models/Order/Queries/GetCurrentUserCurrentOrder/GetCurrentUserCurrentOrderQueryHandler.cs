@@ -13,7 +13,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
+namespace AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder
 {
     public class GetCurrentUserCurrentOrderQueryHandler : IQueryHandler<GetCurrentUserCurrentOrderQuery, OrderResult>
     {
@@ -41,7 +41,7 @@ namespace AYweb.Application.Models.Order.Queries.GetUserCurrentOrder
                 order = user.Result.GetUserOrderWithCompletingStatus();
             }
             else
-            {                
+            {
                 order = _session.Get<Domain.Models.Order.Entities.Order>("UserCart");
             }
 

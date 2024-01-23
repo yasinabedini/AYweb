@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserPlan
+namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserActivePlan
 {
     public class GetCurrentUserActivePlanQuery : IQuery<PlanResult>
     {

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.ViewComponents;
+namespace AYweb.Presentation.ViewComponents;
 
 public class PlansViewComponents : ViewComponent
 {
@@ -11,7 +11,7 @@ public class PlansViewComponents : ViewComponent
     public PlansViewComponents(ISender sender)
     {
         _sender = sender;
-    }  
+    }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zamin.Extensions.ObjectMappers.Abstractions;
 
-namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserPlan
+namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserActivePlan
 {
     public class GetCurrentUserActivePlanQueryHandler : IQueryHandler<GetCurrentUserActivePlanQuery, PlanResult>
     {
@@ -31,7 +31,7 @@ namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserPlan
             var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
 
             var plan = _mapper.Map<Domain.Models.Plan.Entities.Plan, PlanResult>(_repository.GetUserActivePlan(user.Id));
-            
+
             return Task.FromResult(plan);
         }
     }

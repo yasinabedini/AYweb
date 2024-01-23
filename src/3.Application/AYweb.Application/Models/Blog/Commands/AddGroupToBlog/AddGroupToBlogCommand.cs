@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Blog.Commands.AddGroup
+namespace AYweb.Application.Models.Blog.Commands.AddGroupToBlog
 {
     public class AddGroupToBlogCommand : ICommand
     {

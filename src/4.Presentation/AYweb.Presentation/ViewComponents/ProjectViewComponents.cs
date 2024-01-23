@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.ViewComponents;
+namespace AYweb.Presentation.ViewComponents;
 
-public class ProjectViewComponents:ViewComponent
+public class ProjectViewComponents : ViewComponent
 {
     private readonly ISender _sender;
 
@@ -12,9 +12,9 @@ public class ProjectViewComponents:ViewComponent
     {
         _sender = sender;
     }
-   
+
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        return await Task.FromResult((IViewComponentResult)View("Projects",_sender.Send(new GetProjectsQuery())));
+        return await Task.FromResult((IViewComponentResult)View("Projects", _sender.Send(new GetProjectsQuery())));
     }
-}   
+}

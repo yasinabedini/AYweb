@@ -23,7 +23,12 @@ namespace AYweb.Application.Models.User.Queries.GetAllUserQuery
 
         public Task<PagedData<UserResult>> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new PagedData<UserResult>() {QueryResult = _mapper.Map<List<Domain.Models.User.Entities.User>,List<UserResult>>(_repository.GetList()) });
+            var users = _repository.GetList();
+
+            var userList = _mapper.Map<List<Domain.Models.User.Entities.User>, List<UserResult>>(_repository.GetList().Skip(request.SkipCount).Take(request.PageSize).ToList());
+
+
+            return Task.FromResult(new PagedData<UserResult>() { QueryResult = userList, PageNumber = request.PageNumber, PageSize = request.PageSize, TotalCount = users.Count });
         }
     }
 }

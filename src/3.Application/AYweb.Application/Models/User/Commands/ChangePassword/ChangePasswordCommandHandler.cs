@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AYweb.Application.Models.User.Commands.UpdateUser
+namespace AYweb.Application.Models.User.Commands.ChangePassword
 {
     public class ChangePasswordCommandHandler : ICommandHandler<ChangePasswordCommand>
     {

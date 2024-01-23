@@ -51,7 +51,10 @@ public static class DependencyInjection
 
 
         services.AddTransient<IGalleryRepository, GelleryRepository>();
+
+
         services.AddTransient<INotificationRepository, NotificationRepository>();
+        services.AddTransient<IUserNotificationRepository, NotificationRepository>();
         
         #region Order
         services.AddTransient<IOrderRepository, OrderRepository>();
