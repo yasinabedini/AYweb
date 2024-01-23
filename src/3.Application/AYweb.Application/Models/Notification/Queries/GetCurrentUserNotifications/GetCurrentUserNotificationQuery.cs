@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Notification.Queries.GetNotifications
+namespace AYweb.Application.Models.Notification.Queries.GetCurrentUserNotifications
 {
-    public class GetNotificationsQuery:PageQuery<PagedData<NotificationResult>>
+    public class GetCurrentUserNotificationQuery : IQuery<List<NotificationResult>>
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Notification.Queries.Common
 {
-    internal class NotificationResult
+    public class NotificationResult
     {
     }
 }
