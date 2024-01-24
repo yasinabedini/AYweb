@@ -7,9 +7,7 @@ public class Role : AggregateRoot
 {
     #region Properties
     public Title Title { get;private set; }
-
-    public bool IsDelete { get; private set; }
-
+    
     public List<Role_Permission> Permissions { get; set; }
     public List<Role_Users> Role_Users { get; set; }
     #endregion
@@ -45,9 +43,9 @@ public class Role : AggregateRoot
         Role_Users.Add(user);
     }
 
-    public void AddPermissionToRole(Role_Permission role_Permission)
+    public void AddPermissionToRole(long permissionId)
     {
-        Permissions.Add(role_Permission);
+        Permissions.Add(new Role_Permission(Id,permissionId));
     }
 
     public void Delete()

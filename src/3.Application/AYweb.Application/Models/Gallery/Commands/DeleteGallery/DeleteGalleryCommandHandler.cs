@@ -25,3 +25,4 @@ namespace AYweb.Application.Models.Gallery.Commands.DeleteGallery
             return Task.CompletedTask;
         }
     }
+}

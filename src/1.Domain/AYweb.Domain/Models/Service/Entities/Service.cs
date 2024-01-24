@@ -61,7 +61,7 @@ public class Service : AggregateRoot
 
     public void ChangeImageName(string imageName)
     {
-        Image = Gallery.Entities.Gallery.Create(imageName);
+        Image = imageName;
         Modified();
     }
 

@@ -43,7 +43,7 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
         {
             var transaction = GetById(transactionId);
             transaction.RejectTransaction();
-            Update(transaction)
+            Update(transaction);
         }
 
         public void RequestForPayTransaction(long Id, string transactionScreenShot = "No Image")

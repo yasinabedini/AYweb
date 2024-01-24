@@ -100,7 +100,7 @@ public class Blog : AggregateRoot
         Modified();
     }
 
-    public void AddGroup(int groupId)
+    public void AddGroup(long groupId)
     {
         Groups.Add(new Blog_Groups(groupId, Id));
     }

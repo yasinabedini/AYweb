@@ -33,7 +33,7 @@ public class Notification : AggregateRoot
     public void Delete()
     {
         IsDelete = true;
-        Modified()
+        Modified();
     }
     #endregion
 }

@@ -1,14 +1,8 @@
 ﻿using AIPFramework.Queries;
 using AYweb.Application.Models.Notification.Queries.Common;
-using AYweb.Application.Models.Notification.Queries.GetCurrentUserNotification;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Domain.Models.Notification.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zamin.Extensions.ObjectMappers.Abstractions;
 
 namespace AYweb.Application.Models.Notification.Queries.GetCurrentUserUnSeenNotification

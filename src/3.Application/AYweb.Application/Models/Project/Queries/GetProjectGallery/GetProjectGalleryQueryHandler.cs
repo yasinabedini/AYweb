@@ -27,7 +27,7 @@ namespace AYweb.Application.Models.Project.Queries.GetProjectGallery
         public Task<List<GalleryResult>> Handle(GetProjectGalleryQuery request, CancellationToken cancellationToken)
         {
             var projects = _repository.GetList();
-            var galleries = _mapper.Map<List<Gallery>, List<GalleryResult>>(projects.SelectMany(t=>t.Galleries).ToList());
+            var galleries = _mapper.Map<List<Domain.Models.Gallery.Entities.Gallery>, List<GalleryResult>>(projects.SelectMany(t=>t.Galleries).ToList());
 
 
             return Task.FromResult(galleries);

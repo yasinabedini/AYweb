@@ -29,6 +29,55 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         _context.User_Plans.Add(user_Plans);
     }
 
+    public void ChangeEmail(long userId, string email)
+    {
+        var user = GetById(userId);
+        user.ChangeEmail(email);
+        Update(user);
+    }
+
+    public void ChangeFirstName(long userId, string firstName)
+    {
+        var user = GetById(userId);
+        user.ChangeFirstName(firstName);
+        Update(user);
+    }
+
+    public void ChangeLastName(long userId, string lastName)
+    {
+        var user = GetById(userId);
+        user.ChangeLastName(lastName);
+        Update(user);
+    }
+
+    public void ChangePassword(long userId, string hassPassword)
+    {
+        var user = GetById(userId);
+        user.ChangePassword(hassPassword);
+        Update(user);
+    }
+
+    public void ChangePhoneNumber(long userId, string phoneNumber)
+    {
+        var user = GetById(userId);
+        user.ChangePhoneNumber(phoneNumber);
+        Update(user);
+    }
+
+    public void ConfirmEmail(long userId)
+    {
+        var user = GetById(userId);
+        user.ConfirmEmail();
+        Update(user);
+    }
+
+    public void ConfirmPhoneNumber(long userId)
+    {
+        var user = GetById(userId);
+        user.ConfirmPhoneNumber();
+        Update(user);
+    }
+
     public Domain.Models.User.Entities.User GetAuthenticatedUser()
     {
         if (!_httpContext.HttpContext.User.Identity.IsAuthenticated)
@@ -65,5 +114,12 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
     public Domain.Models.User.Entities.User GetUSerByUsername(string username)
     {
         throw new NotImplementedException();
+    }
+
+    public void SetEmail(long userId, string setEmail)
+    {
+        var user = GetById(userId);
+        user.SetEmail(setEmail);
+        Update(user);
     }
 }

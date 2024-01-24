@@ -5,11 +5,10 @@ namespace AYweb.Domain.Models.Role.Entities;
 public class Role_Permission : Entity<long>
 {
     #region Properties
-    public int RoleId { get; set; }
+    public long RoleId { get; set; }
 
-    public int PermissionId { get; set; }
-
-    public bool IsDelete { get; set; }
+    public long PermissionId { get; set; }
+    
 
     public Role Role { get; set; }
 
@@ -18,13 +17,13 @@ public class Role_Permission : Entity<long>
 
     #region Constructor And Factories
     private Role_Permission() { }
-    public Role_Permission(int roleId, int permissionId)
+    public Role_Permission(long roleId, long permissionId)
     {
         RoleId = roleId;
         PermissionId = permissionId;
         CreateAt = DateTime.Now;
     }
-    public static Role_Permission Create(int roleId, int permissionId)
+    public static Role_Permission Create(long roleId, long permissionId)
     {
         return new Role_Permission(roleId, permissionId);
     }

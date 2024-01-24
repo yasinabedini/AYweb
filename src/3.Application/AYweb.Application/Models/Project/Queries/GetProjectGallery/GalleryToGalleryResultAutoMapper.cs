@@ -12,7 +12,7 @@ namespace AYweb.Application.Models.Project.Queries.GetProjectGallery
     {
         public GalleryToGalleryResultAutoMapper()
         {
-            CreateMap<Gallery, GalleryResult>().ReverseMap();
+            CreateMap<Domain.Models.Gallery.Entities.Gallery, GalleryResult>().ReverseMap();
         }
     }
 }

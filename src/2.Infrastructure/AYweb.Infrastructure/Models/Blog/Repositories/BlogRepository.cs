@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Blog.Repositories;
@@ -65,6 +66,55 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     public List<BlogComment> GetBlogComments(long blogId)
     {
         return _context.BlogComments.Where(t => t.BlogId == blogId).ToList();
+    }
+
+    public void AddGroupToBlog(long blogId, long groupId)
+    {
+        var blog = GetById(blogId);
+        blog.AddGroup(groupId);
+        Update(blog);
+    }
+
+    public void AddTagToBlog(long blogId, string tag)
+    {
+        var blog = GetById(blogId);
+        blog.AddTags(tag);
+        Update(blog);
+    }
+
+    public void ChangeImage(long blogId, string imageName)
+    {
+        var blog = GetById(blogId);
+        blog.ChangeImageName(imageName);
+        Update(blog);
+    }
+
+    public void ChangeIntroduction(long blogId, string introduction)
+    {
+        var blog = GetById(blogId);
+        blog.ChangeIntroduction(introduction);
+        Update(blog);
+    }
+
+    public void ChangeSummery(long blogId, string summery)
+    {
+        var blog = GetById(blogId);
+        blog.ChangeSummary(summery);
+        Update(blog);
+    }
+
+    public void ChangeText(long blogId, string text)
+    {
+        var blog = GetById(blogId);
+        blog.ChangeText(text);
+        Update(blog);
+    }
+
+    public void ChangeTitle(long blogId, string title)
+    {
+        var blog = GetById(blogId);
+        blog.ChangeTitle(title);
+        Update(blog);
     }
 
     #endregion
