@@ -19,10 +19,7 @@ public class ChangeEmailCommandHandler : ICommandHandler<ChangeEmailCommand>
 
     public Task Handle(ChangeEmailCommand request, CancellationToken cancellationToken)
     {
-        var user = _repository.GetById(request.Id);
-        user.ChangeFirstName(request.Email);
-
-        _repository.Update(user);
+        _repository.ChangeEmail(request.Id, request.Email);
         _repository.Save();
 
         return Task.CompletedTask;

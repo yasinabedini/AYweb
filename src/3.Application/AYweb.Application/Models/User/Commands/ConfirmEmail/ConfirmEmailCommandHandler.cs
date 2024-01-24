@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.User.Commands.ConfirmEmail
 
         public Task Handle(ConfirmEmailCommand request, CancellationToken cancellationToken)
         {
-            var user = _repository.GetById(request.Id);
-            user.ConfirmEmail();
-
-            _repository.Update(user);
+            _repository.ConfirmEmail(request.Id);
             _repository.Save();
             
             return Task.CompletedTask;

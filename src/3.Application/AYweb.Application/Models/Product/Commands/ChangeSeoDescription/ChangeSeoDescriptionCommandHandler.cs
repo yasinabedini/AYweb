@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeSeoDescription
 
         public Task Handle(ChangeSeoDescriptionCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeSeoDescription(request.SeoDescription);
-
-            _repository.Update(product);
+            _repository.ChangeSeoDescription(request.Id, request.SeoDescription);
             _repository.Save();
 
             return Task.CompletedTask;

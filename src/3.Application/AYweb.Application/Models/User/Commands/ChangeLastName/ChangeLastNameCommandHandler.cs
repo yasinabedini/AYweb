@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.User.Commands.ChangeLastName
 
         public Task Handle(ChangeLastNameCommand request, CancellationToken cancellationToken)
         {
-            var user = _repository.GetById(request.Id);
-            user.ChangeLastName(request.LastName);
-
-            _repository.Update(user);
+            _repository.ChangeLastName(request.Id, request.LastName);
             _repository.Save();
 
             return Task.CompletedTask;

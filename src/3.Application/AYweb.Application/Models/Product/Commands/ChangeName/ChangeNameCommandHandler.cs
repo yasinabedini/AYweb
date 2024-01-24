@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeName
 
         public Task Handle(ChangeNameCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeName(request.Name);
-            
-            _repository.Update(product);
+          _repository.ChangeName(request.Id, request.Name);
             _repository.Save();
             
             return Task.CompletedTask;

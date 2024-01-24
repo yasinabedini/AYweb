@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.Product.Commands.IncreaseInventory
 
         public Task Handle(IncreaseInventoryCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.IncreaseInventory(request.Amount);
-
-            _repository.Update(product);
+            _repository.IncreaseInventory(request.Id, request.Amount);
             _repository.Save();
 
             return Task.CompletedTask;

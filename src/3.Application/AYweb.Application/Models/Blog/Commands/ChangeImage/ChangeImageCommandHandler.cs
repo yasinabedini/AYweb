@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.ChangeImage
 
         public Task Handle(ChangeImageCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.Id);
-            blog.ChangeImageName(request.ImageName);
-
-            _repository.Update(blog);
+            _repository.ChangeImage(request.Id, request.ImageName);
             _repository.Save();
 
             return Task.CompletedTask;

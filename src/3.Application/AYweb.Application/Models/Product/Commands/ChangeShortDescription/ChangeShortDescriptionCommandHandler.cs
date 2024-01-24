@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeShortDescription
 
         public Task Handle(ChangeShortDescriptionCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeShortDescription(request.ShortDescription);
-
-            _repository.Update(product);
+            _repository.ChangeShortDescription(request.Id, request.ShortDescription);
             _repository.Save();
 
             return Task.CompletedTask;

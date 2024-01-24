@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.Blog.Commands.ChangeSummery
 
         public Task Handle(ChangeSummeryCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.Id);
-            blog.ChangeSummary(request.Summery);
-
-            _repository.Update(blog);
+            _repository.ChangeSummery(request.Id, request.Summery);
             _repository.Save();
 
             return Task.CompletedTask;

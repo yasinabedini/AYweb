@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeImageName
 
         public Task Handle(ChangeImageCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeImageName(request.ImageName);
-
-            _repository.Update(product);
+            _repository.ChangeImageName(request.Id, request.ImageName);
             _repository.Save();
 
             return Task.CompletedTask;

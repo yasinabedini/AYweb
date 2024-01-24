@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.Product.Commands.DisableIsSpecial
 
         public Task Handle(DisableIsSpecialCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.DisableIsSpecial();
-
-            _repository.Update(product);
+            _repository.DisableIsSpecial(request.Id);
             _repository.Save();
 
             return Task.CompletedTask;

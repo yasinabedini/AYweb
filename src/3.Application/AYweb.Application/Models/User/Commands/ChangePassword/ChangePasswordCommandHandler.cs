@@ -20,10 +20,7 @@ namespace AYweb.Application.Models.User.Commands.ChangePassword
 
         public Task Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = _repository.GetById(request.Id);
-            user.ChangePassword(user.Password);
-
-            _repository.Update(user);
+            _repository.ChangePassword(request.Id,request.Password);
             _repository.Save();
 
             return Task.CompletedTask;

@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeMainDescription
 
         public Task Handle(ChangeMainDescriptionCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeMainDescription(request.MainDescription);
-
-            _repository.Update(product);
+            _repository.ChangeMainDescription(request.Id, request.MainDescription);
             _repository.Save();
 
             return Task.CompletedTask;

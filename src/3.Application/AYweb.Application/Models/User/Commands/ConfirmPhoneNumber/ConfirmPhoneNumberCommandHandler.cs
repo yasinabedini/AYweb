@@ -21,10 +21,7 @@ namespace AYweb.Application.Models.User.Commands.ConfirmPhoneNumber
 
         public Task Handle(ConfirmPhoneNumberCommand request, CancellationToken cancellationToken)
         {
-            var user = _repository.GetById(request.Id);
-            user.ConfirmPhoneNumber();
-
-            _repository.Update(user);
+            _repository.ConfirmPhoneNumber(request.Id);
             _repository.Save();
 
             return Task.CompletedTask;

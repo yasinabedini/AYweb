@@ -21,10 +21,7 @@ namespace AYweb.Application.Models.Blog.Commands.AddGroupToBlog
 
         public Task Handle(AddGroupToBlogCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.BlogId);
-            blog.AddGroup(request.GroupId);
-
-            _repository.Update(blog);
+            _repository.AddGroupToBlog(request.BlogId, request.GroupId);
             _repository.Save();
 
             return Task.CompletedTask;

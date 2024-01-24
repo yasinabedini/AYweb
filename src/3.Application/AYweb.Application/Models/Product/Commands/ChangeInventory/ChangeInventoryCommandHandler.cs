@@ -18,10 +18,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeInventory
         }
         public Task Handle(ChangeInventoryCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeInventory(request.Inventory);
-
-            _repository.Update(product);
+            _repository.ChangeInventory(request.Id, request.Inventory);
             _repository.Save();
 
             return Task.CompletedTask;

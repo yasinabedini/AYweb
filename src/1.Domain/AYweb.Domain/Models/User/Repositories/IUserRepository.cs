@@ -13,6 +13,15 @@ public interface IUserRepository : IRepository<User.Entities.User>
     User.Entities.User GetUSerByUsername(string username);
     User.Entities.User GetAuthenticatedUser();
 
+    void ChangeEmail(long userId, string email);
+    void ChangeFirstName(long userId, string firstName);
+    void ChangeLastName(long userId, string lastName);
+    void ChangePassword(long userId, string hassPassword);
+    void ChangePhoneNumber(long userId, string phoneNumber);
+    void SetEmail(long userId, string setEmail);
+    void ConfirmPhoneNumber(long userId);
+    void ConfirmEmail(long userId);
+
     #region Plan
     void AddPlanToUser(User_Plans user_Plans);
     Plan.Entities.Plan GetUserActivePlan(long userId);

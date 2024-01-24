@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.AddTag
 
         public Task Handle(AddTagCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.BlogId);
-            blog.AddTags(request.Tag);
-
-            _repository.Update(blog);
+            _repository.AddTagToBlog(request.BlogId, request.Tag);
             _repository.Save();
 
             return Task.CompletedTask;

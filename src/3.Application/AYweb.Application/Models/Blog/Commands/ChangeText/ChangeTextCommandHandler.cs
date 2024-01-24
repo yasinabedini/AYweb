@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.ChangeText
 
         public Task Handle(ChangeTextCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.Id);
-            blog.ChangeText(request.Text);
-
-            _repository.Update(blog);
+            _repository.ChangeText(request.Id,request.Text);
             _repository.Save();
 
             return Task.CompletedTask;

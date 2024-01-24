@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.User.Commands.ChangeFirstName
 
         public Task Handle(ChangeFirstNameCommand request, CancellationToken cancellationToken)
         {
-            var user = _repository.GetById(request.Id);
-            user.ChangeFirstName(request.FirstName);
-
-            _repository.Update(user);
+           _repository.ChangeFirstName(request.Id,request.FirstName);
             _repository.Save();
 
             return Task.CompletedTask;

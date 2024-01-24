@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.ChangeTitle
 
         public Task Handle(ChangeTitleCommand request, CancellationToken cancellationToken)
         {
-            var blog = _repository.GetById(request.Id);
-            blog.ChangeTitle(request.Title);
-
-            _repository.Update(blog);
+            _repository.ChangeTitle(request.Id,request.Title);
             _repository.Save();
 
             return Task.CompletedTask;

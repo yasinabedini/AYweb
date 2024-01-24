@@ -19,7 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.DeleteBlogGroup
 
         public Task Handle(DeleteBlogGroupCommand request, CancellationToken cancellationToken)
         {
-            _repository.GetById(request.Id).IsDelete = true;
+            _repository.Delete(request.Id);
             _repository.Save();
 
             return Task.CompletedTask;

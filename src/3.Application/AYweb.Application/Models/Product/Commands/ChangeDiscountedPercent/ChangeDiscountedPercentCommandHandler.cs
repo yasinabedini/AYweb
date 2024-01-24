@@ -19,10 +19,7 @@ namespace AYweb.Application.Models.Product.Commands.ChangeDiscountedPercent
 
         public Task Handle(ChangeDiscountedPercentCommand request, CancellationToken cancellationToken)
         {
-            var product = _repository.GetById(request.Id);
-            product.ChangeDiscountedPercent(request.DiscountedPercent);
-
-            _repository.Update(product);
+            _repository.ChangeDiscountedPercent(request.Id, request.DiscountedPercent);
             _repository.Save();
 
             return Task.CompletedTask;
