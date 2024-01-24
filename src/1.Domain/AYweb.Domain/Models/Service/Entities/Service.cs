@@ -6,17 +6,16 @@ namespace AYweb.Domain.Models.Service.Entities;
 public class Service : AggregateRoot
 {
     #region Properties
-    public Title Title { get; set; }
+    public Title Title { get;private set; }
 
-    public Description Description { get; set; }
+    public Description Description { get; private set; }
 
-    public Gallery.Entities.Gallery Image { get; set; }
+    public string Image { get; private set; }
 
-    public int? ParentId { get; set; }
+    public int? ParentId { get; private set; }
 
-    public Service? Parent { get; set; }
-
-    public bool IsDelete { get; set; }
+    public Service? Parent { get; private set; }
+    
     #endregion
 
     #region Constructor And Factories
@@ -25,7 +24,7 @@ public class Service : AggregateRoot
     {
         Title = title;
         Description = description;
-        Image = Gallery.Entities.Gallery.Create(imageName);
+        Image = imageName;
         if (parentId.HasValue) ParentId = parentId;
     }
     public static Service Create(string title, string description, string imageName, int? parentId)
