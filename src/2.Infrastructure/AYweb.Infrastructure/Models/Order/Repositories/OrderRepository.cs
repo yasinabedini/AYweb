@@ -3,6 +3,7 @@ using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Order.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Infrastructure.Models.Order.Repositories;
 
@@ -17,7 +18,7 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
     #region Order
     public List<Domain.Models.Order.Entities.Order> GetOrdersByUserId(long userId)
     {
-        return _context.Orders.Where(t => t.UserId == userId).ToList();
+        return _context.Orders.Include(t=>t.OrderLines).ThenInclude(t=>t.Product).Where(t => t.UserId == userId).ToList();
     }
     #endregion
 

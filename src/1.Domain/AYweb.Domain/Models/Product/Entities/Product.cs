@@ -159,7 +159,7 @@ public class Product : AggregateRoot
 
     public int GetPrice()
     {
-        return (Price) * (DiscountedPercent / 100);
+        return Price -  (Price) * (DiscountedPercent / 100);
     }
 
     public int SalesNumber()

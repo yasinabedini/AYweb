@@ -25,7 +25,8 @@ namespace AYweb.Application.Models.User.Queries.GetUser
 
         public async Task<Domain.Models.User.Entities.User> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            var res = _repository.GetById(request.Id);
+            var res = _repository.GetByIdWithGraph(request.Id);
+
             return res;
         }
     }

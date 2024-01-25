@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Domain.Models.Order.Enums;
 
-internal enum _OrderStatus
+public enum _OrderStatus
 {
     completing = 0,
     AwaitingPaymentConfirmation = 1,

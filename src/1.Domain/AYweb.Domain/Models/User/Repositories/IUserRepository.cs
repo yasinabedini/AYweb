@@ -13,6 +13,7 @@ public interface IUserRepository : IRepository<User.Entities.User>
     User.Entities.User GetAuthenticatedUser();
     string GetUserVerificationCode(string phoneNumber);
 
+    public Domain.Models.User.Entities.User GetByIdWithGraph(long id);
     bool IsUserExisting(string phoneNumber);
     User.Entities.User Login(string phoneNumber, string password);
 

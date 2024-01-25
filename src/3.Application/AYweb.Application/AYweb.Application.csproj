@@ -49,7 +49,6 @@
 	<ItemGroup>
 		<Folder Include="Models\Order\Commands\CreateForward\" />
 		<Folder Include="Models\Order\Commands\RemoveProductToOrder\" />
-		<Folder Include="Models\Order\Queries\GetOrderOrderLines\" />
 		<Folder Include="Models\Order\Queries\GetForwards\" />
 	</ItemGroup>
 

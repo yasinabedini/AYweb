@@ -23,6 +23,12 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         _context = context;
         _httpContext = httpContext;
     }
+    
+    public  Domain.Models.User.Entities.User GetByIdWithGraph(long id)
+    {
+        return _context.Users.Include(t => t.MyOrders).ThenInclude(t => t.OrderLines).ThenInclude(t => t.Product).Include(t => t.Transactions).Include(t => t.RolesList).FirstOrDefault(t => t.Id == id);
+    }
+    
 
     public void AddPlanToUser(User_Plans user_Plans)
     {

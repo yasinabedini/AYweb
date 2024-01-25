@@ -12,9 +12,9 @@ public class Order : AggregateRoot
 
     public int EndPrice { get; private set; }
 
-    public Description Notes { get; private set; }
+    public Description? Notes { get; private set; }
 
-    public List<OrderLine> OrderLines { get; private set; }
+    public List<OrderLine> OrderLines { get; private set; } = new List<OrderLine>();
 
     public bool InPersonDelivery { get; private set; }
 
@@ -65,13 +65,14 @@ public class Order : AggregateRoot
         ModifiedAt = DateTime.Now;
     }
 
-    public void CalculateEndPrice()
+    public int CalculateEndPrice()
     {
+        int endPrice = 0;
         if (OrderLines.Count > 0)
         {
-            EndPrice = OrderLines.Sum(t => t.SumPrice);
-            Modified();
+            endPrice = OrderLines.Sum(t => t.SumPrice);            
         }
+        return endPrice;
     }
 
     public List<OrderLine> GetOrderLines()
@@ -85,7 +86,7 @@ public class Order : AggregateRoot
         {
             var orderLine = OrderLines.Single(t => t.ProductId == productId);                        
             orderLine.IncreaseProductCount(amount);
-            CalculateEndPrice();
+            EndPrice =  CalculateEndPrice();
 
             return orderLine;
         }
@@ -94,7 +95,7 @@ public class Order : AggregateRoot
         {
             OrderLine orderLine = OrderLine.Create(productId, unitPrice,amount);
             OrderLines.Add(orderLine);
-            CalculateEndPrice();
+            EndPrice = CalculateEndPrice();
 
             return orderLine;
         }

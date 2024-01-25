@@ -1,22 +1,18 @@
 ﻿using AIPFramework.Entities;
 using AYweb.Domain.Common.Repositories;
-using AYweb.Domain.Models.User.Entities;
 using AYweb.Infrastructure.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AYweb.Infrastructure.Common.Repository
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : AggregateRoot  
     {
-        private readonly AyWebDbContext _context;
+        private readonly AyWebDbContext _context;        
 
         public BaseRepository(AyWebDbContext context)
         {
-            _context = context;
+            _context = context;            
         }
 
         public void Add(TEntity entity)
@@ -45,7 +41,7 @@ namespace AYweb.Infrastructure.Common.Repository
         {
             _context.Set<TEntity>().Update(entity);
         }
-
+     
         public void Save()
         {
             _context.SaveChanges();
