@@ -1,0 +1,64 @@
+﻿@using AYweb.Application.Models.User.Commands.CreateUser
+@model CreateUserCommand
+
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>عضویت</h2>
+
+                    <ul>
+                        <li><a href="#">صفحه اصلی</a></li>
+                        <li>عضویت</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_Shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Signup Area -->
+<div class="container">
+    <div class="form-content">
+
+        <div class="form-header">
+            <h3>ایجاد حساب کاربری</h3>
+            <p>نوآوری های واقعی و تجربه مثبت مشتری ، هسته اصلی ارتباط موفق است.</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Register" id="userFormRegister" method="post">
+            <div class="form-group">
+                <label>نام</label>
+                <input type="text" asp-for="FirstName" class="form-control" id="first-name" placeholder="نام">
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="form-group">
+                <label>نام خانوادگی</label>
+                <input type="text" asp-for="LastName" class="form-control" id="last-name" placeholder="نام خانوادگی">
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="form-group">
+                <label>شماره موبایل</label>
+                <input type="text" asp-for="PhoneNumber" class="form-control" id="your-mobile" placeholder="مشاره موبایل شما">
+                <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+            </div>
+          
+            <div class="form-group">
+                <label>رمز عبور</label>
+                <input type="password" asp-for="Password" class="form-control" id="your-password" placeholder="رمز عبور">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <button type="submit" class="default-btn" id="register">ثبت نام</button>
+        </form>
+
+        <div class="form-footer">
+            <p>حساب کاربری دارید؟ <a class="form-link" asp-controller="Account" asp-action="Login">ورود</a></p>
+        </div>
+    </div>
+</div>
+<!-- End Signup Area -->

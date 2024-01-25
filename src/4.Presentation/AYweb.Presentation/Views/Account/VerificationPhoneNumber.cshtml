@@ -1,0 +1,75 @@
+﻿@using AYweb.Application.Models.User.Commands.ConfirmPhoneNumber
+@model ConfirmPhoneNumberCommand
+@{
+   
+}
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>اعتبار سنجی</h2>
+
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">آی وب</a></li>
+                        <li>اعتبار سنجی</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="_Shapes" />
+</div>
+
+<!-- End Page Title Area -->
+<!-- Login Area -->
+<div class="container">
+    <div class="form-content">
+        <div class="form-header">
+            <h3>اعتبار سنجی</h3>
+            <p>اگر حساب کاربری دارید ، وارد شوید</p>
+        </div>
+        <form asp-controller="Account" asp-action="VerificationPhoneNumber" method="post">
+
+            <div class="form-group">
+                <label>تلفن همراه</label>
+                <input type="text" asp-for="PhoneNumber" disabled class="form-control" id="your-email" placeholder="شماره موبایل شما">
+                <input type="hidden" asp-for="PhoneNumber">
+            </div>
+
+            <div class="form-group">
+                <label>کد 6 رقمی</label>
+                <input type="text" asp-for="Code" class="form-control" id="your-email" placeholder="کد تایید 6 رقمی">
+            </div>
+
+            <div class="form-group" >
+                <a id="sendCode" class="btn btn-secondary text-white">ارسال مجدد کد</a>
+            </div>
+
+            <button type="submit" class="default-btn">تایید کد</button>
+        </form>
+    </div>
+</div>
+<!-- End Login Area -->
+@section Scripts {
+
+    @if (ViewData["ErrorCode"] != null && (bool)ViewData["ErrorCode"] == true)
+    {
+        <script>
+            $.notify("کد تایید را درست وارد کنید!", "error");
+        </script>
+    }
+
+    <script>
+        function sendCode() {
+            const btnLink = "https://Ayweb.work/SendValidationSms?phoneNumber=0" + @Model.PhoneNumber
+            document.getElementById("sendCode").classList.remove("btn-secondary");
+            document.getElementById("sendCode").classList.add("btn-primary");
+                document.getElementById("sendCode").setAttribute('href', btnLink);
+         
+        }
+        setTimeout(sendCode, 10000);
+    </script>
+}
