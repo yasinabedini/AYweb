@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Order.Commands.CreateOrder
 {
-    public class CreateOrderCommand:ICommand
+    public class CreateOrderCommand:ICommand<Domain.Models.Order.Entities.Order>
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

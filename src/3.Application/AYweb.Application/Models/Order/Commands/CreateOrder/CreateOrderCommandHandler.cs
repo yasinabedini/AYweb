@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Order.Commands.CreateOrder
 {
-    public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
+    public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand, Domain.Models.Order.Entities.Order>
     {
         private readonly IOrderRepository _repository;
         private readonly IHttpContextAccessor _httpContext;
@@ -21,12 +21,13 @@ namespace AYweb.Application.Models.Order.Commands.CreateOrder
             _httpContext = httpContext;
         }
 
-        public Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public Task<Domain.Models.Order.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            _repository.Add(Domain.Models.Order.Entities.Order.Create(request.UserId));
+            var order = Domain.Models.Order.Entities.Order.Create(request.UserId);
+            _repository.Add(order);
             _repository.Save();
 
-            return Task.CompletedTask;
+            return Task.FromResult(order);
         }
     }
 }

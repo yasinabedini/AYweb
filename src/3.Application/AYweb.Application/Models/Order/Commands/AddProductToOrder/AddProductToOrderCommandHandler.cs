@@ -1,7 +1,10 @@
 ﻿using AIPFramework.Commands;
 using AIPFramework.Session;
+using AYweb.Application.Models.Order.Commands.CreateOrder;
 using AYweb.Application.Models.Order.Commands.UpdateOrder;
 using AYweb.Application.Models.Order.Commands.UpdateOrderLine;
+using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder;
+using AYweb.Application.Models.Order.Queries.GetOrders;
 using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.User.Queries.GetAllUserQuery;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
@@ -56,7 +59,8 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
                 //If user has not any active order
                 else
                 {
-                    order = Domain.Models.Order.Entities.Order.Create(user.Id);
+                    order = _sender.Send(new CreateOrderCommand { UserId = user.Id }).Result;
+                    
                 }
 
                 var orderline = order.AddOrderLine(product.Id, product.Price, request.Amount);
