@@ -1,0 +1,144 @@
+﻿@using System.Configuration
+@using AYweb.Application.Models.Order.Queries.Common
+@model OrderResult
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>سبد خرید</h2>
+
+                    <ul>
+                        <li><a href="#">صفحه اصلی</a></li>
+                        <li>سبد خرید</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Start Cart Area -->
+<section class="cart-area pb-100 pt-4">
+    <div class="container">
+        @if (Model == null)
+        {
+            <div class="row">
+                <div class="cart-table table-responsive">
+                    <div>
+                        <p class="text-center">کالایی در سبد خرید موجود نیست</p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <form>
+                        <div class="cart-table table-responsive">
+                            @if (Model.OrderLines != null || Model.OrderLines.Count == 0)
+                            {
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">محصول</th>
+                                            <th scope="col">عنوان</th>
+                                            <th scope="col">قیمت واحد</th>
+                                            <th scope="col">تعداد</th>
+                                            <th scope="col">مجموع</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var orderLine in Model.OrderLines ?? new List<OrderLinesResult>())
+                                        {                                            
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-Id="@orderLine.Product.Id">
+                                                        <img src="/img/shop-image/@orderLine.Product.ImageName" alt="item">
+                                                    </a>
+                                                </td>
+
+                                                <td class="product-name">
+                                                    <a asp-controller="Product" asp-action="ProductDetails" asp-route-Id="@orderLine.Product.Id">@orderLine.Product.Name</a>
+                                                </td>
+
+                                                <td class="product-price">
+                                                    <span class="unit-amount">@orderLine.Product.GetPrice()   تومان</span>
+                                                </td>
+
+                                                <td class="product-quantity">
+                                                    <div class="input-counter">
+                                                        <form id="productInfo[@orderLine.Product.Id]" asp-controller="Order" asp-action="ChangeOrderLineCount">
+                                                            <input type="hidden" name="productId" value="@orderLine.Product.Id" />
+                                                            <span class="minus-btn"><i class="fas fa-minus"></i></span>
+                                                            <input type="text" min="1" value="@orderLine.Count" id="productCount[@orderLine.Product.Id]" onchange="changeOrderLineCount(@orderLine.Product.Id)">
+                                                            <span class="plus-btn"><i class="fas fa-plus" ></i></span>
+                                                        </form>
+                                                    </div>
+                                                </td>
+
+                                                <td class="product-subtotal">
+                                                    <span class="subtotal-amount">@orderLine.SumPrice تومان</span>
+
+                                                    <a href="#" class="remove"><i class="far fa-trash-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+
+                        <div class="cart-buttons">
+                            <div class="row align-items-center">
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <div class="shopping-coupon-code">
+                                        <input type="text" class="form-control" placeholder="کد تخفیف" name="coupon-code" id="coupon-code">
+                                        <button type="submit">اعمال تخفیف</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5 col-sm-5 col-md-5 text-right">
+                                    <a asp-controller="order" asp-action="MyCart" class="default-btn">بروزرسانی سبد خرید <span></span></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cart-totals">
+                            <h3>مبلغ سبد خرید</h3>
+
+                            <ul>
+                                <li>مبلغ واحد <span>@Model.EndPrice تومان</span></li>
+                                <li>کرایه <span>35000 تومان</span></li>
+                                <li>مجموع <span><b>@(@Model.EndPrice + 35000) تومان</b></span></li>
+                            </ul>
+                            <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut" class="default-btn">پرداخت <span></span></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!-- End Cart Area -->
+@section Scripts {
+    <script>
+
+        function changeOrderLineCount(productId) {
+            const productCount = document.getElementById("productCount[" + productId + "]").value;
+            const xhr = new XMLHttpRequest();
+            var params = "productId=" + productId + "&" + "count=" + productCount;
+            xhr.open("POST", "@ConfigurationManager.AppSettings["Domain"]/Order/ChangeOrderLineCount?productId=" + productId + "&count=" + productCount);
+            xhr.setRequestHeader('context-type', 'application/w-xxx-fomr-urlencoded');
+            xhr.send(params);
+        }
+
+
+    </script>
+}
