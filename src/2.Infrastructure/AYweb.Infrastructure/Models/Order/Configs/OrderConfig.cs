@@ -20,7 +20,7 @@ namespace AYweb.Infrastructure.Models.Order.Configs
 
             builder.HasMany(t => t.OrderLines);
 
-            //builder.HasOne(t => t.Forward).WithOne(t=>t.Order).HasForeignKey("ForwardId");
+            builder.HasOne(t => t.Forward).WithOne(t=>t.Order);
 
             builder.HasOne(t => t.User);
         }

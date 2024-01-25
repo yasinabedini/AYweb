@@ -24,7 +24,7 @@ namespace AYweb.Application.Models.Product.Commands.AddComment
 
         public Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
         {
-            Comment comment = new();
+            Comment comment = Comment.Create(); ;
             comment = _mapper.Map<AddCommentCommand, Comment>(request);
 
             _repository.Add(comment);

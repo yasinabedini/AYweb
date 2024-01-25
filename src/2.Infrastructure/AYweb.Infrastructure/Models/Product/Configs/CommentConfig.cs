@@ -18,9 +18,10 @@ namespace AYweb.Infrastructure.Models.Product.Configs
 
             builder.Property(t => t.Text).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
 
+            builder.Property(t => t.UserPhoneNumber).HasConversion<PhoneNumberConversion>().HasMaxLength(20).IsRequired();
+
             builder.Property(t => t.UserName).HasMaxLength(100).IsRequired();
 
-            builder.Property(t => t.UserPhoneNumber).HasConversion<PhoneNumberConversion>().HasMaxLength(20).IsRequired();
 
             builder.HasOne(t => t.Product);
         }

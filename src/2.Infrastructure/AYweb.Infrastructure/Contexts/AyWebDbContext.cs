@@ -6,6 +6,7 @@ using AYweb.Domain.Models.Notification.Entities;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Permission.Entities;
 using AYweb.Domain.Models.Plan.Entities;
+using AYweb.Domain.Models.Plan.ValueObjects;
 using AYweb.Domain.Models.Product.Entities;
 using AYweb.Domain.Models.Project.Entities;
 using AYweb.Domain.Models.Role.Entities;
@@ -57,6 +58,8 @@ namespace AYweb.Infrastructure.Contexts
 
         #region Plan
         public DbSet<Plan> Plans { get; set; }
+        public DbSet<PlanFeature> PlanFeatures { get; set; }
+
         #endregion
 
         #region Product

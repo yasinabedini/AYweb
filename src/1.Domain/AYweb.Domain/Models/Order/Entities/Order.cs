@@ -25,11 +25,10 @@ public class Order : AggregateRoot
     public int TransactionId { get; private set; }
 
     public bool IsApproved { get; private set; }
+    
 
-    public bool IsDelete { get; private set; }
-
-    public User.Entities.User? User { get; set; }
-    public Forward? Forward { get; set; }
+    public User.Entities.User? User { get;private set; }
+    public Forward? Forward { get;private set; }
     #endregion
 
     #region Constructor And Factories

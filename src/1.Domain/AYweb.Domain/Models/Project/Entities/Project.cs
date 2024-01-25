@@ -20,8 +20,7 @@ public class Project : AggregateRoot
     public string RelatedService { get; private set; }
 
     public string Link { get; private set; }
-
-    public bool IsDelete { get; set; }
+    
 
    public List<Gallery.Entities.Gallery> Galleries { get; set; }
     #endregion

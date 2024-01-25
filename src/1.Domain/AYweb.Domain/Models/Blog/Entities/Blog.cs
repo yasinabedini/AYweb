@@ -22,9 +22,7 @@ public class Blog : AggregateRoot
 
     public List<Gallery.Entities.Gallery> Galleries { get; set; }
 
-    public bool IsActive { get; set; }
-
-    public bool IsDeleted { get; private set; }
+    public bool IsActive { get; set; }    
 
     public User.Entities.User Author { get; set; }
 
@@ -32,7 +30,7 @@ public class Blog : AggregateRoot
     #endregion
 
     #region Constructor And Factories
-    public Blog() { CreateAt = DateTime.Now; }
+    private Blog() {  }
     public Blog(string title, string summery, string introduction, string text, int authorId, string? tags, string imageName)
     {
         Title = title;
@@ -48,6 +46,10 @@ public class Blog : AggregateRoot
     public static Blog Create(string title, string summery, string introduction, string text, int authorId, string? tags, string imageName)
     {
         return new Blog(title, summery, introduction, text, authorId, tags, imageName);
+    }
+    public static Blog Create()
+    {
+        return new Blog();
     }
     #endregion
 
@@ -107,7 +109,7 @@ public class Blog : AggregateRoot
 
     public void DeleteBlog()
     {
-        IsDeleted = true;
+        IsDelete = true;
         Modified();
     }
 

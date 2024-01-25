@@ -11,6 +11,7 @@ public class Academy : AggregateRoot
         
     public int ProjectCount { get; private set; }
 
+    private Academy() { }
     public Academy(string name,int teamCount,int projectCount)
     {
         Name = name;

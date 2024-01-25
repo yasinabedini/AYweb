@@ -19,6 +19,6 @@ public class ProductConfig : IEntityTypeConfiguration<Domain.Models.Product.Enti
 
         builder.HasMany(t => t.Comments);
         builder.HasMany(t => t.Features);
-        //builder.HasMany(t => t.OrderLines);
+        builder.HasMany(t => t.OrderLines);
     }
 }

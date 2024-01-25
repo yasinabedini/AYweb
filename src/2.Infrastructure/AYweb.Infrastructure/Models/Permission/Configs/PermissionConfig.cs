@@ -14,6 +14,8 @@ namespace AYweb.Infrastructure.Models.Permission.Configs
         public void Configure(EntityTypeBuilder<Domain.Models.Permission.Entities.Permission> builder)
         {
             builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
+
+            builder.HasOne(t => t.Parent);
         }
     }
 }

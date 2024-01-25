@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.Product.Commands.CreateProduct
 
         public Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            Domain.Models.Product.Entities.Product product = new();  
+            Domain.Models.Product.Entities.Product product = Domain.Models.Product.Entities.Product.Create();  
             product = _mapper.Map<CreateProductCommand, Domain.Models.Product.Entities.Product>(request);
 
             _repository.Add(product);

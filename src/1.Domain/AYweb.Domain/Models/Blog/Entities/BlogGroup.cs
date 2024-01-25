@@ -6,9 +6,7 @@ namespace AYweb.Domain.Models.Blog.Entities;
 public class BlogGroup : Entity<long>
 {
     #region Properties
-    public Title Title { get;private set; }
-
-    public bool IsDelete { get; set; }
+    public Title Title { get;private set; }    
     #endregion
 
     #region Constructor And Factories

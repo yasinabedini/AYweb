@@ -6,6 +6,7 @@ using AYweb.Domain.Models.Notification.Entities;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Order.Enums;
 using System.Linq;
+using System.Transactions;
 
 namespace AYweb.Domain.Models.User.Entities;
 
@@ -29,10 +30,10 @@ public class User : AggregateRoot
     public VerificationCode VerificationCode { get; set; }
 
     public bool IsActive { get; private set; }
-
-    public bool IsDelete { get; private set; }
-
+    
     public List<UserNotification> Notifications { get; set; }
+
+    public List<Transaction.Entities.Transaction> Transactions { get; set; }
 
     public List<Role_Users> RolesList { get; private set; }
 

@@ -6,9 +6,7 @@ namespace AYweb.Domain.Models.Notification.Entities;
 public class Notification : AggregateRoot
 {
     #region Properties
-    public Title Title { get; set; }
-
-    public bool IsDelete { get; set; }
+    public Title Title { get; set; }    
     #endregion
 
     #region Constructors And Factories

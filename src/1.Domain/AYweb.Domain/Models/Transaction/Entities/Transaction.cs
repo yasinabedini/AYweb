@@ -1,4 +1,5 @@
-﻿using AIPFramework.Entities;
+﻿
+using AIPFramework.Entities;
 using AYweb.Domain.Models.Transaction.ValueObjects;
 using AYweb.Domain.Models.Transaction.Enums;
 using AIPFramework.Exceptions;
@@ -30,7 +31,7 @@ public class Transaction : AggregateRoot
 
     #region Constructor And Factories
     private Transaction() { }
-    public Transaction(long userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public Transaction(long userId, int price, _TransactionType transactionType, _PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
     {
         UserId = userId;
         Price = price;
@@ -44,7 +45,7 @@ public class Transaction : AggregateRoot
         }
         TransactionScreenShot = transactionScreenShot;
     }
-    public static Transaction Create(long userId, int price, Enums._TransactionType transactionType, Enums._PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public static Transaction Create(long userId, int price, _TransactionType transactionType, _PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
     {
         return new Transaction(userId, price, transactionType, paymentMethod, description, transactionScreenShot);
     }

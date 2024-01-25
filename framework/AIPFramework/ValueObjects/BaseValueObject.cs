@@ -9,7 +9,7 @@ namespace AIPFramework.ValueObjects;
 /// <typeparam name="TValueObject"></typeparam>
 public abstract class BaseValueObject<TValueObject> : IEquatable<TValueObject> where TValueObject : BaseValueObject<TValueObject>
 {
-
+   
     protected static void CheckRule(IBusinessRule rule)
     {
         if (!rule.HasValidRule())

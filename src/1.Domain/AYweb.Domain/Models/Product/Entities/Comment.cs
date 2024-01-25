@@ -14,16 +14,14 @@ public class Comment : Entity<long>
 
     public PhoneNumber UserPhoneNumber { get; private set; }
 
-    public int ProductId { get; private set; }
-
-    public bool IsDelete { get; private set; }
+    public int ProductId { get; private set; }    
 
     public Product Product { get; private set; } 
     #endregion
 
     #region Constructors And Factories
 
-    public Comment() { CreateAt = DateTime.Now; }
+    private Comment() { }
     public Comment(string title, string text, string userName, string phoneNumber, int productId)
     {
         Title = new Title(title);
@@ -36,7 +34,11 @@ public class Comment : Entity<long>
     public static Comment Create(string title, string text, string userName, string phoneNumber, int productId)
     {
         return new Comment(title, text, userName, phoneNumber, productId);
-    } 
+    }
+    public static Comment Create()
+    {
+        return new Comment();
+    }
     #endregion
 
     #region Command

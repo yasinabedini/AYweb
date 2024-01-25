@@ -20,7 +20,7 @@ public class BlogConfig : IEntityTypeConfiguration<Domain.Models.Blog.Entities.B
 
         builder.Property(t => t.ImageName).IsRequired();
 
-        // builder.HasMany(t => t.Galleries);       
+        builder.HasMany(t => t.Galleries);       
 
         builder.HasMany(t => t.Groups);
     }

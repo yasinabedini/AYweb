@@ -6,8 +6,7 @@ public class Gallery : AggregateRoot
 {
     #region Properties
     public string ImageName { get; private set; }
-
-    public bool IsDelete { get; set; }
+    
     #endregion
 
     #region Constructors And Factories

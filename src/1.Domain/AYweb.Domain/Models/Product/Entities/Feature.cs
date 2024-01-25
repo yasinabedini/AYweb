@@ -7,14 +7,16 @@ public class Feature : Entity<long>
 {
     #region Properties
     public Title Title { get; private set; }
+
     public string Value { get; private set; }
 
     public int ProductId { get; private set; }
+
     public Product Product { get; private set; } 
     #endregion
 
     #region Constructors And Factories
-    public Feature() { CreateAt = DateTime.Now; }
+    private Feature() { }
     public Feature(string title, string value)
     {
         Title = new Title(title);
@@ -24,6 +26,10 @@ public class Feature : Entity<long>
     public static Feature Create(string title, string value)
     {
         return new Feature(title, value);
+    }
+    public static Feature Create()
+    {
+        return new Feature();
     }
     #endregion
 

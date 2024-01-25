@@ -11,9 +11,7 @@ public class ServiceConfig : IEntityTypeConfiguration<Domain.Models.Service.Enti
         builder.Property(t => t.Title).HasConversion<TitleConversion>().HasMaxLength(250).IsRequired();
 
         builder.Property(t => t.Description).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
-
-        builder.HasOne(t => t.Image);
-
+        
         builder.HasOne(t => t.Parent);
     }
 }

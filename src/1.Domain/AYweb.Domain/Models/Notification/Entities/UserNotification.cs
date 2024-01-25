@@ -13,8 +13,7 @@ public class UserNotification : Entity<long>
     public long UserId { get; private set; }
 
     public User.Entities.User User { get; private set; }
-
-    public bool IsDelete { get; private set; }
+    
 
     #region Constructors And Factories
     private UserNotification() { }

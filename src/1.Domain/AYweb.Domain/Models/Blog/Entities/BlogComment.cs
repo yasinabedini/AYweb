@@ -14,9 +14,7 @@ public class BlogComment : Entity<long>
 
     public PhoneNumber UserPhoneNumber { get; private set; }
 
-    public Blog Blog { get; set; }    
-
-    public bool IsDelete { get; set; }
+    public Blog Blog { get; set; }        
     #endregion
 
     #region Contructor And Factories

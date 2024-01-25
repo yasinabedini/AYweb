@@ -20,6 +20,7 @@ namespace AYweb.Infrastructure.Models.Order.Configs
 
             builder.Property(t => t.TransfereeName).HasMaxLength(100).IsRequired();
 
+            builder.HasOne(t => t.Order).WithOne(t => t.Forward);
         }
     }
 }

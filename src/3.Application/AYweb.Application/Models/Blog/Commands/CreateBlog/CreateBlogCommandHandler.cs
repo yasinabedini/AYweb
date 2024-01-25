@@ -22,7 +22,7 @@ namespace AYweb.Application.Models.Blog.Commands.CreateBlog
 
         public Task Handle(CreateBlogCommand request, CancellationToken cancellationToken)
         {
-            Domain.Models.Blog.Entities.Blog blog = new();
+            Domain.Models.Blog.Entities.Blog blog = Domain.Models.Blog.Entities.Blog.Create();
             blog = _mapper.Map<CreateBlogCommand, Domain.Models.Blog.Entities.Blog>(request);
 
             _repository.Add(blog);

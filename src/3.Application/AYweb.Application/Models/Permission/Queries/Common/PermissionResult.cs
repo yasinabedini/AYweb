@@ -10,7 +10,6 @@ namespace AYweb.Application.Models.Permission.Queries.Common
     public class PermissionResult
     {
         public required string Title { get; set; }
-
-        public int? ParentId { get; set; }
+        
     }
 }

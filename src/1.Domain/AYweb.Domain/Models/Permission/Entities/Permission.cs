@@ -11,8 +11,7 @@ public class Permission : AggregateRoot
     public int? ParentId { get; private set; }
 
     public Permission? Parent { get; private set; }
-
-    public bool IsDelete { get; private set; }
+    
     
     #endregion
 

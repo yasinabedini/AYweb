@@ -26,8 +26,7 @@ public class Product : AggregateRoot
     public bool IsSpecial { get; private set; }
 
     public bool IsActive { get; private set; }
-
-    public bool IsDelete { get; private set; }
+    
 
     public List<OrderLine> OrderLines { get; set; }
     public List<Comment> Comments { get; set; }
@@ -35,11 +34,9 @@ public class Product : AggregateRoot
     #endregion
 
     #region Constructor and factories
-    public Product()
+    private Product()
     {
-        IsDelete = false;
-        IsActive = true;
-        CreateAt = DateTime.Now;
+   
     }
     public Product(string name, string shortDescription, string mainDescription, string seoDescription, string imageName, int price, int discountedPercent, int inventory, bool isSpecial)
     {
@@ -53,6 +50,10 @@ public class Product : AggregateRoot
         Inventory = inventory;
         IsSpecial = isSpecial;
       
+    }
+    public static Product Create()
+    {
+        return new Product();
     }
     public static Product Create(string name, string shortDescription, string mainDescription, string seoDescription, string imageName, int price, int discountedPercent, int inventory, bool isSpecial)
     {

@@ -19,8 +19,10 @@ public class UserConfig : IEntityTypeConfiguration<Domain.Models.User.Entities.U
 
         builder.Property(t => t.VerificationCode).HasConversion<VerificationCodeConversion>().HasMaxLength(100).IsRequired();
 
-        //builder.HasMany(t => t.Transactions);
-        //builder.HasMany(t => t.RolesList);
+        builder.HasMany(t => t.Transactions);
+
+        builder.HasMany(t => t.RolesList);
+
         builder.HasMany(t => t.Notifications);
 
     }
