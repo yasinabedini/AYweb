@@ -37,7 +37,7 @@ public class User : AggregateRoot
 
     public List<Role_Users> RolesList { get; private set; }
 
-    public List<Order.Entities.Order> MyOrders { get; set; }
+    public List<Order.Entities.Order> MyOrders { get; set; } = new List<Order.Entities.Order>();
 
     #endregion
 
@@ -59,6 +59,7 @@ public class User : AggregateRoot
         Password = hashPassword;
         CreateAt = DateTime.Now;
         IsActive = true;
+        MyOrders = new List<Order.Entities.Order>();
     }
 
     public static User Create(string firstName, string lastName, string phoneNumber, string hashPassword)

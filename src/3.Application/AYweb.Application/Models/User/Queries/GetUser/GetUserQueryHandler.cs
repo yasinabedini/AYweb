@@ -12,7 +12,7 @@ using Zamin.Extensions.ObjectMappers.Abstractions;
 
 namespace AYweb.Application.Models.User.Queries.GetUser
 {
-    public class GetUserQueryHandler : IQueryHandler<GetUserQuery, UserResult>
+    public class GetUserQueryHandler : IQueryHandler<GetUserQuery, Domain.Models.User.Entities.User>
     {
         private readonly IUserRepository _repository;
         private readonly IMapperAdapter _mapper;
@@ -23,9 +23,9 @@ namespace AYweb.Application.Models.User.Queries.GetUser
             _mapper = mapper;
         }
 
-        public async Task<UserResult> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public async Task<Domain.Models.User.Entities.User> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            UserResult res = _mapper.Map<Domain.Models.User.Entities.User, UserResult>(_repository.GetById(request.Id));
+            var res = _repository.GetById(request.Id);
             return res;
         }
     }

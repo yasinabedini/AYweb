@@ -71,9 +71,9 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         Update(user);
     }
 
-    public void ConfirmPhoneNumber(long userId)
+    public void ConfirmPhoneNumber(string phoneNumber)
     {
-        var user = GetById(userId);
+        var user = GetUSerByPhoneNumber(phoneNumber);
         user.ConfirmPhoneNumber();
         Update(user);
     }
@@ -86,9 +86,9 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         }
         
         var claimsIdentity = _httpContext.HttpContext.User.Identity as ClaimsIdentity;
-        var username = claimsIdentity.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value;
+        var phoneNumber = claimsIdentity.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value;
 
-        return GetUSerByUsername(username);
+        return GetUSerByPhoneNumber(phoneNumber);
     }
 
     public Domain.Models.Plan.Entities.Plan GetUserActivePlan(long userId)
@@ -98,22 +98,32 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.User.Entities.User GetUserByEmail(string email)
     {
-        return _context.Users.First(t => t.Email == email);
+        return GetList().First(t => t.Email == email);
     }
 
     public Domain.Models.User.Entities.User GetUserById(long id)
     {
-        return _context.Users.Find(id);
+        return GetList().FirstOrDefault(t=>t.Id==id);
     }
 
     public Domain.Models.User.Entities.User GetUSerByPhoneNumber(string phoneNumber)
     {
-        return _context.Users.First(t => t.PhoneNumber.Value == phoneNumber);
+        return GetList().First(t => t.PhoneNumber.Value == phoneNumber);
+    }
+  
+    public string GetUserVerificationCode(string phoneNumber)
+    {
+        return GetList().First(t=>t.PhoneNumber.Value==phoneNumber).GetVerificationCode();
     }
 
-    public Domain.Models.User.Entities.User GetUSerByUsername(string username)
+    public bool IsUserExisting(string phoneNumber)
     {
-        throw new NotImplementedException();
+        return GetList().Any(t => t.PhoneNumber.Value == phoneNumber);
+    }
+
+    public Domain.Models.User.Entities.User Login(string phoneNumber, string password)
+    {
+        return GetList().SingleOrDefault(t=>t.PhoneNumber.Value==phoneNumber&&t.Password==password);
     }
 
     public void SetEmail(long userId, string setEmail)

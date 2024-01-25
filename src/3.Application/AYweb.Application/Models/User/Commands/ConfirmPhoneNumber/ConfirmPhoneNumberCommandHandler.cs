@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace AYweb.Application.Models.User.Commands.ConfirmPhoneNumber
 {
-    public class ConfirmPhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand>
+    public class ConfirmPhoneNumberCommandHandler : ICommandHandler<ConfirmPhoneNumberCommand,bool>
     {
         private readonly IUserRepository _repository;
 
@@ -19,12 +19,18 @@ namespace AYweb.Application.Models.User.Commands.ConfirmPhoneNumber
             _repository = repository;
         }
 
-        public Task Handle(ConfirmPhoneNumberCommand request, CancellationToken cancellationToken)
+        public Task<bool> Handle(ConfirmPhoneNumberCommand request, CancellationToken cancellationToken)
         {
-            _repository.ConfirmPhoneNumber(request.Id);
-            _repository.Save();
+            bool isSuccess = false;
+            if (request.Code == request.VereficationCode)
+            {
+                _repository.ConfirmPhoneNumber(request.PhoneNumber);
+                _repository.Save();
+                isSuccess = true;
+            }
 
-            return Task.CompletedTask;
+
+            return Task.FromResult(isSuccess);
         }
     }
 }

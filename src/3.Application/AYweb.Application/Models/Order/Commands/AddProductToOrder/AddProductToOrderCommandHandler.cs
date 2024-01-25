@@ -5,6 +5,7 @@ using AYweb.Application.Models.Order.Commands.UpdateOrderLine;
 using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.User.Queries.GetAllUserQuery;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
+using AYweb.Application.Models.User.Queries.GetUser;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Order.Repositories;
 using AYweb.Domain.Models.Product.Entities;
@@ -44,12 +45,12 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
             if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
-
+                var userFound = _sender.Send(new GetUserQuery { Id = user.Id }).Result;
 
                 //If User Has One Active Cart  
-                if (user.HasActiveOrder())
+                if (userFound.HasActiveOrder())
                 {
-                    order = user.GetUserOrderWithCompletingStatus();
+                    order = userFound.GetUserOrderWithCompletingStatus();
                 }
 
                 //If user has not any active order

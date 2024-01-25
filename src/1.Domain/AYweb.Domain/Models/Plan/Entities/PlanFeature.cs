@@ -2,13 +2,13 @@
 using AIPFramework.ValueObjects;
 using AYweb.Domain.Common.Rules;
 
-namespace AYweb.Domain.Models.Plan.ValueObjects;
+namespace AYweb.Domain.Models.Plan.Entities;
 
 public class PlanFeature : Entity
 {
     #region Properties
     public string Value { get; private init; }
-    public List<Plan.Entities.Plan> Plans { get; set; }
+    public List<Plan> Plans { get; set; }
     #endregion
 
     #region Constructors
@@ -17,7 +17,7 @@ public class PlanFeature : Entity
 
     private PlanFeature() { }
     public PlanFeature(string value)
-    {        
+    {
         Value = value;
     }
     #endregion            

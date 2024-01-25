@@ -3,6 +3,7 @@ using AIPFramework.Session;
 using AutoMapper;
 using AYweb.Application.Models.Order.Queries.Common;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
+using AYweb.Application.Models.User.Queries.GetUser;
 using AYweb.Domain.Models.Order.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -32,13 +33,14 @@ namespace AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder
 
         public Task<OrderResult> Handle(GetCurrentUserCurrentOrderQuery request, CancellationToken cancellationToken)
         {
-            Domain.Models.Order.Entities.Order order;
+            Domain.Models.Order.Entities.Order? order = null;
 
             if (_httpcontext.HttpContext.User.Identity.IsAuthenticated)
             {
-                var user = _Sender.Send(new GetAuthenticatedUserQuery());
+                var user = _Sender.Send(new GetAuthenticatedUserQuery()).Result;
+                var userFound = _Sender.Send(new GetUserQuery { Id = user.Id }).Result;
 
-                order = user.Result.GetUserOrderWithCompletingStatus();
+                order = userFound.GetUserOrderWithCompletingStatus() ;
             }
             else
             {

@@ -1,16 +1,15 @@
 ﻿using AIPFramework.Queries;
 using AYweb.Application.Models.User.Queries.Common;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.User.Queries.GetUser
+namespace AYweb.Application.Models.User.Queries.GetUserByPhoneNumber
 {
-    public class GetUserQuery : IQuery<Domain.Models.User.Entities.User>
+    public class GetUserByPhoneNumberQuery:IQuery<UserResult>
     {
-        public long Id { get; set; }
+        public required string PhoneNumber { get; set; }
     }
 }
