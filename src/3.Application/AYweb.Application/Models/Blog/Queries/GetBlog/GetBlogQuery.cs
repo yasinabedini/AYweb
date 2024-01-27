@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Blog.Queries.GetBlogs
+namespace AYweb.Application.Models.Blog.Queries.GetBlog
 {
-    public class GetBlogsQuery:PageQuery<PagedData<BlogResult>>
+    public class GetBlogQuery:IQuery<BlogResult>
     {
+        public long Id { get; set; }
     }
 }

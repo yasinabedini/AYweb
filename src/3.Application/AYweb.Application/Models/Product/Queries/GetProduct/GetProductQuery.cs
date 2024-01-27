@@ -11,6 +11,6 @@ namespace AYweb.Application.Models.Product.Queries.GetProduct
 {
     public class GetProductQuery:IQuery<ProductResult>
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

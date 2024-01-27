@@ -30,9 +30,10 @@ namespace AYweb.Application.Models.Plan.Queries.GetCurrentUserActivePlan
         {
             var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
 
-            var plan = _mapper.Map<Domain.Models.Plan.Entities.Plan, PlanResult>(_repository.GetUserActivePlan(user.Id));
+            var plan = _repository.GetUserActivePlan(user.Id);
 
-            return Task.FromResult(plan);
+            
+            return Task.FromResult(_mapper.Map<Domain.Models.Plan.Entities.Plan, PlanResult>(plan));
         }
     }
 }

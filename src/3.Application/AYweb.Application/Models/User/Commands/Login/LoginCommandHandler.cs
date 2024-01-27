@@ -5,7 +5,7 @@ using AYweb.Domain.Models.User.Repositories;
 using MediatR;
 using Zamin.Extensions.ObjectMappers.Abstractions;
 
-namespace AYweb.Application.Models.User.Commands.LoginChack
+namespace AYweb.Application.Models.User.Commands.Login
 {
     public class LoginCommandHandler : ICommandHandler<LoginCommand, UserResult>
     {
@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.User.Commands.LoginChack
         public Task<UserResult> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var hashPass = PasswordHelper.EncodePasswordMd5(request.Password);
-            return Task.FromResult(_mapper.Map<Domain.Models.User.Entities.User,UserResult>(_repository.Login(request.PhoneNumber, hashPass)));
+            return Task.FromResult(_mapper.Map<Domain.Models.User.Entities.User, UserResult>(_repository.Login(request.PhoneNumber, hashPass)));
         }
     }
 }
