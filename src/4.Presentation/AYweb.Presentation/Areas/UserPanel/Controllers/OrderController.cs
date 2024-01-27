@@ -4,7 +4,7 @@ using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.Areas.UserPanel.Controllers
+namespace AYweb.Presentation.Areas.UserPanel.Controllers
 {
     [Area("UserPanel")]
     public class OrderController : Controller
@@ -21,15 +21,15 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
         #region Orders
         [Route("MyOrders")]
         public IActionResult Index(bool successPay)
-        {            
+        {
             return View(_sender.Send(new GetCurrentUserOrdersQuery()));
         }
 
         [Route("MyOrders/{id}")]
         public IActionResult OrderDetails(long id)
         {
-            var order = _sender.Send(new GetCurrentUserOrdersQuery()).Result.First(t=>t.Id==id);
-            if (order==null)
+            var order = _sender.Send(new GetCurrentUserOrdersQuery()).Result.First(t => t.Id == id);
+            if (order == null)
             {
                 return NotFound();
             }
@@ -65,6 +65,6 @@ namespace AYweb.Web.Areas.UserPanel.Controllers
         //}
         //#endregion
 
-       
+
     }
 }

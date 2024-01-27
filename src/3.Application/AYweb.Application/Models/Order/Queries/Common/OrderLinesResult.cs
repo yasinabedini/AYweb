@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AYweb.Application.Models.Product.Queries.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,6 @@ namespace AYweb.Application.Models.Order.Queries.Common
 
         public int SumPrice { get; private set; }
 
-        public required Domain.Models.Product.Entities.Product Product { get; set; }
+        public required ProductResult Product { get; set; }
     }
 }
