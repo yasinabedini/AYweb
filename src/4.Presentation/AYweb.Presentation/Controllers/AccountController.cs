@@ -2,10 +2,10 @@
 using AYweb.Application.Models.User.Commands.ConfirmPhoneNumber;
 using AYweb.Application.Models.User.Commands.CreateUser;
 using AYweb.Application.Models.User.Commands.IsUserExisting;
-using AYweb.Application.Models.User.Commands.LoginChack;
+using AYweb.Application.Models.User.Commands.Login;
 using AYweb.Application.Models.User.Queries.GetUserByPhoneNumber;
 using AYweb.Application.Models.User.Queries.GetVerificationCode;
-using AYweb.Core.Senders;
+using AYweb.Application.Senders;
 using AYweb.Domain.Models.User.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
