@@ -18,7 +18,7 @@ public class PagedData<T>
         {
             pageCount = 1;
         }
-        if ((pageCount % PageSize) != 0)
+        if ((PageSize % pageCount) != 0)
         {
             pageCount++;
         }
