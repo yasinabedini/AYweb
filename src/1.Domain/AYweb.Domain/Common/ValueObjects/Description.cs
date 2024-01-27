@@ -20,7 +20,7 @@ public class Description : BaseValueObject<Description>
     public Description(string value)
     {
         CheckRule(new TheValueMustNotBeEmpty(value));
-        CheckRule(new TheDescriptionShouldNotBeMoreThan500(value));
+        CheckRule(new TheDescriptionShouldNotBeMoreThan2000(value));
 
         Value = value;
     }
