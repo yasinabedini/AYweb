@@ -1,4 +1,5 @@
 ﻿@using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder
+@using AYweb.Application.Models.Plan.Queries.GetCurrentUserActivePlan
 @using MediatR
 @inject ISender _sender;
 
@@ -66,7 +67,7 @@
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
                                         <a href="/" class="text-secondary fw-bolder nav-link">@Context.User.Identity.Name</a>
-                                        <span class="text-muted fw-bold">(@* @_PlanService.GetAuthonticatedUserPlan(Context).Title *@)</span>
+                                        <span class="text-muted fw-bold">( @_sender.Send(new GetCurrentUserActivePlanQuery()).Result.Title)</span>
                                     </li>
                                     <hr />
                                     <li class="nav-item">

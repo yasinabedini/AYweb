@@ -18,7 +18,7 @@ namespace AYweb.Presentation.Controllers
 
         public IActionResult Index(int pageId = 1, string filter = "", string orderBy = "")
         {
-            int take = 1;
+            int take = 12;
             var products = _sender.Send(new GetProductsQuery { PageNumber = pageId, PageSize = take });
             
             if (pageId > 1)

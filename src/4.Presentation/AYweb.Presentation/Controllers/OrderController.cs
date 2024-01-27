@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.Controllers
+namespace AYweb.Presentation.Controllers
 {
     public class OrderController : Controller
     {
@@ -12,7 +12,7 @@ namespace AYweb.Web.Controllers
         {
             _sender = sender;
         }
-     
+
 
         public IActionResult MyCart()
         {
@@ -22,7 +22,7 @@ namespace AYweb.Web.Controllers
         [HttpPost]
         public void ChangeOrderLineCount(int productId, int count)
         {
-          //  _service.ChangeOrderLineCount(productId, count, HttpContext);
+            //  _service.ChangeOrderLineCount(productId, count, HttpContext);
         }
 
         public IActionResult DeleteOrderLine(int productId)

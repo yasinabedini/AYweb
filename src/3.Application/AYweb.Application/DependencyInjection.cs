@@ -1,4 +1,5 @@
-﻿using AIPFramework.Session;
+﻿using AIPFramework.Serializer;
+using AIPFramework.Session;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,7 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(assembly);
 
         services.AddTransient<ISessionAdaptor, SessionAdaptor>();
+        services.AddTransient<IJsonSerializer, NewtonSoftSerializer>();
 
         return services;
     }

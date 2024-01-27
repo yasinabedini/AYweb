@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.Areas.UserPanel.Controllers
+namespace AYweb.Presentation.Areas.UserPanel.Controllers
 {
     [Area("userpanel")]
     public class HomeController : Controller

@@ -24,6 +24,7 @@ namespace AYweb.Presentation
             services.AddSession(t =>
             {
                 t.IOTimeout = TimeSpan.FromDays(15);
+                t.IdleTimeout = TimeSpan.FromDays(15);                                
             });
 
 

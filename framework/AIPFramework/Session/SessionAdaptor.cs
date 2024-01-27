@@ -20,8 +20,7 @@ namespace AIPFramework.Session
 
         public void Add(string key, object value, int absoluteExpirationMinutes, int slidingExpirationMinutes)
         {
-            string valueStr = _serializer.Serialize(value);
-
+            string valueStr = _serializer.Serialize(value);            
             _context.HttpContext.Session.SetString(key, valueStr);            
         }
 
@@ -36,7 +35,5 @@ namespace AIPFramework.Session
         {
             _context.HttpContext.Session.Remove(key);
         }
-
-
     }
 }
