@@ -23,12 +23,12 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         _context = context;
         _httpContext = httpContext;
     }
-    
-    public  Domain.Models.User.Entities.User GetByIdWithGraph(long id)
+
+    public Domain.Models.User.Entities.User GetByIdWithGraph(long id)
     {
         return _context.Users.Include(t => t.MyOrders).ThenInclude(t => t.OrderLines).ThenInclude(t => t.Product).Include(t => t.Transactions).Include(t => t.RolesList).FirstOrDefault(t => t.Id == id);
     }
-    
+
 
     public void AddPlanToUser(User_Plans user_Plans)
     {
@@ -90,7 +90,7 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         {
             throw new Exception("User Is Not Authenticated");
         }
-        
+
         var claimsIdentity = _httpContext.HttpContext.User.Identity as ClaimsIdentity;
         var phoneNumber = claimsIdentity.Claims.First(t => t.Type == ClaimTypes.NameIdentifier).Value;
 
@@ -99,7 +99,12 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.Plan.Entities.Plan GetUserActivePlan(long userId)
     {
-        return _context.User_Plans.Include(t=>t.Plan).Single(t => t.UserId == userId && t.ActivateCheck()).Plan;
+        var userplans = _context.User_Plans.Include(t => t.Plan).OrderBy(t => t.Id).LastOrDefault(t => t.UserId == userId);
+        if (userplans is not null && !userplans.ActivateCheck() || userplans is null)
+        {
+            userplans = User_Plans.Create(userId, 4, 0);
+        }
+        return userplans.Plan ?? Domain.Models.Plan.Entities.Plan.Create("کاربر عادی", "Normal", 0);
     }
 
     public Domain.Models.User.Entities.User GetUserByEmail(string email)
@@ -109,17 +114,17 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.User.Entities.User GetUserById(long id)
     {
-        return GetList().FirstOrDefault(t=>t.Id==id);
+        return GetList().FirstOrDefault(t => t.Id == id);
     }
 
     public Domain.Models.User.Entities.User GetUSerByPhoneNumber(string phoneNumber)
     {
         return GetList().First(t => t.PhoneNumber.Value == phoneNumber);
     }
-  
+
     public string GetUserVerificationCode(string phoneNumber)
     {
-        return GetList().First(t=>t.PhoneNumber.Value==phoneNumber).GetVerificationCode();
+        return GetList().First(t => t.PhoneNumber.Value == phoneNumber).GetVerificationCode();
     }
 
     public bool IsUserExisting(string phoneNumber)
@@ -129,7 +134,7 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.User.Entities.User Login(string phoneNumber, string password)
     {
-        return GetList().SingleOrDefault(t=>t.PhoneNumber.Value==phoneNumber&&t.Password==password);
+        return GetList().SingleOrDefault(t => t.PhoneNumber.Value == phoneNumber && t.Password == password);
     }
 
     public void SetEmail(long userId, string setEmail)

@@ -4,6 +4,7 @@ using AYweb.Domain.Models.Blog.Repositories;
 using AYweb.Domain.Models.Product.Entities;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     {
         _context = context;
     }
+
+  
 
     #region Blog Groups
     public void Add(BlogGroup entity)
@@ -115,6 +118,11 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
         var blog = GetById(blogId);
         blog.ChangeTitle(title);
         Update(blog);
+    }
+
+    public Domain.Models.Blog.Entities.Blog GetByIdWithRelations(long id)
+    {
+        return _context.Blogs.Include(t => t.Galleries).Include(t => t.Author).Include(t => t.Groups).First(t => t.Id == id);
     }
 
     #endregion

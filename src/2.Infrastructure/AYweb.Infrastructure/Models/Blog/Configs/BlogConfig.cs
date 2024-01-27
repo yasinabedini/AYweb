@@ -23,5 +23,7 @@ public class BlogConfig : IEntityTypeConfiguration<Domain.Models.Blog.Entities.B
         builder.HasMany(t => t.Galleries);       
 
         builder.HasMany(t => t.Groups);
+        
+        builder.HasMany(t => t.Comments);
     }
 }

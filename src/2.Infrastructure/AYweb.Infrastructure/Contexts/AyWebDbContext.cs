@@ -58,6 +58,7 @@ namespace AYweb.Infrastructure.Contexts
         #region Plan
         public DbSet<Plan> Plans { get; set; }
         public DbSet<PlanFeature> PlanFeatures { get; set; }
+        public DbSet<User_Plans> User_Plans { get; set; }
 
         #endregion
 
@@ -86,8 +87,7 @@ namespace AYweb.Infrastructure.Contexts
         #endregion
 
         #region User
-        public DbSet<User> Users { get; set; }
-        public DbSet<User_Plans> User_Plans { get; set; }
+        public DbSet<User> Users { get; set; }        
         #endregion
 
         #endregion
