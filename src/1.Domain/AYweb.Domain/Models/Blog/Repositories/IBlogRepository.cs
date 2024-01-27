@@ -11,6 +11,7 @@ namespace AYweb.Domain.Models.Blog.Repositories
         void ChangeIntroduction(long blogId, string introduction);
         void ChangeSummery(long blogId, string summery);
         void ChangeText(long blogId, string text);
-        void ChangeTitle(long blogId, string title);        
+        void ChangeTitle(long blogId, string title);
+        Entities.Blog GetByIdWithRelations(long id);
     }
 }

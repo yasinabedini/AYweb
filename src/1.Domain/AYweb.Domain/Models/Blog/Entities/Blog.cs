@@ -26,7 +26,8 @@ public class Blog : AggregateRoot
 
     public User.Entities.User Author { get; set; }
 
-    public List<Blog_Groups> Groups { get; set; } 
+    public List<Blog_Groups> Groups { get; set; }
+    public List<BlogComment> Comments { get; set; }
     #endregion
 
     #region Constructor And Factories

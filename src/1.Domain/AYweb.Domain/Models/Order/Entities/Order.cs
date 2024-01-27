@@ -32,12 +32,14 @@ public class Order : AggregateRoot
     #endregion
 
     #region Constructor And Factories
-    private Order() { }
+    private Order()
+    {        
+        OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
+        CreateAt = DateTime.Now;
+    }
     public Order(long? userId)
-    {
-        OrderLines = new List<OrderLine>();
-        if (userId.HasValue) UserId = userId.Value;
-        EndPrice = 0;
+    {        
+        if (userId.HasValue) UserId = userId.Value;        
         OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
         CreateAt = DateTime.Now;
     }
@@ -63,6 +65,12 @@ public class Order : AggregateRoot
     {
         UserId = userId;
         ModifiedAt = DateTime.Now;
+    }
+
+    public void ChangeEndPrice(int endPrice)
+    {
+        EndPrice = endPrice;
+        Modified();
     }
 
     public int CalculateEndPrice()
