@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace AYweb.Core.Convertors;
+namespace AYweb.Application.Convertors;
 
 public class ImageConvertor
 {
@@ -44,7 +44,7 @@ public class ImageConvertor
             using (var output = File.Open(output_Image_Path, FileMode.Create))
             {
                 //< setup jpg >
-                var qualityParamId = System.Drawing.Imaging.Encoder.Quality;
+                var qualityParamId = Encoder.Quality;
                 var encoderParameters = new EncoderParameters(1);
                 encoderParameters.Param[0] = new EncoderParameter(qualityParamId, quality);
                 //</ setup jpg >

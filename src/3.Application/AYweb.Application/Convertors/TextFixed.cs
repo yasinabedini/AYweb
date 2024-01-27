@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Core.Convertors;
+namespace AYweb.Application.Convertors;
 
 public class TextFixed
 {

@@ -1,4 +1,4 @@
-﻿namespace AYweb.Core.Convertors;
+﻿namespace AYweb.Application.Convertors;
 
 public static class StringConvertToStringArray
 {

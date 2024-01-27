@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace AYweb.Core.Convertors;
+namespace AYweb.Application.Convertors;
 
 public static class DateConvertor
 {

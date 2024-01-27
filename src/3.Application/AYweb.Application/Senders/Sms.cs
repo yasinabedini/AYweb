@@ -1,9 +1,9 @@
 ﻿using RestSharp;
 
-namespace AYweb.Core.Senders;
+namespace AYweb.Application.Senders;
 
 public static class Sms
-{        
+{
     public static void SnedRegisterSms(string mobile, string code)
     {
         var client = new RestClient("http://188.0.240.110/api/select");
@@ -53,7 +53,7 @@ public static class Sms
                    ",\"inputData\" : [{\"name\":\"" + username + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
-    } 
+    }
     public static void PayCart(string mobile, string username)
     {
         var client = new RestClient("http://188.0.240.110/api/select");
