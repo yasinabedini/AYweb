@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AYweb.Application.Models.Blog.Queries.GetBlogs
+namespace AYweb.Application.Models.Blog.Queries.GetBlogGroups
 {
-    public class GetBlogsQuery:PageQuery<PagedData<BlogResult>>
+    public class GetBlogGroupsQuery:IQuery<List<BlogGroupResult>>
     {
-        public required string search { get; set; }
     }
 }

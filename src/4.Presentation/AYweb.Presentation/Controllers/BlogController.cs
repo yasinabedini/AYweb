@@ -1,5 +1,9 @@
 ﻿using AYweb.Application.Models.Blog.Queries.GetBlog;
+using AYweb.Application.Models.Blog.Queries.GetBlogComments;
+using AYweb.Application.Models.Blog.Queries.GetBlogGroups;
 using AYweb.Application.Models.Blog.Queries.GetBlogs;
+using AYweb.Application.Models.Blog.Queries.GetBlogsComments;
+using AYweb.Application.Models.Blog.Queries.GetTags;
 using AYweb.Domain.Models.Blog.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +23,7 @@ namespace AYweb.Presentation.Controllers
         {
             int take = 8;
 
-            var newsList = _sender.Send(new GetBlogsQuery { PageSize = take, PageNumber = pageId }).Result;
+            var newsList = _sender.Send(new GetBlogsQuery { PageSize = take, PageNumber = pageId,search= search }).Result;
 
             ViewBag.pageId = pageId;
 
@@ -32,7 +36,7 @@ namespace AYweb.Presentation.Controllers
                 ViewBag.lastPage = 1;
             }
 
-            if (pageId == newsList.pageCount || pageId > newsList.pageCount)
+            if (pageId == newsList.calculatePageCount() || pageId > newsList.calculatePageCount())
             {
                 ViewBag.nextPage = pageId;
             }
@@ -43,11 +47,11 @@ namespace AYweb.Presentation.Controllers
 
             ViewBag.take = take;
 
-            ViewData["tags"] = new List<string> { "برنامه نویسی", "تکنولوژی" };
-            ViewData["PopularNews"] = newsList.QueryResult.Take(3);
-            ViewData["NewsGroups"] = new List<BlogGroup> { BlogGroup.Create("برنامه نویسی"), BlogGroup.Create("سی شارپ") };
-            ViewData["LastNews"] = newsList.QueryResult.Take(6);
-            ViewData["LastComment"] = new List<BlogComment> { BlogComment.Create("بسیار عالی", 1, "yasinabedini", "09106966244") };
+            ViewData["tags"] = _sender.Send(new GetTagsQuery()).Result;
+            ViewData["PopularNews"] = newsList.QueryResult;
+            ViewData["NewsGroups"] = _sender.Send(new GetBlogGroupsQuery()).Result;
+            ViewData["LastNews"] = newsList.QueryResult;
+            ViewData["LastComment"] = _sender.Send(new GetBlogsCommentsQuery()).Result;
 
             return View(newsList);
         }
@@ -56,17 +60,18 @@ namespace AYweb.Presentation.Controllers
         {
             var news = _sender.Send(new GetBlogQuery { Id = id });
 
-            var newsList = _sender.Send(new GetBlogsQuery { PageSize = 8, PageNumber = 1 }).Result;//test
+            var newsList = _sender.Send(new GetBlogsQuery { PageSize = 8, PageNumber = 1,search=""}).Result;//test
+
             if (news == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            ViewData["tags"] = new List<string> { "برنامه نویسی", "تکنولوژی" };
-            ViewData["PopularNews"] = newsList.QueryResult.Take(3);
-            ViewData["NewsGroups"] = new List<BlogGroup> { BlogGroup.Create("برنامه نویسی"), BlogGroup.Create("سی شارپ") };
-            ViewData["LastNews"] = newsList.QueryResult.Take(6);
-            ViewData["LastComment"] = new List<BlogComment> { BlogComment.Create("بسیار عالی", 1, "yasinabedini", "09106966244") };
+            ViewData["tags"] = _sender.Send(new GetTagsQuery()).Result;
+            ViewData["PopularNews"] = newsList.QueryResult;
+            ViewData["NewsGroups"] = _sender.Send(new GetBlogGroupsQuery()).Result;
+            ViewData["LastNews"] = newsList.QueryResult;
+            ViewData["LastComment"] = _sender.Send(new GetBlogsCommentsQuery()).Result;
 
             return View(news.Result);
         }

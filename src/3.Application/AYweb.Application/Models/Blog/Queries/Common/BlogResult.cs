@@ -24,9 +24,7 @@ namespace AYweb.Application.Models.Blog.Queries.Common
         public required string Summary { get; set; }
 
         public required string ImageName { get; set; }
-
-        public required string UserName { get; set; }
-
+        
         public DateTime CreateAt { get; set; }
 
         public required UserResult Author { get; set; }

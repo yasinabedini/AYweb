@@ -39,7 +39,7 @@
                     @if (Model.QueryResult.Count > 0)
                     {
                         <div class="col-lg-12 col-md-12">
-                            <partial name="_pagging" model="@Model.pageCount"/>
+                            <partial name="_pagging" model="@Model.calculatePageCount()" />
                         </div>
                     }
                     else

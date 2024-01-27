@@ -1,16 +1,10 @@
-﻿using AYweb.Domain.Common.Repositories;
+﻿using AYweb.Application.Convertors;
+using AYweb.Domain.Common.Repositories;
 using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Blog.Repositories;
-using AYweb.Domain.Models.Product.Entities;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Blog.Repositories;
 
@@ -22,7 +16,7 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
         _context = context;
     }
 
-  
+
 
     #region Blog Groups
     public void Add(BlogGroup entity)
@@ -33,13 +27,13 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     public void Update(BlogGroup entity)
     {
         _context.BlogGroups.Update(entity);
-    }    
+    }
 
     BlogGroup IRepository<BlogGroup>.GetById(long id)
     {
         return _context.BlogGroups.Find(id);
     }
-   
+
     List<BlogGroup> IRepository<BlogGroup>.GetList()
     {
         return _context.BlogGroups.ToList();
@@ -126,4 +120,23 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     }
 
     #endregion
+
+    public List<string> GetTags()
+    {
+        var tagsStr = GetList().Select(t => t.Tags.Trim()).ToList();
+
+        List<string> tags = new List<string>();
+        foreach (var tag in tagsStr)
+        {
+            tags.AddRange(StringConvertToStringArray.CommaSeparator(tag).ToList());
+        }
+        tags.ForEach(t => t.Trim());
+
+        return tags;
+    }
+
+    public List<Domain.Models.Blog.Entities.Blog> GetListWithRelations()
+    {
+        return _context.Blogs.Include(t => t.Author).ToList();
+    }
 }

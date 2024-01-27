@@ -13,5 +13,7 @@ namespace AYweb.Domain.Models.Blog.Repositories
         void ChangeText(long blogId, string text);
         void ChangeTitle(long blogId, string title);
         Entities.Blog GetByIdWithRelations(long id);
+        List<Entities.Blog> GetListWithRelations();
+        List<string> GetTags();
     }
 }

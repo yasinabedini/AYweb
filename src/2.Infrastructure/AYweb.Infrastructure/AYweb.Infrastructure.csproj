@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\1.Domain\AYweb.Domain\AYweb.Domain.csproj" />
+    <ProjectReference Include="..\..\3.Application\AYweb.Application\AYweb.Application.csproj" />
   </ItemGroup>
 
 </Project>

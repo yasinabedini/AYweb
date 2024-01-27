@@ -16,6 +16,6 @@ public class LastNewsViewComponents : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        return await Task.FromResult((IViewComponentResult)View("LastNews", _sender.Send(new GetBlogsQuery()).Result.QueryResult.Take(3).ToList()));
+        return await Task.FromResult((IViewComponentResult)View("LastNews", _sender.Send(new GetBlogsQuery() { search=""}).Result.QueryResult.Take(3).ToList()));
     }
 }

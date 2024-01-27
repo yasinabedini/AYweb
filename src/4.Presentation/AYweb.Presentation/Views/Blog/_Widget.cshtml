@@ -1,7 +1,6 @@
 ﻿@using AYweb.Application.Convertors
 @using AYweb.Application.Models.Blog.Queries.Common
 @using AYweb.Application.Models.Blog.Queries.GetBlogs
-@using AYweb.Domain.Models.Blog.Entities
 @using MediatR
 @inject ISender _sender;
 
@@ -42,7 +41,7 @@
         <h3 class="widget-title">دسته بندی ها</h3>
 
         <ul>
-            @foreach (var group in ViewData["newsGroups"] as List<BlogGroup> ?? new List<BlogGroup>())
+            @foreach (var group in ViewData["NewsGroups"] as List<BlogGroupResult> ?? new List<BlogGroupResult>())
             {
                 <li><a asp-controller="Blog" asp-action="Index" asp-route-search="@group.Title">@group.Title</a></li>
             }
