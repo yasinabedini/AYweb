@@ -1,0 +1,29 @@
+﻿@using AYweb.Application.Models.Blog.Queries.Common
+@model CommentResult
+
+<li class="comment">
+    <article class="comment-body">
+        <footer class="comment-meta">
+            <div class="comment-author vcard">
+                <img src="/img/client-image/1.jpg" class="avatar" alt="image">
+                <b class="fn">@Model.UserName</b>
+                <span class="says">می گوید:</span>
+            </div>
+
+            <div class="comment-metadata">
+                <a href="#">
+                    <time>24 مهر 1398 ، ساعت 19:30</time>
+                </a>
+            </div>
+        </footer>
+
+        <div class="comment-content">
+            <p>@Model.Text</p>
+        </div>
+
+        @* <div class="reply">
+                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
+                                    </div>*@
+    </article>
+
+</li>

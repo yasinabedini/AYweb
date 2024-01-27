@@ -1,0 +1,26 @@
+﻿@using AYweb.Application.Convertors
+@using AYweb.Application.Models.Blog.Queries.Common
+
+@model BlogResult
+
+<div class="col-lg-6 col-md-6">
+    <div class="single-blog-post">
+        <div class="post-image">
+            <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id"><img src="/img/blog-image/@Model.ImageName" alt="image"></a>
+        </div>
+
+        <div class="post-content">
+            <div class="post-meta">
+                <ul>
+                    <li>توسط: <a href="#">@Model.UserName</a></li>
+                    <li>@Model.CreateAt.ToShamsi()</li>
+                </ul>
+            </div>
+
+            <h3><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id">@Model.Title</a></h3>
+            <p>@Model.Summary</p>
+
+            <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@Model.Id" class="read-more-btn">اطلاعات بیشتر <i class="flaticon-left-chevron"></i></a>
+        </div>
+    </div>
+</div>
