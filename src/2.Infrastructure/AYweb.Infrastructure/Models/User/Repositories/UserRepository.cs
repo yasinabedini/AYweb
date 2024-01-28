@@ -1,4 +1,5 @@
-﻿using AYweb.Domain.Models.User.Entities;
+﻿using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.User.Entities;
 using AYweb.Domain.Models.User.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.User.Repositories;
 
-public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, IUserRepository
+public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, IUserRepository,ICounselingRepository
 {
     private readonly AyWebDbContext _context;
     private readonly IHttpContextAccessor _httpContext;
@@ -142,5 +143,32 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
         var user = GetById(userId);
         user.SetEmail(setEmail);
         Update(user);
+    }
+
+    public void CallSuccess(long id)
+    {
+        var counseling = _context.Counselings.Find(id);
+        counseling.CallSuccess();
+        Update(counseling);
+    }
+
+    Counseling IRepository<Counseling>.GetById(long id)
+    {
+        return _context.Counselings.Find(id);
+    }
+
+    public void Add(Counseling entity)
+    {
+        _context.Add(entity);
+    }
+
+    List<Counseling> IRepository<Counseling>.GetList()
+    {
+        return _context.Counselings.ToList();
+    }
+
+    public void Update(Counseling entity)
+    {
+        _context.Update(entity);
     }
 }

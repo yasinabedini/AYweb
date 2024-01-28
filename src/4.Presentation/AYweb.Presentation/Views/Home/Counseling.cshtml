@@ -1,15 +1,17 @@
-﻿@* @using AYweb.Core.DTOs
-@using AYweb.Core.Services.Interfaces
-@using AYweb.Dal.Entities.User
-@using Polly
-@model CounselingViewModel
-@inject IPermissionService _permissionService
+﻿@using AYweb.Application.Models.User.Commands.CounselingUser
+@using AYweb.Application.Models.User.Queries.Common
+@using AYweb.Application.Models.User.Queries.GetAuthenticatedUser
+@using MediatR
+@inject ISender _sender;
+@model CounselingUserCommand
+
 @{
-    User user = new AYweb.Dal.Entities.User.User();
-    if (Context.User.Identity.IsAuthenticated)
+    UserResult user = new UserResult { FirstName = "", LastName = "", PhoneNumber = "", VerificationCode = "" };
+    if (User.Identity.IsAuthenticated)
     {
-        user = _permissionService.GetAuthonticatedUser(Context);
+        user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
     }
+
 }
 
 <!-- Start Page Title Area -->
@@ -135,4 +137,4 @@
             $.notify("درخواست مشاوره ثبت شد", "success");
         </script>
     }
-} *@
+}
