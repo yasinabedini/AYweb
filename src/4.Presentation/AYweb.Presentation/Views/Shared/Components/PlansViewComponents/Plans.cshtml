@@ -1,5 +1,5 @@
-﻿@* @using AYweb.Dal.Entities.Plan
-@model List<AYweb.Dal.Entities.Plan.Plan>
+﻿@using AYweb.Application.Models.Plan.Queries.Common
+@model List<PlanResult>
 <section class="pricing-area ptb-100">
     <div class="container">
         <div id="plans" class="section-title">
@@ -12,7 +12,7 @@
             @foreach (var plan in Model)
             {
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-pricing-box  @((plan.PlanType==PlanType.Gold)?"orange":"") @((plan.PlanType==PlanType.Bronze)?"red":"") ">
+                    <div class="single-pricing-box  @((plan.PlanType=="Gold")?"orange":"") @((plan.PlanType=="Silver")?"red":"") ">
                         <div class="pricing-header">
                             <h3>@plan.Title</h3>
                         </div>
@@ -24,9 +24,9 @@
                         </div>
 
                         <ul class="price-features-list">
-                            @foreach (var feature in plan.PlanFeatures)
+                            @foreach (var feature in plan.planFeatures)
                             {
-                                <li><i class="flaticon-tick"></i> @feature.Name</li>
+                                <li><i class="flaticon-tick"></i> @feature.Value</li>
                             }
                         </ul>
                         <a asp-controller="Plan" asp-action="CheckOut" asp-route-id="@plan.Id" class="get-started-btn">فعالسازی پنل</a>
@@ -36,4 +36,4 @@
         </div>
     </div>
     <partial name="_Shapes" />
-</section> *@
+</section>

@@ -50,6 +50,7 @@
 		<Folder Include="Models\Order\Commands\CreateForward\" />
 		<Folder Include="Models\Order\Commands\RemoveProductToOrder\" />
 		<Folder Include="Models\Order\Queries\GetForwards\" />
+		<Folder Include="Models\User\Queries\GetCounsellings\" />
 	</ItemGroup>
 
 </Project>

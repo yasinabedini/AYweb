@@ -87,7 +87,8 @@ namespace AYweb.Infrastructure.Contexts
         #endregion
 
         #region User
-        public DbSet<User> Users { get; set; }        
+        public DbSet<User> Users { get; set; }
+        public DbSet<Counseling> Counselings { get; set; }
         #endregion
 
         #endregion

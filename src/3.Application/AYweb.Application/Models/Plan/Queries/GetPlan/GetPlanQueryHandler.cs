@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.Plan.Queries.GetPlan
 
         public Task<PlanResult> Handle(GetPlanQuery request, CancellationToken cancellationToken)
         {
-            var plan = _mapper.Map<Domain.Models.Plan.Entities.Plan, PlanResult>(_repository.GetById(request.Id));
+            var plan = _mapper.Map<Domain.Models.Plan.Entities.Plan, PlanResult>(_repository.GetByIdWithRelations(request.Id));
             return Task.FromResult(plan);   
         }
     }

@@ -78,7 +78,10 @@ public static class DependencyInjection
         services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IServiceRepository, ServiceRepository>();
         services.AddTransient<ITransactionRepository, TransactionRepository>();
+        
+        
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<ICounselingRepository, UserRepository>();
 
         services.AddTransient<ISessionAdaptor, SessionAdaptor>();
         services.AddTransient<IJsonSerializer, NewtonSoftSerializer>();

@@ -15,6 +15,6 @@ public class PlansViewComponents : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        return await Task.FromResult((IViewComponentResult)View("Plans", _sender.Send(new GetPlansQuery())));
+        return await Task.FromResult((IViewComponentResult)View("Plans", _sender.Send(new GetPlansQuery()).Result));
     }
 }
