@@ -13,6 +13,9 @@ public class Project : AggregateRoot
 
     public Description Description { get; private set; }
 
+    public string FirstImage { get; set; }
+    public string SecondImage { get; set; }
+
     public string ShamsiDateString { get; private set; }
 
     public string CustomerName { get; private set; }
@@ -20,14 +23,12 @@ public class Project : AggregateRoot
     public string RelatedService { get; private set; }
 
     public string Link { get; private set; }
-    
-
-   public List<Gallery.Entities.Gallery> Galleries { get; set; }
+       
     #endregion
 
     #region Constructor And Factories
     private Project() { }
-    public Project(string title, string shortDescription, string description, string shamsiDateString, string customerName, string relatedService, string link)
+    public Project(string title, string shortDescription, string description, string shamsiDateString, string customerName, string relatedService, string link,string firstImage, string secondImage)
     {
         Title = title;
         ShortDescription = shortDescription;
@@ -37,10 +38,13 @@ public class Project : AggregateRoot
         RelatedService = relatedService;
         Link = link;
         CreateAt = DateTime.Now;
+        FirstImage = firstImage;
+        SecondImage = secondImage;        
+
     }
-    public static Project Create(string title, string shortDescription, string description, string shamsiDateString, string customerName, string relatedService, string link)
+    public static Project Create(string title, string shortDescription, string description, string shamsiDateString, string customerName, string relatedService, string link,string firstImage,string secondImage)
     {
-        return new Project(title, shortDescription, description, shamsiDateString, customerName, relatedService, link);
+        return new Project(title, shortDescription, description, shamsiDateString, customerName, relatedService, link,firstImage,secondImage);
     }
     #endregion
 
@@ -91,19 +95,7 @@ public class Project : AggregateRoot
         Link = link;
         Modified();
     }
-
-    public void AddImageToGallery(Gallery.Entities.Gallery gallery)
-    {
-        Galleries.Add(gallery);
-        Modified();
-    }
-
-    public void RemoveImageToGallery(Gallery.Entities.Gallery gallery)
-    {
-        Galleries.Remove(gallery);
-        Modified();
-    }
-
+  
     public void Delete()
     {
         IsDelete = true;

@@ -16,6 +16,10 @@ namespace AYweb.Application.Models.Project.Commands.CreateProject
 
         public required string Description { get;  set; }
 
+        public required string FirstImage { get; set; }
+        
+        public required string SecondImage { get; set; }
+
         public required string ShamsiDateString { get;  set; }
 
         public required string CustomerName { get;  set; }

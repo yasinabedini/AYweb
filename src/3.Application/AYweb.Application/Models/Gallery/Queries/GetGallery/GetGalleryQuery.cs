@@ -1,11 +1,4 @@
-﻿using AIPFramework.Commands;
-using AIPFramework.Queries;
-using AYweb.Application.Models.Project.Queries.GetProjectGallery;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AIPFramework.Queries;
 
 namespace AYweb.Application.Models.Gallery.Queries.GetGallery
 {

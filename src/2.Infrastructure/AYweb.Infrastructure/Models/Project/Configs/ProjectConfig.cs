@@ -26,8 +26,6 @@ public class ProjectConfig : IEntityTypeConfiguration<Domain.Models.Project.Enti
         builder.Property(t => t.RelatedService).HasMaxLength(100).IsRequired();
 
         builder.Property(t => t.Link).HasMaxLength(200).IsRequired();
-
-        builder.HasMany(t => t.Galleries);
-
+        
     }
 }

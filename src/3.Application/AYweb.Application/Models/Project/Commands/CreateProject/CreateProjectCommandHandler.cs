@@ -19,7 +19,7 @@ namespace AYweb.Application.Models.Project.Commands.CreateProject
 
         public Task Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            _repository.Add(Domain.Models.Project.Entities.Project.Create(request.Title, request.ShortDescription, request.Description, request.ShamsiDateString, request.CustomerName, request.RelatedService, request.Link));
+            _repository.Add(Domain.Models.Project.Entities.Project.Create(request.Title, request.ShortDescription, request.Description, request.ShamsiDateString, request.CustomerName, request.RelatedService, request.Link,request.FirstImage,request.SecondImage));
             _repository.Save();
 
             return Task.CompletedTask;
