@@ -5,6 +5,8 @@ namespace AYweb.Domain.Models.Product.Repositories
 {
     public interface IProductRepository : IRepository<Product.Entities.Product>
     {
+        List<Product.Entities.Product> GetListWithRelations();
+        Product.Entities.Product GetByIdWithRelations(long id);
         void ChangeDiscountedPercent(long productId, int amount);
         void ChangeImageName(long productId, string imageName);
         void ChangeInventory(long productId, int amount);

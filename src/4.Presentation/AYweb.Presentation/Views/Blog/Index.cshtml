@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <partial name="_Shapes"/>
+    <partial name="_Shapes" />
 </div>
 <!-- End Page Title Area -->
 <!-- Start Blog Area -->
@@ -29,18 +29,21 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="row">
-                    
+
                     @foreach (var news in Model.QueryResult)
                     {
-                        <partial name="_BlogView" model="news"/>
+                        <partial name="_BlogView" model="news" />
                     }
 
 
                     @if (Model.QueryResult.Count > 0)
                     {
-                        <div class="col-lg-12 col-md-12">
-                            <partial name="_pagging" model="@Model.calculatePageCount()" />
-                        </div>
+                        if (Model.PageSize < Model.TotalCount)
+                        {
+                            <div class="col-lg-12 col-md-12">
+                                <partial name="_pagging" model="@Model.calculatePageCount()" />
+                            </div>
+                        }
                     }
                     else
                     {
@@ -50,7 +53,7 @@
             </div>
 
             <div class="col-lg-4 col-md-12">
-                <partial name="_Widget"/>
+                <partial name="_Widget" />
             </div>
         </div>
     </div>

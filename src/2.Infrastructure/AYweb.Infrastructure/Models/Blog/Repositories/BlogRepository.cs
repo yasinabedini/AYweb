@@ -4,6 +4,7 @@ using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Blog.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace AYweb.Infrastructure.Models.Blog.Repositories;
@@ -137,6 +138,11 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
 
     public List<Domain.Models.Blog.Entities.Blog> GetListWithRelations()
     {
-        return _context.Blogs.Include(t => t.Author).ToList();
+        return _context.Blogs.Include(t => t.Author).Include(t=>t.Groups).ThenInclude(t=>t.BlogGroup).Include(t=>t.Comments).ToList();
+    }
+
+    public List<Domain.Models.Blog.Entities.Blog> Filter(List<Domain.Models.Blog.Entities.Blog> blogList, string search)
+    {
+        return blogList.Where(t => t.Tags.Contains(search) || t.Title.Value.Contains(search) || t.Text.Contains(search) || t.Introduction.Value.Contains(search) || t.Summary.Value.Contains(search) || (t.Author.FirstName + " " + t.Author.LastName).Contains(search)||t.Groups.Any(t=>t.BlogGroup.Title.Value.Contains(search))).ToList();
     }
 }

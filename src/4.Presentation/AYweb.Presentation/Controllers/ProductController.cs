@@ -16,10 +16,10 @@ namespace AYweb.Presentation.Controllers
             _sender = sender;
         }
 
-        public IActionResult Index(int pageId = 1, string filter = "", string orderBy = "")
+        public IActionResult Index(int pageId = 1, string search = "")
         {
             int take = 12;
-            var products = _sender.Send(new GetProductsQuery { PageNumber = pageId, PageSize = take });
+            var products = _sender.Send(new GetProductsQuery { PageNumber = pageId, PageSize = take,Search = search });
             
             if (pageId > 1)
             {

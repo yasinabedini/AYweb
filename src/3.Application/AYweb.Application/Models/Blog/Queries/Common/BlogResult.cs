@@ -31,6 +31,6 @@ namespace AYweb.Application.Models.Blog.Queries.Common
 
         public required List<GalleryResult> Galleries { get; set; }
 
-        public required List<CommentResult> Comments { get; set; }
+        public required List<CommentResult> Comments { get; set; }        
     }
 }

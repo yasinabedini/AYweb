@@ -15,5 +15,6 @@ namespace AYweb.Domain.Models.Blog.Repositories
         Entities.Blog GetByIdWithRelations(long id);
         List<Entities.Blog> GetListWithRelations();
         List<string> GetTags();
+        List<Blog.Entities.Blog> Filter(List<Blog.Entities.Blog> blogList, string serach);
     }
 }

@@ -3,6 +3,7 @@ using AYweb.Domain.Models.Product.Entities;
 using AYweb.Domain.Models.Product.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,6 +139,16 @@ namespace AYweb.Infrastructure.Models.Product.Repositories
             var product = GetById(productId);
             product.IncreaseInventory(amount);
             Update(product);
+        }
+
+        public List<Domain.Models.Product.Entities.Product> GetListWithRelations()
+        {
+            return _context.Products.Include(t => t.Comments).Include(t => t.Features).ToList();
+        }
+
+        public Domain.Models.Product.Entities.Product GetByIdWithRelations(long id)
+        {
+            return GetListWithRelations().First(t=>t.Id==id);
         }
 
         #endregion
