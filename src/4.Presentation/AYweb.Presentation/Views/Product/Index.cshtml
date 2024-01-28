@@ -2,7 +2,7 @@
 @using AYweb.Application.Models.Product.Queries.Common
 
 @model PagedData<ProductResult>
-@{    
+@{
     int lastPage = ViewBag.lastPage;
     int nextPage = ViewBag.nextPage;
 }
@@ -24,34 +24,30 @@
         </div>
     </div>
 
-    <partial name="_Shapes"/>
-  
+    <partial name="_Shapes" />
+
 </div>
 <!-- End Page Title Area -->
 <!-- Start Shop Area -->
 <section class="shop-area pb-100">
     <div class="container">
-        <div class="woocommerce-topbar">
+        <div class="woocommerce-topbar widget-area">
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-7 col-sm-6">
                     <div class="woocommerce-result-count">
-                        <p>نمایش @((Model.PageNumber-1)*Model.PageSize) - @(Model.PageNumber*Model.PageSize) از @Model.TotalCount نتیجه</p>
+                        <p>نمایش @((Model.PageNumber - 1) * Model.PageSize) - @(Model.PageNumber * Model.PageSize) از @Model.TotalCount نتیجه</p>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-5 col-sm-6">
-                    <div class="woocommerce-topbar-ordering">
-                        <select>
-                            <option value="1">مرتب سازی پیش فرض</option>
-                            <option value="2">بر اساس محبوبیت</option>
-                            <option value="0">بر اساس امتیاز</option>
-                            <option value="3">بر اساس جدیدترین</option>
-                            <option value="4">بر اساس قیمت (پایین به بالا)</option>
-                            <option value="5">بر اساس قیمت (بالا به پایین)</option>
-                            <option value="6">بر اساس جدیدترین ها</option>
-                        </select>
-                    </div>
-                </div>
+                <section class="widget widget_search col-lg-4 col-md-2 col-sm-3">
+                    <form class="search-form" method="get" asp-controller="Product" asp-action="Index">
+                        <label>
+                            <span class="screen-reader-text">جستجو کنید:</span>
+                            <input type="search" value="@Context.Request.Query["search"].ToString()" name="search" class="search-field" placeholder="جستجو کنید ...">
+                        </label>
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </section>
             </div>
         </div>
 
@@ -59,11 +55,11 @@
 
             @foreach (var product in Model.QueryResult)
             {
-                <partial name="_ProductView" model="product"/>
+                <partial name="_ProductView" model="product" />
             }
 
             <div class="col-lg-12 col-md-12">
-                <div class="pagination-area">
+                <div class="pagination-area @(Model.TotalCount<Model.PageSize?"d-none":"")">
                     <a asp-controller="Product" asp-action="Index" asp-route-pageId="@lastPage" class="prev page-numbers"><i class="fas fa-angle-double-right"></i></a>
                     @for (int i = 1; i <= Model.pageCount; i++)
                     {

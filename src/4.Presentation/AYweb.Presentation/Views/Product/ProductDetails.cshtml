@@ -145,17 +145,17 @@
                                 <div class="tabs_item">
                                     <div class="products-details-tab-content">
                                         <ul class="additional-information">
-                                          @*   @foreach (var feature in Model.Features)
+                                            @foreach (var feature in Model.Features)
                                             {
                                                 <li><span>@feature.Value:</span> @feature.Title</li>
-                                            } *@
+                                            }
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div class="tabs_item">
                                     <div class="products-details-tab-content">
-                                        @* <partial name="_ProductComments" model="@Model.Comments" /> *@
+                                        <partial name="_ProductComments" model="@Model.Comments" />
                                     </div>
                                 </div>
                             </div>
