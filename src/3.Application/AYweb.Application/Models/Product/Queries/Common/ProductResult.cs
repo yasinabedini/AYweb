@@ -28,5 +28,10 @@ public class ProductResult
 
     public int Inventory { get; set; }
 
-    public bool IsSpecial { get; set; }    
+    public bool IsSpecial { get; set; }
+
+    public required List<CommentResult> Comments { get; set; }
+
+    public required List<FeatureResult> Features { get; set; }
+
 }

@@ -25,7 +25,7 @@ namespace AYweb.Application.Models.Product.Queries.GetProduct
 
         public Task<ProductResult> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
-            var product = _mapper.Map<Domain.Models.Product.Entities.Product, ProductResult>(_repository.GetById(request.Id));
+            var product = _mapper.Map<Domain.Models.Product.Entities.Product, ProductResult>(_repository.GetByIdWithRelations(request.Id));
 
             return Task.FromResult(product);
         }

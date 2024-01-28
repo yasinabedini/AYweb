@@ -10,6 +10,6 @@ namespace AYweb.Application.Models.Product.Queries.GetProducts
 {
     public class GetProductsQuery:PageQuery<PagedData<ProductResult>>
     {
-     
+        public required string Search { get; set; }
     }
 }

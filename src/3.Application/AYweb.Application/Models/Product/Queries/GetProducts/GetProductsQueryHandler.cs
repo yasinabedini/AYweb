@@ -28,6 +28,10 @@ namespace AYweb.Application.Models.Product.Queries.GetProducts
         public Task<PagedData<ProductResult>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
             var productList = _repository.GetList();
+            if (!string.IsNullOrEmpty(request.Search))
+            {
+                productList = productList.Where(t => t.Name.Contains(request.Search)).ToList();
+            }
             var products = _mapper.Map<List<Domain.Models.Product.Entities.Product>, List<ProductResult>>(productList.Skip(request.SkipCount).Take(request.PageSize).ToList());
 
             return Task.FromResult(new PagedData<ProductResult>() { QueryResult = products, PageNumber = request.PageNumber, PageSize = request.PageSize,TotalCount = productList.Count});
