@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.Order.Commands.CreateOrder
 
         public Task<Domain.Models.Order.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = Domain.Models.Order.Entities.Order.Create(request.UserId);
+            var order = Domain.Models.Order.Entities.Order.Create(request.UserId,0);
             _repository.Add(order);
             _repository.Save();
 

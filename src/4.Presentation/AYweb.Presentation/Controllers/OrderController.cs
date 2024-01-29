@@ -1,4 +1,5 @@
-﻿using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder;
+﻿using AYweb.Application.Models.Order.Commands.ChnageOrderLineAmount;
+using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,10 @@ namespace AYweb.Presentation.Controllers
         }
 
         [HttpPost]
-        public void ChangeOrderLineCount(int productId, int count)
+        public void ChangeOrderLineCount(long productId, int count)
         {
             //  _service.ChangeOrderLineCount(productId, count, HttpContext);
+            _sender.Send(new ChnageOrderLineAmountCommand { ProductId = productId, Amount = count });
         }
 
         public IActionResult DeleteOrderLine(int productId)

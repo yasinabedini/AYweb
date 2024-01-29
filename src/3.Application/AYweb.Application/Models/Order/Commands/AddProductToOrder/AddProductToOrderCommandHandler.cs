@@ -4,9 +4,11 @@ using AIPFramework.Session;
 using AYweb.Application.Models.Order.Commands.CreateOrder;
 using AYweb.Application.Models.Order.Commands.UpdateOrder;
 using AYweb.Application.Models.Order.Commands.UpdateOrderLine;
+using AYweb.Application.Models.Order.Queries.GetOrderOrderLines;
 using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Application.Models.User.Queries.GetUser;
+using AYweb.Domain.Models.Order.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http; 
 using System.Text.Json;
@@ -77,9 +79,9 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
                     order = Domain.Models.Order.Entities.Order.Create();
                 }
 
+           
                 order.AddOrderLine(product.Id, product.Price, request.Amount);
-                order.ChangeEndPrice(order.CalculateEndPrice());
-
+                
                 _session.Add("UserCart", order, 10800, 10800);
             }
 
