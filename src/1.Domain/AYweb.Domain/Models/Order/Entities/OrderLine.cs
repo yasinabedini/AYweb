@@ -28,6 +28,7 @@ public class OrderLine : Entity<long>
         Count = count;
         UnitPrice = unitPrice;
         CreateAt = DateTime.Now;
+        SumPrice = UnitPrice * count;
     }
 
     public static OrderLine Create(long productId, int unitPrice, int count)
@@ -61,6 +62,13 @@ public class OrderLine : Entity<long>
         Modified();
     }
 
+    public void ChangeAmount(int amount)
+    {
+        Count = amount;
+        SumPrice = CalculateSumPrice();
+        Modified();
+    }
+
     public void UpdateUnitPrice()
     {
         UnitPrice = Product.Price;
@@ -71,5 +79,10 @@ public class OrderLine : Entity<long>
     {        
         return  UnitPrice * Count;
     } 
+
+    public void UpdateSumPrice()
+    {
+        SumPrice = CalculateSumPrice();
+    }
     #endregion
 }

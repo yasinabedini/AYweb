@@ -10,11 +10,12 @@ public class Order : AggregateRoot
     #region Properties
     public OrderStatus OrderStatus { get; set; }
 
-    public int EndPrice { get; private set; }
 
     public Description? Notes { get; private set; }
 
     public List<OrderLine> OrderLines { get; private set; } = new List<OrderLine>();
+    
+    public int EndPrice { get; private set; }
 
     public bool InPersonDelivery { get; private set; }
 
@@ -37,20 +38,21 @@ public class Order : AggregateRoot
         OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
         CreateAt = DateTime.Now;
     }
-    public Order(long? userId)
+    public Order(long? userId,int? endPrice)
     {        
         if (userId.HasValue) UserId = userId.Value;        
         OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
-        CreateAt = DateTime.Now;
+        CreateAt = DateTime.Now;        
+        if(endPrice.HasValue) EndPrice = endPrice.Value;
     }
 
     public static Order Create()
     {
         return new Order();
     }
-    public static Order Create(long? userId)
+    public static Order Create(long? userId,int? endPrice)
     {
-        return new Order(userId);
+        return new Order(userId, endPrice);
     }
     #endregion
 
@@ -101,7 +103,8 @@ public class Order : AggregateRoot
 
         else
         {
-            OrderLine orderLine = OrderLine.Create(productId, unitPrice,amount);
+            OrderLine orderLine = OrderLine.Create(productId, unitPrice,0);
+            orderLine.ChangeAmount(amount);
             OrderLines.Add(orderLine);
             EndPrice = CalculateEndPrice();
 
@@ -141,6 +144,13 @@ public class Order : AggregateRoot
         {
             AddOrderLine(orderLine.ProductId,orderLine.UnitPrice,orderLine.Count);
         }
+    }
+
+    public void ChangeOrderLineAmount(long productId,int amount)
+    {
+        var orderline = OrderLines.First(t => t.ProductId == productId);
+        orderline.ChangeAmount(amount);
+        orderline.CalculateSumPrice();
     }
 
     public void EnableInPersonDelivery()
