@@ -29,7 +29,7 @@ public class Forward : Entity<long>
 
     #region Constructor And Factories
     private Forward() { }
-    public Forward(int orderId, string province, string city, string postalCode, string address, string trasnfereeName)
+    public Forward(long orderId, string province, string city, string postalCode, string address, string trasnfereeName)
     {
         OrderId = orderId;
         Province = province;
@@ -41,7 +41,7 @@ public class Forward : Entity<long>
         CreateAt = DateTime.Now;
     }
 
-    public static Forward Create(int orderId, string province, string city, string postalCode, string address, string trasnfereeName)
+    public static Forward Create(long orderId, string province, string city, string postalCode, string address, string trasnfereeName)
     {
         return new Forward(orderId, province, city, postalCode, address, trasnfereeName);
     }
