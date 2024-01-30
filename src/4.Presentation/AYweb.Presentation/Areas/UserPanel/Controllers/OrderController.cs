@@ -1,6 +1,10 @@
-﻿using AYweb.Application.Models.Order.Queries.GetCurrentUserOrders;
+﻿using AYweb.Application.Models.Order.Commands.PayOrder;
+using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder;
+using AYweb.Application.Models.Order.Queries.GetCurrentUserOrders;
 using AYweb.Application.Models.Order.Queries.GetUserOrders;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
+using AYweb.Domain.Models.Order.Enums;
+using AYweb.Domain.Models.Transaction.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +26,7 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
         [Route("MyOrders")]
         public IActionResult Index(bool successPay)
         {
-            return View(_sender.Send(new GetCurrentUserOrdersQuery()));
+            return View(_sender.Send(new GetCurrentUserOrdersQuery()).Result);
         }
 
         [Route("MyOrders/{id}")]
@@ -38,32 +42,36 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
         }
         #endregion
 
-        //#region CheckOut
-        //[HttpGet]
-        //[Route("CheckOut")]
-        //public IActionResult CheckOut()
-        //{
-        //    Order order = _service.GetCurrentCart(HttpContext);
-        //    if (order == null || order.Status.Status.ToLower() != "cart") return NotFound();
-        //    ViewData["Order"] = order;
-        //    return View();
-        //}
-        //[HttpPost]
-        //[Route("CheckOut")]
-        //public IActionResult CheckOut(PayOrderViewModel order, IFormFile? transactionPicture)
-        //{
-        //    if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null || string.IsNullOrEmpty(order.CustomerName))
-        //    {
-        //        Order orderData = _service.GetCurrentCart(HttpContext);
-        //        ViewData["Order"] = orderData;
-        //        ViewBag.Notification = true;
-        //        return View(order);
-        //    }
-        //    _service.OrderPayRequest(order, transactionPicture, HttpContext.User.Identity.IsAuthenticated);
+        #region CheckOut
+        [HttpGet]
+        [Route("CheckOut")]
+        public IActionResult CheckOut()
+        {
+            var order = _sender.Send(new GetCurrentUserCurrentOrderQuery()).Result;
+            if (order == null || order.OrderStatus != _OrderStatus.completing.ToString()) return NotFound();
+            ViewData["Order"] = order;
+            return View();
+        }
+        [HttpPost]
+        [Route("CheckOut")]
+        public IActionResult CheckOut(PayOrderCommand order, IFormFile? transactionPicture)
+        {
+            if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null || string.IsNullOrEmpty(order.CustomerName) || transactionPicture == null && order.PaymentMethod == 1)
+            {
+                var orderData = _sender.Send(new GetCurrentUserCurrentOrderQuery()).Result;
+                ViewData["Order"] = orderData;
+                ViewBag.Notification = true;
+                return View(order);
+            }
+            if (transactionPicture is not null)
+            {
+                order.TransactionScreenShot = transactionPicture;
+            }            
+            _sender.Send(order);
 
-        //    return RedirectToAction("index", "order", new { area = "userpanel", successPay = true });
-        //}
-        //#endregion
+            return RedirectToAction("index", "order", new { area = "userpanel", successPay = true });
+        }
+        #endregion
 
 
     }
