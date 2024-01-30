@@ -21,5 +21,7 @@ namespace AYweb.Application.Models.Order.Queries.Common
         public long UserId { get; set; }
 
         public required List<OrderLinesResult> OrderLines { get; set; }
+
+        public DateTime CreateAt { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@using AYweb.Application.Models.Order.Queries.Common
 @using AYweb.Domain.Models.Order.Enums
+@using AYweb.Application.Convertors
 @using AYweb.Domain.Models.Order.ValueObjects
 @model List<OrderResult>
 
@@ -61,7 +62,7 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    @Guid.NewGuid().ToString().Substring(0, 10)
+                                                    @(order.CreateAt.Day.ToString("00") + order.CreateAt.Month.ToString("00") + order.CreateAt.Year + "" + order.Id)
                                                 </td>
                                                 <td>
                                                     @switch (order.OrderStatus)
@@ -84,13 +85,13 @@
                                                     }
                                                 </td>
                                                 <td>
-                                                    <a>@order..ToShamsi()</a>
+                                                    <a>@order.CreateAt.ToShamsi()</a>
                                                 </td>
                                                 <td>
                                                     <a>@order.EndPrice تومان</a>
                                                 </td>
                                                 <td>
-                                                    @if (order.OrderStatus==_OrderStatus.completing.ToString())
+                                                    @if (order.OrderStatus == _OrderStatus.completing.ToString())
                                                     {
                                                         <a asp-controller="Order" asp-action="MyCart" class="btn btn-success text-white">مشاهده سفارش</a>
                                                     }
