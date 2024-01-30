@@ -120,7 +120,7 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.User.Entities.User GetUSerByPhoneNumber(string phoneNumber)
     {
-        return GetList().First(t => t.PhoneNumber.Value == phoneNumber);
+        return _context.Users.Include(t => t.RolesList).Include(t => t.MyOrders).Include(t => t.Transactions).Include(t => t.Notifications).First(t => t.PhoneNumber == new Domain.Common.ValueObjects.PhoneNumber(phoneNumber));
     }
 
     public string GetUserVerificationCode(string phoneNumber)

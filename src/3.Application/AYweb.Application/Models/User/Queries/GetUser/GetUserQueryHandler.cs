@@ -23,11 +23,11 @@ namespace AYweb.Application.Models.User.Queries.GetUser
             _mapper = mapper;
         }
 
-        public async Task<Domain.Models.User.Entities.User> Handle(GetUserQuery request, CancellationToken cancellationToken)
+        public Task<Domain.Models.User.Entities.User> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var res = _repository.GetByIdWithGraph(request.Id);
 
-            return res;
+            return Task.FromResult(res);
         }
     }
 }

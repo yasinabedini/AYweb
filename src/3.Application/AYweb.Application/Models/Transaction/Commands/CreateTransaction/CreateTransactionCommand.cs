@@ -5,7 +5,7 @@ using AYweb.Domain.Models.Transaction.ValueObjects;
 
 namespace AYweb.Application.Models.Transaction.Commands.CreateTransaction;
 
-public class CreateTransactionCommand:ICommand
+public class CreateTransactionCommand:ICommand<long>
 {
     public long UserId { get;  set; }
 
