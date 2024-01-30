@@ -14,9 +14,7 @@ namespace AYweb.Infrastructure.Models.Order.Configs
     {
         public void Configure(EntityTypeBuilder<Domain.Models.Order.Entities.Order> builder)
         {
-            builder.Property(t => t.Notes).HasConversion<DescriptionConversion>().HasMaxLength(500);
-
-            builder.Property(t => t.OrderStatus).HasConversion<OrderStatusConversion>().HasMaxLength(100).IsRequired();
+                       builder.Property(t => t.OrderStatus).HasConversion<OrderStatusConversion>().HasMaxLength(100).IsRequired();
 
             builder.HasMany(t => t.OrderLines);
 

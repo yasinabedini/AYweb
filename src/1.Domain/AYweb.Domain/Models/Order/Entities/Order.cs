@@ -2,6 +2,7 @@
 using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Order.ValueObjects;
 using AIPFramework.Exceptions;
+using AYweb.Domain.Models.Transaction.Enums;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
@@ -11,46 +12,46 @@ public class Order : AggregateRoot
     public OrderStatus OrderStatus { get; set; }
 
 
-    public Description? Notes { get; private set; }
+    public string? Notes { get; private set; }
 
     public List<OrderLine> OrderLines { get; private set; } = new List<OrderLine>();
-    
+
     public int EndPrice { get; private set; }
 
     public bool InPersonDelivery { get; private set; }
 
     public long UserId { get; private set; }
 
-    public int? ForwardId { get; private set; }
+    public long? ForwardId { get; private set; }
 
-    public int TransactionId { get; private set; }
+    public long TransactionId { get; private set; }
 
     public bool IsApproved { get; private set; }
-    
 
-    public User.Entities.User? User { get;private set; }
-    public Forward? Forward { get;private set; }
+
+    public User.Entities.User? User { get; private set; }
+    public Forward? Forward { get; private set; }
     #endregion
 
     #region Constructor And Factories
     private Order()
-    {        
+    {
         OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
         CreateAt = DateTime.Now;
     }
-    public Order(long? userId,int? endPrice)
-    {        
-        if (userId.HasValue) UserId = userId.Value;        
+    public Order(long? userId, int? endPrice)
+    {
+        if (userId.HasValue) UserId = userId.Value;
         OrderStatus = new OrderStatus(Enums._OrderStatus.completing.ToString());
-        CreateAt = DateTime.Now;        
-        if(endPrice.HasValue) EndPrice = endPrice.Value;
+        CreateAt = DateTime.Now;
+        if (endPrice.HasValue) EndPrice = endPrice.Value;
     }
 
     public static Order Create()
     {
         return new Order();
     }
-    public static Order Create(long? userId,int? endPrice)
+    public static Order Create(long? userId, int? endPrice)
     {
         return new Order(userId, endPrice);
     }
@@ -80,7 +81,7 @@ public class Order : AggregateRoot
         int endPrice = 0;
         if (OrderLines.Count > 0)
         {
-            endPrice = OrderLines.Sum(t => t.SumPrice);            
+            endPrice = OrderLines.Sum(t => t.SumPrice);
         }
         return endPrice;
     }
@@ -90,26 +91,32 @@ public class Order : AggregateRoot
         return OrderLines;
     }
 
-    public OrderLine AddOrderLine(long productId,int unitPrice,int amount)
+    public OrderLine AddOrderLine(long productId, int unitPrice, int amount)
     {
         if (IsOrderlineAvailable(productId))
         {
-            var orderLine = OrderLines.Single(t => t.ProductId == productId);                        
+            var orderLine = OrderLines.Single(t => t.ProductId == productId);
             orderLine.IncreaseProductCount(amount);
-            EndPrice =  CalculateEndPrice();
+            EndPrice = CalculateEndPrice();
 
             return orderLine;
         }
 
         else
         {
-            OrderLine orderLine = OrderLine.Create(productId, unitPrice,0);
+            OrderLine orderLine = OrderLine.Create(productId, unitPrice, 0);
             orderLine.ChangeAmount(amount);
             OrderLines.Add(orderLine);
             EndPrice = CalculateEndPrice();
 
             return orderLine;
         }
+    }
+
+    public void SetNotes(string notes)
+    {
+        Notes = notes;
+        Modified();
     }
 
     public bool IsOrderlineAvailable(long productId)
@@ -131,10 +138,11 @@ public class Order : AggregateRoot
         Modified();
     }
 
-    public void PaymentRequest(int transactionId)
+    public void PaymentRequest(long transactionId, int paymentMethod)
     {
         TransactionId = transactionId;
-        OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.AwaitingPaymentConfirmation.ToString());
+        if (paymentMethod == (int)_PaymentMethod.CardByCard) OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.AwaitingPaymentConfirmation.ToString());
+        else if (paymentMethod == (int)_PaymentMethod.PaymentGateway) OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.TransactionConfirmed.ToString());
         Modified();
     }
 
@@ -142,11 +150,11 @@ public class Order : AggregateRoot
     {
         foreach (var orderLine in order.OrderLines)
         {
-            AddOrderLine(orderLine.ProductId,orderLine.UnitPrice,orderLine.Count);
+            AddOrderLine(orderLine.ProductId, orderLine.UnitPrice, orderLine.Count);
         }
     }
 
-    public void ChangeOrderLineAmount(long productId,int amount)
+    public void ChangeOrderLineAmount(long productId, int amount)
     {
         var orderline = OrderLines.First(t => t.ProductId == productId);
         orderline.ChangeAmount(amount);
@@ -159,20 +167,17 @@ public class Order : AggregateRoot
         Modified();
     }
 
-    public Forward AddFroward(Forward forward)
+    public void AddFroward(long forwardId)
     {
         if (!InPersonDelivery)
-        {
-            OrderStatus = new OrderStatus(Enums._OrderStatus.Posted.ToString());
-            forward.SetOrderId((int)Id);
-            ForwardId = (int)forward.Id;
+        {            
+            ForwardId = forwardId;
             Modified();
         }
         else
         {
             throw new InvalidEntityStateException("Delivery For This Order Is In person. ");
-        }
-        return forward;
+        }        
     }
     #endregion
 }

@@ -16,7 +16,7 @@ namespace AYweb.Infrastructure.Models.Order.Configs
 
             builder.Property(t => t.PostalCode).HasMaxLength(40).IsRequired();
 
-            builder.Property(t => t.TrackingCode).HasMaxLength(40).IsRequired();
+            builder.Property(t => t.TrackingCode).HasMaxLength(40);
 
             builder.Property(t => t.TransfereeName).HasMaxLength(100).IsRequired();
 

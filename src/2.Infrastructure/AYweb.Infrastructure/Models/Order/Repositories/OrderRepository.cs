@@ -69,6 +69,13 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
     {
         return _context.Forwards.ToList();
     }
-  
+
+    public void ApproveOrder(long id)
+    {
+        var order = GetById(id);
+        order.ApproveOrder();
+        Update(order);
+    }
+
     #endregion
 }
