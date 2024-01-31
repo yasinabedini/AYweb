@@ -26,7 +26,9 @@ public class Transaction : AggregateRoot
 
     public Description Description { get; private set; }
 
-    public User.Entities.User User { get; private set; } 
+    public User.Entities.User User { get; private set; }
+
+    public List<TransactionLine> TransactionLines { get; set; }
     #endregion
 
     #region Constructor And Factories
