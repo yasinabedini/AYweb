@@ -10,6 +10,7 @@ namespace AYweb.Application.Models.Transaction.Queries.Common
 {
     public class TransactionResult
     {
+        public long Id { get; set; }
         public long UserId { get;  set; }
 
         public int Price { get;  set; }
@@ -25,5 +26,7 @@ namespace AYweb.Application.Models.Transaction.Queries.Common
         public bool IsApproved { get;  set; }
 
         public required string Description { get;  set; }
+
+        public required DateTime CreateAt { get; set; }
     }
 }
