@@ -1,6 +1,7 @@
 ﻿using AYweb.Domain.Models.Transaction.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
 
         public List<Domain.Models.Transaction.Entities.Transaction> GetTransactionByUserId(long userId)
         {
-            return GetList().Where(t => t.UserId == userId).ToList();
+            return _context.Transactions.Include(t=>t.TransactionLines).Where(t => t.UserId == userId).ToList();
         }
 
         public List<Domain.Models.Transaction.Entities.Transaction> GetUnApprovedTransaction()
