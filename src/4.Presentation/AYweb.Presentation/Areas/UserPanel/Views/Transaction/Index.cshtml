@@ -1,0 +1,109 @@
+﻿@using AYweb.Application.Convertors
+@using AYweb.Application.Models.Transaction.Queries.Common
+@using AYweb.Domain.Models.Transaction.Enums
+@model List<TransactionResult>
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg2">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>تراکنش ها</h2>
+
+                    <ul>
+                        <li><a href="#">پنل کاربری</a></li>
+                        <li>تراکنش ها</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Start Cart Area -->
+<section class="cart-area pb-100 pt-4">
+    <div class="container">
+        @if (Model == null)
+        {
+            <div class="row">
+                <div class="cart-table table-responsive">
+                    <div>
+                        <p class="text-center">تراکنشی موجود نیست</p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <form>
+                        <div class="cart-table table-responsive">
+                            @if (Model != null)
+                            {
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>کد تراکنش</th>
+                                            <th scope="col">وضعیت تراکنش</th>
+                                            <th scope="col">تاریخ</th>
+                                            <th scope="col">مبلغ</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var transaction in Model ?? new List<TransactionResult>())
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @(transaction.CreateAt.Day.ToString("00") + transaction.CreateAt.Month.ToString("00") + transaction.CreateAt.Year + "" + transaction.Id)
+                                                </td>
+                                                <td>
+                                                    @switch (transaction.Status)
+                                                    {
+                                                        case "AwaitingPayment":
+                                                            <p class="text-success">در انتظار پرداخت <i class="fa fa-check-square"></i></p>
+                                                            break;
+                                                        case "Approved":
+                                                            <p class="text-success">تایید شده</p>
+                                                            break;
+                                                        case "AwaitingApproval":
+                                                            <p class="text-danger">در انتظار تایید </p>
+                                                            break;
+                                                        case "Failed":
+                                                            <p class="text-success">رد شده <i class="fa fa-undo"></i></p>
+                                                            break;                                                      
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a>@transaction.CreateAt.ToShamsi()</a>
+                                                </td>
+                                                <td>
+                                                    <a>@transaction.Price تومان</a>
+                                                </td>
+                                                <td>
+                                                    @if (transaction.Status == _TransactionStatus.AwaitingPayment.ToString())
+                                                    {
+                                                        <a asp-controller="Order" asp-action="MyCart" class="btn btn-success text-white">پرداخت</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-area="UserPanel" asp-controller="Order" asp-action="OrderDetails" asp-route-id="@transaction.Id" class="btn btn-success text-white">مشاهده تراکنش</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>
