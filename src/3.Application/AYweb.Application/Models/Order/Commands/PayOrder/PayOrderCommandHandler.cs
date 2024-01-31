@@ -5,20 +5,12 @@ using AYweb.Application.Models.Transaction.Commands.ApproveTransaction;
 using AYweb.Application.Models.Transaction.Commands.CreateTransaction;
 using AYweb.Application.Models.Transaction.Commands.RequestForPayTransaction;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
+using AYweb.Application.Senders;
 using AYweb.Application.Tools;
-using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Order.Enums;
 using AYweb.Domain.Models.Order.Repositories;
-using AYweb.Domain.Models.Order.ValueObjects;
 using AYweb.Domain.Models.Transaction.Enums;
 using MediatR;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Order.Commands.PayOrder
 {
@@ -79,6 +71,8 @@ namespace AYweb.Application.Models.Order.Commands.PayOrder
                     _sender.Send(new RequestForPayTransactionCommand { Id = transaction });
                 }
             }
+
+            Sms.PayCart(user.PhoneNumber, user.FirstName + " " + user.LastName);            
 
             _repository.Update(mainOrder);
             _repository.Save();
