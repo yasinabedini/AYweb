@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.Transaction.Queries.GetTransaction
 
         public Task<TransactionResult> Handle(GetTransactionQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_mapper.Map<Domain.Models.Transaction.Entities.Transaction, TransactionResult>(_repository.GetById(request.Id)));
+            return Task.FromResult(_mapper.Map<Domain.Models.Transaction.Entities.Transaction, TransactionResult>(_repository.GetByIdWithRelations(request.Id)));
         }
     }
 }

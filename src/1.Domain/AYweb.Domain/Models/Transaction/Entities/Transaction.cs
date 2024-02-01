@@ -32,7 +32,7 @@ public class Transaction : AggregateRoot
     #endregion
 
     #region Constructor And Factories
-    private Transaction() { }
+    private Transaction() { CreateAt = DateTime.Now; }
     public Transaction(long userId, int price, _TransactionType transactionType, _PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
     {
         UserId = userId;

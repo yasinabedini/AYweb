@@ -84,6 +84,7 @@ namespace AYweb.Infrastructure.Contexts
 
         #region Transaction
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionLine> TransactionLines { get; set; }
         #endregion
 
         #region User

@@ -77,9 +77,13 @@ public static class DependencyInjection
         services.AddTransient<IProjectRepository, ProjectRepository>();
         services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IServiceRepository, ServiceRepository>();
+        #region Transaction
         services.AddTransient<ITransactionRepository, TransactionRepository>();
-        
-        
+        services.AddTransient<ITransactionLineRepository, TransactionRepository>(); 
+
+        #endregion
+
+
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ICounselingRepository, UserRepository>();
 

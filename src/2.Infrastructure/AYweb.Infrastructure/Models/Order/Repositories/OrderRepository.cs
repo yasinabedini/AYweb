@@ -12,13 +12,13 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
     private readonly AyWebDbContext _context;
     public OrderRepository(AyWebDbContext context) : base(context)
     {
-        _context = context; 
+        _context = context;
     }
 
     #region Order
-    public List<Domain.Models.Order.Entities.Order> GetOrdersByUserId(long userId)
+    public Domain.Models.Order.Entities.Order GetByIdWithRelations(long id)
     {
-        return _context.Orders.Include(t=>t.OrderLines).ThenInclude(t=>t.Product).Where(t => t.UserId == userId).ToList();
+        return _context.Orders.Include(t => t.OrderLines).ThenInclude(t => t.Product).First(t => t.Id == id);
     }
     #endregion
 
@@ -75,6 +75,11 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
         var order = GetById(id);
         order.ApproveOrder();
         Update(order);
+    }
+
+    public List<Domain.Models.Order.Entities.Order> GetOrdersByUserId(long userId)
+    {
+        return GetList().Where(t=>t.UserId==userId).ToList();
     }
 
     #endregion
