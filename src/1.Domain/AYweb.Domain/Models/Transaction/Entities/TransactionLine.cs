@@ -16,7 +16,7 @@ namespace AYweb.Domain.Models.Transaction.Entities
         public int SumPrice { get; private set; }
         public Transaction Transaction { get; private set; }
 
-        private TransactionLine() { }
+        private TransactionLine() { CreateAt = DateTime.Now; }
 
         public TransactionLine(long transactionId,string commodity, int amount, int unitPrice)
         {
@@ -24,6 +24,12 @@ namespace AYweb.Domain.Models.Transaction.Entities
             Commodity = commodity;
             Amount = amount;
             UnitPrice = unitPrice;
+            SumPrice = unitPrice * amount;
+            CreateAt = DateTime.Now;
+        }
+        public static TransactionLine Create(long transactionId, string commodity, int amount, int unitPrice)
+        {
+            return new TransactionLine(transactionId, commodity, amount, unitPrice);
         }
 
         #region Common
