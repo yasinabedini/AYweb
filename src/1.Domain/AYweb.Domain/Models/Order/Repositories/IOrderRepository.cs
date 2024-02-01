@@ -10,6 +10,7 @@ namespace AYweb.Domain.Models.Order.Repositories
 {
     public interface IOrderRepository : IRepository<Order.Entities.Order>
     {
+        Entities.Order GetByIdWithRelations(long userId);
         List<Entities.Order> GetOrdersByUserId(long userId);
 
         void ApproveOrder(long id);
