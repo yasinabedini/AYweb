@@ -1,4 +1,6 @@
-﻿using AYweb.Domain.Models.Transaction.Repositories;
+﻿using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.Transaction.Entities;
+using AYweb.Domain.Models.Transaction.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Infrastructure.Models.Transaction.Repositories
 {
-    public class TransactionRepository : BaseRepository<Domain.Models.Transaction.Entities.Transaction>, ITransactionRepository
+    public class TransactionRepository : BaseRepository<Domain.Models.Transaction.Entities.Transaction>, ITransactionRepository,ITransactionLineRepository
     {
         private readonly AyWebDbContext _context;
         public TransactionRepository(AyWebDbContext context) : base(context)
@@ -18,11 +20,21 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
             _context = context;
         }
 
+        public void Add(TransactionLine entity)
+        {
+            _context.Add(entity);
+        }
+
         public void ApproveTransaction(long transactionId)
         {
             var transaction = GetById(transactionId);
             transaction.ApproveTransaction();
             Update(transaction);
+        }
+
+        public Domain.Models.Transaction.Entities.Transaction GetByIdWithRelations(long id)
+        {
+            return _context.Transactions.Include(t => t.TransactionLines).First(t => t.Id == id);
         }
 
         public List<Domain.Models.Transaction.Entities.Transaction> GetTransactionByUserId(long userId)
@@ -52,6 +64,21 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
             var transaction = GetById(Id);
             transaction.RequestForPay(transactionScreenShot);
             Update(transaction);
+        }
+
+        public void Update(TransactionLine entity)
+        {
+            _context.Update(entity);
+        }
+
+        TransactionLine IRepository<TransactionLine>.GetById(long id)
+        {
+            return _context.TransactionLines.First(t => t.Id == id);
+        }
+
+        List<TransactionLine> IRepository<TransactionLine>.GetList()
+        {
+            return _context.TransactionLines.ToList();
         }
     }
 }
