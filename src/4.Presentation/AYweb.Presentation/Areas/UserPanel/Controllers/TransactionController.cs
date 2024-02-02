@@ -19,5 +19,11 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
         {
             return View(_sender.Send(new GetCurrentUserTransactionsQuery()).Result);
         }
+
+        [Route("ChaeckOut/{id}")]
+        public IActionResult ChackOut(int id)
+        {
+            return View();
+        }
     }
 }
