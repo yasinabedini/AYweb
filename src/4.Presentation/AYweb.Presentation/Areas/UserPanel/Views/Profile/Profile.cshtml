@@ -1,0 +1,95 @@
+﻿@using AYweb.Application.Models.Plan.Queries.GetCurrentUserActivePlan
+@using AYweb.Application.Models.User.Queries.Common
+@using MediatR
+@model UserResult
+@inject ISender _sender;
+<div class="page-title-area page-title-bg1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>پنل کاربری</h2>
+
+                    <ul>
+                        <li><a href="#">آی وب </a></li>
+                        <li>پنل کاربری</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-10">
+            <aside class="widget-area" id="secondary">
+                <section class="widget widget_recent_entries pt-4 pb-5">
+                    <h3 class="widget-title text-center">پنل کاربری</h3>
+
+                    <ul class="m-3">
+                        <li><a asp-controller="Blog" asp-action="BlogDetails">ویرایش مشخصات</a></li>
+                        <li><a asp-controller="order" asp-action="index">سفارشات</a></li>
+                        <li><a asp-controller="transaction" asp-action="index">تراکنش ها</a></li>
+                        <li><a asp-controller="Blog" asp-action="BlogDetails" >تغییر کلمه عبور</a></li>
+                        <li><a asp-controller="account" asp-action="Logout" >خروج</a></li>
+                    </ul>
+
+                </section>
+            </aside>
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+
+            <div class="cart-table table-responsive p-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">نام</th>
+                        <th scope="col">نام خانوادگی</th>
+                        <th scope="col">شماره موبایل</th>
+                        <th scope="col">ایمیل</th>                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                        <td>@Model.FirstName</td>
+                        <td>@Model.LastName</td>
+                        <td>@Model.PhoneNumber</td>
+                        <td>@Model.Email</td>
+                  </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <h3 class="title p-5">مشخصات نوع کاربری</h3>
+
+            <div class="cart-table table-responsive p-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">نوع پنل</th>
+                            <th scope="col">روز های باقی مانده</th>                           
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>@_sender.Send(new GetCurrentUserActivePlanQuery()).Result.Title</td>
+                            <td>نامشخص</td>                            
+                            <td>
+                                <a class="btn-success btn text-white">تمدید</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
