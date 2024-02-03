@@ -25,7 +25,7 @@ namespace AYweb.Domain.Models.Transaction.Entities
             Amount = amount;
             UnitPrice = unitPrice;
             SumPrice = unitPrice * amount;
-            CreateAt = DateTime.Now;
+            CreateAt = DateTime.Now;            
         }
         public static TransactionLine Create(long transactionId, string commodity, int amount, int unitPrice)
         {

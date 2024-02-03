@@ -16,11 +16,11 @@ public class Transaction : AggregateRoot
 
     public TransactionStatus Status { get; private set; }
 
-    public TransactionType Type { get; private set; }
+    public TransactionType? Type { get; private set; }
 
-    public PaymentMethod PaymentMethod { get; private set; }
+    public PaymentMethod? PaymentMethod { get; private set; }
 
-    public string TransactionScreenShot { get; private set; }
+    public string? TransactionScreenShot { get; private set; }
 
     public bool IsApproved { get; private set; }
 
@@ -33,23 +33,18 @@ public class Transaction : AggregateRoot
 
     #region Constructor And Factories
     private Transaction() { CreateAt = DateTime.Now; }
-    public Transaction(long userId, int price, _TransactionType transactionType, _PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public Transaction(long userId, int price, _TransactionType type, string description)
     {
         UserId = userId;
         Price = price;
-        Type = new TransactionType(transactionType.ToString());
         Status = new TransactionStatus(_TransactionStatus.AwaitingPayment.ToString());
-        PaymentMethod = new PaymentMethod(paymentMethod.ToString());
+        Type = type.ToString();
         Description = description;
-        if (paymentMethod == _PaymentMethod.CardByCard && transactionScreenShot == "No Image")
-        {
-            throw new InvalidEntityStateException("If Payment Method Is Card by Card, Transaction Image Most be have value. ");
-        }
-        TransactionScreenShot = transactionScreenShot;
+        CreateAt = DateTime.Now;
     }
-    public static Transaction Create(long userId, int price, _TransactionType transactionType, _PaymentMethod paymentMethod, string description, string transactionScreenShot = "No Image")
+    public static Transaction Create(long userId, int price, _TransactionType type, string description)
     {
-        return new Transaction(userId, price, transactionType, paymentMethod, description, transactionScreenShot);
+        return new Transaction(userId, price, type, description);
     }
     #endregion
 
@@ -76,7 +71,7 @@ public class Transaction : AggregateRoot
     public void RejectTransaction()
     {
         Status = new TransactionStatus(_TransactionStatus.Failed.ToString());
-        IsApproved = false;        
+        IsApproved = false;
         Modified();
     }
 
@@ -86,10 +81,24 @@ public class Transaction : AggregateRoot
         Modified();
     }
 
-    public void RequestForPay(string screenShot)
+    public void RequestForPay(string screenShot, int paymentMethod)
     {
-        Status = _TransactionStatus.AwaitingApproval.ToString();
-        ChangeScreenShot(screenShot); 
+        if (paymentMethod == (int)_PaymentMethod.CardByCard)
+        {
+            Status = _TransactionStatus.AwaitingApproval.ToString();
+            ChangeScreenShot(screenShot);
+            PaymentMethod = _PaymentMethod.CardByCard.ToString();
+        }
+
+
+        else if (paymentMethod == (int)_PaymentMethod.PaymentGateway)
+        {
+            Status = _TransactionStatus.Approved.ToString();
+            ChangeScreenShot("No Image");
+            PaymentMethod = _PaymentMethod.CardByCard.ToString();
+        }        
+
+
         Modified();
     }
 
