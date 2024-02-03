@@ -1,0 +1,91 @@
+﻿@using AYweb.Application.Models.Transaction.Queries.Common
+@using AYweb.Domain.Models.Transaction.Enums
+@model TransactionResult
+
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>بررسی</h2>
+
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                        <li>جزئیات تراکنش</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Start Checkout Area -->
+<section class="checkout-area pb-100 p-3">
+    <div class="container">
+
+
+
+        <div class="order-details">
+            <h3 class="title">سفارش شما</h3>
+
+            <div class="order-table table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">عنوان</th>
+                            <th scope="col">فی</th>
+                            <th scope="col">تعداد</th>
+                            <th scope="col">مجموع</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var transactionLine in Model.TransactionLines)
+                        {
+                            <tr>
+                                <td class="product-name">
+                                    <a href="#">@transactionLine.Commodity</a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="#">@transactionLine.Amount</a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="#">@transactionLine.UnitPrice</a>
+                                </td>
+                                <td class="product-total">
+                                    <span class="subtotal-amount">@transactionLine.SumPrice تومان</span>
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>
+                                @if(Model.Status == _TransactionStatus.AwaitingPayment.ToString())
+                                {
+                                    <a asp-controller="Transaction" asp-action="CheckOut" asp-route-id="Model.Id" class="btn btn-success text-white">پرداخت</a>
+                                }
+                            </td>
+                            <td></td>
+                            <td class="total-price">
+                                <span>مجموع</span>
+                            </td>
+                            <td class="product-subtotal">
+                                <span class="subtotal-amount" id="subtotal-amount-with-postal-price">@Model.Price تومان</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                                    
+                
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!-- End Checkout Area -->

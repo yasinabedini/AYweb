@@ -66,16 +66,16 @@
                                                     @switch (transaction.Status)
                                                     {
                                                         case "AwaitingPayment":
-                                                            <p class="text-success">در انتظار پرداخت <i class="fa fa-check-square"></i></p>
+                                                            <p class="text-warning">در انتظار پرداخت </p>
                                                             break;
                                                         case "Approved":
-                                                            <p class="text-success">تایید شده</p>
+                                                            <p class="text-success">تایید شده <i class="fa fa-check-square"></i></p>
                                                             break;
                                                         case "AwaitingApproval":
-                                                            <p class="text-danger">در انتظار تایید </p>
+                                                            <p class="text-warning">در انتظار تایید </p>
                                                             break;
                                                         case "Failed":
-                                                            <p class="text-success">رد شده <i class="fa fa-undo"></i></p>
+                                                            <p class="text-danger">رد شده <i class="fa fa-undo"></i></p>
                                                             break;                                                      
                                                     }
                                                 </td>
@@ -88,11 +88,11 @@
                                                 <td>
                                                     @if (transaction.Status == _TransactionStatus.AwaitingPayment.ToString())
                                                     {
-                                                        <a asp-controller="Order" asp-action="MyCart" class="btn btn-success text-white">پرداخت</a>
+                                                        <a  asp-controller="Transaction" asp-action="CheckOut" asp-route-id="@transaction.Id" class="btn btn-success text-white">پرداخت</a>
                                                     }
                                                     else
                                                     {
-                                                        <a asp-area="UserPanel" asp-controller="Order" asp-action="OrderDetails" asp-route-id="@transaction.Id" class="btn btn-success text-white">مشاهده تراکنش</a>
+                                                        <a asp-area="UserPanel" asp-controller="Transaction" asp-action="TransactionDetails" asp-route-id="@transaction.Id" class="btn btn-success text-white">مشاهده تراکنش</a>
                                                     }
                                                 </td>
                                             </tr>

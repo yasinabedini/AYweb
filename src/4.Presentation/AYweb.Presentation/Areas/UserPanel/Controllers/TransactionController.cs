@@ -1,4 +1,6 @@
-﻿using AYweb.Application.Models.Transaction.Queries.GetCurrentUserTransactions;
+﻿using AYweb.Application.Models.Transaction.Commands.RequestForPayTransaction;
+using AYweb.Application.Models.Transaction.Queries.GetCurrentUserTransactions;
+using AYweb.Application.Models.Transaction.Queries.GetTransaction;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,10 +22,33 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
             return View(_sender.Send(new GetCurrentUserTransactionsQuery()).Result);
         }
 
-        [Route("ChaeckOut/{id}")]
-        public IActionResult ChackOut(int id)
+        [Route("Transaction/{id}")]
+        public IActionResult TransactionDetails(int id)
         {
+            return View(_sender.Send(new GetTransactionQuery { Id = id}).Result);
+        }
+
+
+        [Route("CheckOut/{id}")]
+        public IActionResult CheckOut(int id)
+        {
+            ViewData["transaction"] = _sender.Send(new GetTransactionQuery { Id = id }).Result;
+
             return View();
+        }
+
+        [Route("CheckOut/{id}")]
+        [HttpPost]
+        public IActionResult CheckOut(RequestForPayTransactionCommand transaction,IFormFile? screenshot)
+        {
+            if (screenshot is not null)
+            {
+                transaction.Image = screenshot;
+            }
+
+            _sender.Send(transaction);
+
+            return RedirectToAction("Index");
         }
     }
 }
