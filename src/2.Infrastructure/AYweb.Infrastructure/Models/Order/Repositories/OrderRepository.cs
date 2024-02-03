@@ -79,7 +79,7 @@ public class OrderRepository : BaseRepository<Domain.Models.Order.Entities.Order
 
     public List<Domain.Models.Order.Entities.Order> GetOrdersByUserId(long userId)
     {
-        return GetList().Where(t=>t.UserId==userId).ToList();
+        return _context.Orders.Include(t=>t.OrderLines).ThenInclude(t=>t.Product).Where(t=>t.UserId==userId).ToList();
     }
 
     #endregion

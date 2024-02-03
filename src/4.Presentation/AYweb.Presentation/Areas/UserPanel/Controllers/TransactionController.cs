@@ -2,11 +2,13 @@
 using AYweb.Application.Models.Transaction.Queries.GetCurrentUserTransactions;
 using AYweb.Application.Models.Transaction.Queries.GetTransaction;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AYweb.Presentation.Areas.UserPanel.Controllers
 {
-    [Area("UserPanel")]
+    [Area("userpanel")]
+    [Authorize]
     public class TransactionController : Controller
     {
         private readonly ISender _sender;

@@ -6,11 +6,13 @@ using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Domain.Models.Order.Enums;
 using AYweb.Domain.Models.Transaction.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AYweb.Presentation.Areas.UserPanel.Controllers
 {
-    [Area("UserPanel")]
+    [Area("userpanel")]
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly ISender _sender;
