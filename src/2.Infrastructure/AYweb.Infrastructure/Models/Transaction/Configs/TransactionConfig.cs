@@ -18,7 +18,7 @@ public class TransactionConfig : IEntityTypeConfiguration<Domain.Models.Transact
 
         builder.Property(t => t.Type).HasConversion<TransactionTypeConversion>().HasMaxLength(150).IsRequired();
 
-        builder.Property(t => t.PaymentMethod).HasConversion<PaymentMethodConversion>().HasMaxLength(150).IsRequired();
+        builder.Property(t => t.PaymentMethod).HasConversion<PaymentMethodConversion>().HasMaxLength(150);
 
         builder.Property(t => t.Description).HasConversion<DescriptionConversion>().HasMaxLength(500).IsRequired();
 
