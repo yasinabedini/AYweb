@@ -1,0 +1,169 @@
+﻿@using AYweb.Application.Models.Transaction.Commands.RequestForPayTransaction
+@using AYweb.Application.Models.Transaction.Queries.Common
+@model RequestForPayTransactionCommand
+
+@{
+    var transaction = ViewData["transaction"] as TransactionResult;
+}
+
+
+
+<!-- Start Page Title Area -->
+<div class="page-title-area page-title-bg1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>بررسی</h2>
+
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+                        <li>پرداخت</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+<!-- End Page Title Area -->
+<!-- Start Checkout Area -->
+<section class="checkout-area pb-100">
+    <div class="container">
+
+        <form method="post" asp-controller="Transaction" asp-action="CheckOut" enctype="multipart/form-data">
+            <div class="row pt-3">
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="order-details">
+                        <h3 class="title">سفارش شما</h3>
+
+                        <div class="order-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">عنوان</th>
+                                        <th scope="col">مجموع</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var transactionLine in transaction.TransactionLines)
+                                    {
+                                        <tr>
+                                            <td class="product-name">
+                                                <a href="#">@transactionLine.Commodity</a>
+                                            </td>
+
+                                            <td class="product-total">
+                                                <span class="subtotal-amount">@transactionLine.SumPrice تومان</span>
+                                            </td>
+                                        </tr>
+                                    }                                  
+
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>مجموع</span>
+                                        </td>
+
+                                        <td class="product-subtotal">
+                                            <span class="subtotal-amount" id="subtotal-amount-with-postal-price">@transaction.Price تومان</span>                                            
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">                    
+                    <div class="payment-box order-details">
+                    <h3 class="title">پرداخت</h3>
+                        <div class="payment-method">                            
+                            <p>
+                                <input type="radio" onchange="showCardNum()" id="direct-bank-transfer" value="1" asp-for="PaymentMethod">
+                                <label for="direct-bank-transfer">کارت به کارت</label>
+                                <br />
+                                با استفاده از گزینه کارت به کارت به یکی از شماره کارت های زیر واریز نمایید و تصویر رسید را بارگذاری کنید  اسرع وقت رسید تایید شده درخواست شما تایید میشود..
+
+                                <div id="cardNumber" class="product-image d-none justify-content-around">
+                                    <img style="height:20em !important;border-radius:15px;" class="bluImg" src="/img/BluB1.jpg" id="blu1" alt="image">
+                                    <img style="height:20em !important;border-radius:15px;" class="bluImg" src="/img/BluB2.jpg" onfocus="changeImgSrc(/img/BluB2.jpg, blu2)" id="blu2" alt="image">
+                                </div>
+                                <hr />
+                                <div class="mb-3 d-none" id="transactionPic">
+                                    <p> **** رسید واریز را آپلود کنید ****</p>
+                                    <input class="form-control File-Input" name="screenshot" type="file" id="formFile">
+                                </div>
+
+                            </p>
+                            <p>
+                                <input disabled type="radio" id="paypal" asp-for="PaymentMethod" value="2">
+                                <label for="paypal" class="text-secondary">درگاه پرداخت (به زودی فعال میشود)</label>
+                            </p>
+                        </div>
+                        <hr />
+                        <input type="hidden" value="@transaction.Id" asp-for="Id" />
+                       
+                        <input type="submit" class="default-btn order-btn" value="پرداخت" />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function showCardNum() {
+            const testDiv = document.querySelector("#cardNumber");
+            testDiv.classList.remove(".d-none");
+            testDiv.classList.add("d-flex");
+            document.getElementById("transactionPic").classList.remove("d-none");
+        }
+
+        function changeImgSrc(imgSrc, id) {
+            const img = document.querySelector("#" + id);
+            img.setAttribute("src", imgSrc);
+        }
+
+
+        if (document.querySelector("#direct-bank-transfer").hasAttribute("checked")) {
+            showCardNum()
+        }
+
+    </script>
+
+    <script>
+        const postalPrice = 35000;
+        document.querySelector("#postPrice").innerHTML = postalPrice + " تومان";
+
+        const btn = document.querySelector("#flexSwitchCheckChecked");
+        const infoDiv = document.querySelectorAll(".post-Method");
+
+        function PostMethod() {
+            infoDiv.forEach((item, index, array) => {
+                item.classList.toggle("d-none");
+            })
+            document.querySelector("#postPrice").classList.toggle("d-none");
+            document.querySelector("#freePost").classList.toggle("d-none");
+            document.querySelector("#subtotal-amount-with-postal-price").classList.toggle("d-none");
+            document.querySelector("#subtotal-amount-without-postal-price").classList.toggle("d-none");
+        }
+
+        btn.addEventListener("click", PostMethod);
+
+
+    </script>
+
+    @if (ViewBag.Notification != null && (bool)ViewBag.Notification == true)
+    {
+        <script>
+            $.notify("اطلاعات را به درستی وارد کنید", "error");
+        </script>
+    }
+}
+<!-- End Checkout Area -->
