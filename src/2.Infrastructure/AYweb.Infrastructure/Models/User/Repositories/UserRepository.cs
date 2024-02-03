@@ -1,4 +1,5 @@
 ﻿using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.Transaction.Repositories;
 using AYweb.Domain.Models.User.Entities;
 using AYweb.Domain.Models.User.Repositories;
 using AYweb.Infrastructure.Common.Repository;
@@ -16,13 +17,15 @@ namespace AYweb.Infrastructure.Models.User.Repositories;
 
 public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, IUserRepository,ICounselingRepository
 {
+    private readonly ITransactionRepository _transactionRepository;
     private readonly AyWebDbContext _context;
     private readonly IHttpContextAccessor _httpContext;
 
-    public UserRepository(AyWebDbContext context, IHttpContextAccessor httpContext) : base(context)
+    public UserRepository(AyWebDbContext context, IHttpContextAccessor httpContext, ITransactionRepository transactionRepository) : base(context)
     {
         _context = context;
         _httpContext = httpContext;
+        _transactionRepository = transactionRepository;
     }
 
     public Domain.Models.User.Entities.User GetByIdWithGraph(long id)
@@ -101,7 +104,8 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
     public Domain.Models.Plan.Entities.Plan GetUserActivePlan(long userId)
     {
         var userplans = _context.User_Plans.Include(t => t.Plan).OrderBy(t => t.Id).LastOrDefault(t => t.UserId == userId);
-        if (userplans is not null && !userplans.ActivateCheck() || userplans is null)
+        var transaction = _transactionRepository.GetById(userplans.TransactionId);
+        if (userplans is not null && !userplans.ActivateCheck() || userplans is null||!transaction.IsAccepted())
         {
             userplans = User_Plans.Create(userId, 4, 0);
         }

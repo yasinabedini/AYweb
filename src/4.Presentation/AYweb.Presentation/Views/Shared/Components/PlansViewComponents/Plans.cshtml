@@ -29,7 +29,7 @@
                                 <li><i class="flaticon-tick"></i> @feature.Value</li>
                             }
                         </ul>
-                        <a asp-controller="Plan" asp-action="CheckOut" asp-route-id="@plan.Id" class="get-started-btn">فعالسازی پنل</a>
+                        <a asp-area="UserPanel" asp-controller="Profile" asp-action="BuyPlan" asp-route-id="@plan.Id" class="get-started-btn">فعالسازی پنل</a>
                     </div>
                 </div>
             }
