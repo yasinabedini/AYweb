@@ -35,6 +35,8 @@ namespace AYweb.Application.Models.Order.Commands.PayOrder
             var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
             var mainOrder = _repository.GetByIdWithRelations(request.Id);
 
+            var transaction = _sender.Send(new CreateTransactionCommand {Description = $"Payment Order By Id : ({mainOrder.Id})", Type = _TransactionType.PaymentOrder, UserId = user.Id, Price = request.SumPrice }).Result;
+
             mainOrder.SetNotes(request.Notes ?? "");
 
             //If We Should Post a order
@@ -55,9 +57,11 @@ namespace AYweb.Application.Models.Order.Commands.PayOrder
             if (request.PaymentMethod == (int)_PaymentMethod.PaymentGateway)
             {
                 mainOrder.OrderStatus = _OrderStatus.Packing.ToString();
-                var transaction = _sender.Send(new CreateTransactionCommand { PaymentMethod = _PaymentMethod.PaymentGateway, Description = $"Payment Order By Id : ({mainOrder.Id})", TransactionScreenShot = "PaymentGetWay.jpg", Type = _TransactionType.PaymentOrder, UserId = user.Id, Price = request.SumPrice }).Result;
-                mainOrder.PaymentRequest(transaction, request.PaymentMethod);
-                _sender.Send(new ApproveTransactionCommand() { Id = transaction });
+                
+                mainOrder.PaymentRequest(transaction, request.PaymentMethod);                
+                _sender.Send(new RequestForPayTransactionCommand { Id = transaction, PaymentMethod = request.PaymentMethod });
+                
+                
                 _repository.ApproveOrder(request.Id);
                 mainOrder.OrderLines.ForEach(t => _transactionLineRepository.Add(TransactionLine.Create(transaction, t.Product.Name, t.Count, t.UnitPrice)));
                 _repository.Save();
@@ -66,19 +70,15 @@ namespace AYweb.Application.Models.Order.Commands.PayOrder
             if (request.PaymentMethod == (int)_PaymentMethod.CardByCard)
             {
                 mainOrder.OrderStatus = _OrderStatus.AwaitingPaymentConfirmation.ToString();
-                FileTools file = new FileTools();
-
-                if (request.TransactionScreenShot != null)
+               
+                if (request.TransactionScreenShot is null)
                 {
-                    string fileName = Generator.CreateUniqueText(15) + Path.GetExtension(request.TransactionScreenShot.FileName);
-                    file.SaveImage(request.TransactionScreenShot, fileName, "Transaction-ScreenShots", false);
-
-                    var transaction = _sender.Send(new CreateTransactionCommand() { Description = $"Payment Order By Id : ({mainOrder.Id})", PaymentMethod = _PaymentMethod.CardByCard, TransactionScreenShot = fileName, Type = _TransactionType.PaymentOrder, UserId = user.Id, Price = request.SumPrice }).Result;
-                    mainOrder.PaymentRequest(transaction, request.PaymentMethod);
-                    mainOrder.OrderLines.ForEach(t => _transactionLineRepository.Add(TransactionLine.Create(transaction,t.Product.Name,t.Count,t.UnitPrice)));
-                    _repository.Save();
-                    _sender.Send(new RequestForPayTransactionCommand { Id = transaction });
+                    throw new Exception("When Payment Method is Card By Card mode, Transaction screenshot Can't be null ");
                 }
+
+                mainOrder.PaymentRequest(transaction, request.PaymentMethod);
+                mainOrder.OrderLines.ForEach(t => _transactionLineRepository.Add(TransactionLine.Create(transaction, t.Product.Name, t.Count, t.UnitPrice)));
+                _sender.Send(new RequestForPayTransactionCommand { Id = transaction, Image = request.TransactionScreenShot, PaymentMethod = request.PaymentMethod });
             }
 
             Sms.PayCart(user.PhoneNumber, user.FirstName + " " + user.LastName);

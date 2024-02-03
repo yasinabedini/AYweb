@@ -28,5 +28,7 @@ namespace AYweb.Application.Models.Transaction.Queries.Common
         public required string Description { get;  set; }
 
         public required DateTime CreateAt { get; set; }
+
+        public List<TransactionLineResult>? TransactionLines { get; set; }
     }
 }
