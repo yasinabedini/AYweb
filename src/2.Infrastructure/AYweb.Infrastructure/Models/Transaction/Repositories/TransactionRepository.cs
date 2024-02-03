@@ -59,10 +59,10 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
             Update(transaction);
         }
 
-        public void RequestForPayTransaction(long Id, string transactionScreenShot = "No Image")
+        public void RequestForPayTransaction(long Id, int paymentMethod, string transactionScreenShot = "No Image")
         {
             var transaction = GetById(Id);
-            transaction.RequestForPay(transactionScreenShot);
+            transaction.RequestForPay(transactionScreenShot,paymentMethod);
             Update(transaction);
         }
 

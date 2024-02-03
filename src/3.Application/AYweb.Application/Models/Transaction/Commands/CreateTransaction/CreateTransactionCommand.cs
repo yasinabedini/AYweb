@@ -11,11 +11,7 @@ public class CreateTransactionCommand:ICommand<long>
 
     public int Price { get;  set; }
     
-    public required _TransactionType Type { get; set; }
-
-    public required _PaymentMethod PaymentMethod { get;  set; }
-
-    public required string TransactionScreenShot { get; set; }    
+    public required _TransactionType Type { get; set; }    
 
     public required string Description { get;  set; }
 }

@@ -19,7 +19,7 @@ namespace AYweb.Application.Models.Transaction.Commands.CreateTransaction
 
         public Task<long> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            var transaction = Domain.Models.Transaction.Entities.Transaction.Create(request.UserId, request.Price, request.Type, request.PaymentMethod, request.Description, request.TransactionScreenShot);
+            var transaction = Domain.Models.Transaction.Entities.Transaction.Create(request.UserId, request.Price,request.Type,request.Description);
             _repository.Add(transaction);
             _repository.Save();
 
