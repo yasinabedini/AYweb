@@ -1,0 +1,96 @@
+﻿@using AYweb.Application.Models.User.Commands.UpdateUserInformation
+@using AYweb.Application.Models.User.Queries.Common
+
+@model UpdateUserInformationCommmand
+
+@{
+    var user = ViewData["User"] as UserResult;
+}
+
+
+<div class="page-title-area page-title-bg1">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="page-title-content">
+                    <h2>پنل کاربری</h2>
+
+                    <ul>
+                        <li><a href="#">آی وب </a></li>
+                        <li>ویرایش مشخصات</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_shapes" />
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-10">
+            <Partial name="_widget" />
+        </div>
+
+        <div class="col-lg-6 col-md-10">
+
+            <div class="cart-table table-responsive p-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="4" scope="col">شما مجاز به تغییر شماره موبایل خود نیستید.</th>
+                        </tr>
+                    </thead>
+
+                    <form asp-controller="Profile" asp-action="ChangeInfo" method="post">
+                    <tbody>
+                        <tr>
+                            <td>نام : </td>
+                            <td>
+                                <input type="text" class="form-control form-control-sm" asp-for="FirstName" value="@user.FirstName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>نام خانوادگی</td>
+                            <td>
+                                <input type="text" class="form-control" asp-for="LastName" value="@user.LastName" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>شماره موبایل</td>
+                            <td>
+                                <input disabled type="text" class="form-control"  value="@user.PhoneNumber"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ایمیل</td>
+                            <td>
+                                <input type="text" class="form-control" asp-for="Email" value="@user.Email" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <input type="submit" class="btn btn-success" value="مشخصات ویرایش" />
+                            </td>
+                        </tr>
+                    </tbody>
+                    </form>
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {  
+    @if (ViewData["ChangeSuccess"] is not null)
+    {
+        <script>
+            $.notify("مشخصات شما با موفقیت تغییر یافت!", "success");
+        </script>
+    }
+}
