@@ -43,7 +43,7 @@ public class OrderLine : Entity<long>
         ModifiedAt = DateTime.Now;
     }
 
-    public void SetOrderId(int orderId)
+    public void SetOrderId(long orderId)
     {
         OrderId = orderId;
     }

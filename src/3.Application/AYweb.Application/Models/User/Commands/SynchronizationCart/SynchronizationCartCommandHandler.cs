@@ -40,7 +40,7 @@ namespace AYweb.Application.Models.User.Commands.SynchronizationCart
             {
                 var currentUser = _sender.Send(new GetAuthenticatedUserQuery()).Result;
 
-                var currentUserCart = _orderRepository.GetOrdersByUserId(currentUser.Id).Single(t=>t.OrderStatus.Value==_OrderStatus.completing.ToString());
+                var currentUserCart = _orderRepository.GetOrdersByUserId(currentUser.Id).SingleOrDefault(t=>t.OrderStatus.Value==_OrderStatus.completing.ToString());
 
 
                 //If Auth User Has A Cart
@@ -61,7 +61,9 @@ namespace AYweb.Application.Models.User.Commands.SynchronizationCart
                         //If the product is not already in the shopping cart
                         else
                         {
-                            _orderLineRepository.Add(OrderLine.Create(orderLine.ProductId, orderLine.UnitPrice, orderLine.Count));                            
+                            var newOrderLine = OrderLine.Create(orderLine.ProductId, orderLine.UnitPrice, orderLine.Count);
+                            newOrderLine.SetOrderId( currentUserCart.Id);
+                            _orderLineRepository.Add(newOrderLine);                            
                         }
                         _orderLineRepository.Save();
 
