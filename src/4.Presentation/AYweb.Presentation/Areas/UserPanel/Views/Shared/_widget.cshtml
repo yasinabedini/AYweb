@@ -1,0 +1,14 @@
+﻿<aside class="widget-area" id="secondary">
+    <section class="widget widget_recent_entries pt-4 pb-5">
+        <h3 class="widget-title text-center">پنل کاربری</h3>
+
+        <ul class="m-3">
+            <li><a asp-area="UserPanel" asp-controller="Profile" asp-action="ChangeInfo">ویرایش مشخصات</a></li>
+            <li><a asp-area="UserPanel" asp-controller="order" asp-action="index">سفارشات</a></li>
+            <li><a asp-area="UserPanel" asp-controller="transaction" asp-action="index">تراکنش ها</a></li>
+            <li><a asp-area="UserPanel" asp-controller="Profile" asp-action="ChangePassword">تغییر کلمه عبور</a></li>
+            <li><a asp-controller="account" asp-action="Logout">خروج</a></li>
+        </ul>
+
+    </section>
+</aside>

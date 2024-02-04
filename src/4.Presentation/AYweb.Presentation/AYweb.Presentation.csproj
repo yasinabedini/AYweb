@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\UserPanel\Views\Shared\" />
     <Folder Include="wwwroot\wwwroot-userArea\css\" />
   </ItemGroup>
 
