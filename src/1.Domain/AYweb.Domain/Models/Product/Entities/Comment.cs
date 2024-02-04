@@ -14,7 +14,7 @@ public class Comment : Entity<long>
 
     public PhoneNumber UserPhoneNumber { get; private set; }
 
-    public int ProductId { get; private set; }    
+    public long ProductId { get; private set; }    
 
     public Product Product { get; private set; } 
     #endregion

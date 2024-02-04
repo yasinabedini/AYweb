@@ -4,6 +4,7 @@ using AYweb.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AYweb.Infrastructure.Migrations
 {
     [DbContext(typeof(AyWebDbContext))]
-    partial class AyWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240204161210__Mig_blogUpdate")]
+    partial class _Mig_blogUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -569,7 +572,10 @@ namespace AYweb.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("ProductId")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("ProductId1")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Text")
@@ -594,7 +600,7 @@ namespace AYweb.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId1");
 
                     b.ToTable("Comments");
                 });
@@ -1282,7 +1288,7 @@ namespace AYweb.Infrastructure.Migrations
                 {
                     b.HasOne("AYweb.Domain.Models.Product.Entities.Product", "Product")
                         .WithMany("Comments")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

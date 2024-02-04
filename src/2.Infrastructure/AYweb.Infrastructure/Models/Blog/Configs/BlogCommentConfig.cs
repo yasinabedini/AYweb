@@ -17,7 +17,7 @@ public class BlogCommentConfig : IEntityTypeConfiguration<BlogComment>
 
         builder.Property(t => t.Text).HasMaxLength(500).IsRequired();
 
-        builder.HasOne(t => t.Blog);
+        builder.HasOne(t => t.Blog).WithMany(t=>t.Comments).HasForeignKey(t=>t.BlogId);
 
     }
 }

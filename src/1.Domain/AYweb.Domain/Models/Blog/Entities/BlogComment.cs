@@ -8,7 +8,7 @@ public class BlogComment : Entity<long>
     #region Properties
     public string Text { get; private set; }
 
-    public int BlogId { get; private set; }
+    public long BlogId { get; private set; }
 
     public string UserName { get; private set; }
 
@@ -19,7 +19,7 @@ public class BlogComment : Entity<long>
 
     #region Contructor And Factories
     private BlogComment() { }
-    public BlogComment(string text, int blogId, string userName, string userPhoneNumber)
+    public BlogComment(string text, long blogId, string userName, string userPhoneNumber)
     {
         Text = text;
         BlogId = blogId;
@@ -27,7 +27,7 @@ public class BlogComment : Entity<long>
         UserPhoneNumber = userPhoneNumber;
         CreateAt = DateTime.Now;
     }
-    public static BlogComment Create(string text, int blogId, string userName, string userPhoneNumber)
+    public static BlogComment Create(string text, long blogId, string userName, string userPhoneNumber)
     {
         return new BlogComment(text, blogId, userName, userPhoneNumber);
     }

@@ -23,7 +23,7 @@ namespace AYweb.Infrastructure.Models.Product.Configs
             builder.Property(t => t.UserName).HasMaxLength(100).IsRequired();
 
 
-            builder.HasOne(t => t.Product);
+            builder.HasOne(t => t.Product).WithMany(t=>t.Comments).HasForeignKey(t=>t.ProductId);
         }
     }
 }
