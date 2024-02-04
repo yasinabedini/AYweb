@@ -1,4 +1,11 @@
-﻿<form class="comment-form">
+﻿@using AYweb.Application.Models.Blog.Commands.AddBlogComment
+@model AddBlogCommentCommand
+@{
+    long blogId = Convert.ToInt64(Context.Request.RouteValues.First(t=>t.Key=="id").Value);
+}
+
+<form class="comment-form" asp-controller="Blog" asp-action="AddComment" method="post">
+    <input type="hidden" asp-for="BlogId" value="@blogId" />
     <p class="comment-notes">
         <span id="email-notes">آدرس ایمیل شما منتشر نخواهد شد.</span>
         فیلد های اجباری توسط ستاره مشخص شده اند
@@ -6,24 +13,16 @@
     </p>
     <p class="comment-form-comment">
         <label>نظر</label>
-        <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525" required="required"></textarea>
+        <textarea asp-for="Text" id="comment" cols="45" rows="5" minlength="20" maxlength="65525" required="required"></textarea>
     </p>
     <p class="comment-form-author">
         <label>نام شما <span class="required">*</span></label>
-        <input type="text" id="author" name="author" required="required">
+        <input type="text" id="author" asp-for="UserName" required="required">
     </p>
     <p class="comment-form-email">
-        <label>ایمیل شما <span class="required">*</span></label>
-        <input type="email" id="email" name="email" required="required">
-    </p>
-    <p class="comment-form-url">
-        <label>آدرس وبسایت</label>
-        <input type="url" id="url" name="url">
-    </p>
-    <p class="comment-form-cookies-consent">
-        <input type="checkbox" value="yes" name="wp-comment-cookies-consent" id="wp-comment-cookies-consent">
-        <label for="wp-comment-cookies-consent">نام ، ایمیل و وب سایت خود را در این مرورگر ذخیره کنید.</label>
-    </p>
+        <label>شماره تلفن شما <span class="required">*</span></label>
+        <input type="text" id="email" asp-for="UserPhoneNumber" required="required">
+    </p>   
     <p class="form-submit">
         <input type="submit" name="submit" id="submit" class="submit" value="ارسال">
     </p>

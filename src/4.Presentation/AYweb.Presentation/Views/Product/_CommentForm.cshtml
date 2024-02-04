@@ -1,0 +1,39 @@
+﻿@using AYweb.Application.Models.Product.Commands.AddComment
+@model AddCommentCommand
+
+@{
+    long productId = Convert.ToInt64(Context.Request.RouteValues.First(t => t.Key == "id").Value);
+}
+
+<form id="comment" asp-controller="Product" asp-action="AddComment" method="post">
+    <input type="hidden" asp-for="ProductId" value="@productId" />
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <input type="text" id="name" asp-for="UserName" placeholder="نام خود را اینجا وارد کنید" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <input type="text" id="email" asp-for="UserPhoneNumber" placeholder="شماره موبایل خود را وارد کنید" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="form-group">
+                <input type="text" id="review-title" asp-for="Title" placeholder="عنوان خود را وارد کنید" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="form-group">
+                <textarea asp-for="Text" id="review-body" cols="30" rows="7" placeholder="نظرات خود را اینجا بنویسید" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <button type="submit" class="default-btn">ارسال پیام <span></span></button>
+        </div>
+    </div>
+</form>

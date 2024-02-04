@@ -1,4 +1,5 @@
 ﻿using AYweb.Application.Models.Order.Commands.AddProductToOrder;
+using AYweb.Application.Models.Product.Commands.AddComment;
 using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.Product.Queries.GetProducts;
 using AYweb.Domain.Models.Service.Entities;
@@ -49,13 +50,20 @@ namespace AYweb.Presentation.Controllers
             return View(_sender.Send(new GetProductQuery { Id =id}).Result);
         }
 
-
         [HttpPost]
         public IActionResult AddProductToCart(AddProductToOrderCommand addproduct)
         {
             _sender.Send(addproduct);
 
             return RedirectToAction("ProductDetails", "Product", new { Id = addproduct.ProductId });
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(AddCommentCommand commentCommand)
+        {
+            _sender.Send(commentCommand);
+
+            return RedirectToAction("ProductDetails", new { id = commentCommand.ProductId });
         }
     }
 }

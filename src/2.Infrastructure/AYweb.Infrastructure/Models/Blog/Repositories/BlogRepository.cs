@@ -117,7 +117,7 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
 
     public Domain.Models.Blog.Entities.Blog GetByIdWithRelations(long id)
     {
-        return _context.Blogs.Include(t => t.Galleries).Include(t => t.Author).Include(t => t.Groups).First(t => t.Id == id);
+        return _context.Blogs.Include(t => t.Galleries).Include(t => t.Author).Include(t => t.Groups).Include(t=>t.Comments).First(t => t.Id == id);
     }
 
     #endregion
