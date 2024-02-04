@@ -1,4 +1,5 @@
-﻿using AYweb.Application.Models.Blog.Queries.GetBlog;
+﻿using AYweb.Application.Models.Blog.Commands.AddBlogComment;
+using AYweb.Application.Models.Blog.Queries.GetBlog;
 using AYweb.Application.Models.Blog.Queries.GetBlogComments;
 using AYweb.Application.Models.Blog.Queries.GetBlogGroups;
 using AYweb.Application.Models.Blog.Queries.GetBlogs;
@@ -76,6 +77,13 @@ namespace AYweb.Presentation.Controllers
             return View(news.Result);
         }
 
-        //TODO I Should Complete Add Comment For News
+        [HttpPost]
+        public IActionResult AddComment(AddBlogCommentCommand commentCommand)
+        {
+            var req = Request;
+            _sender.Send(commentCommand);
+
+            return RedirectToAction("BlogDetails", new { id = commentCommand.BlogId });
+        }
     }
 }

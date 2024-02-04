@@ -12,7 +12,7 @@ namespace AYweb.Application.Models.Blog.Commands.AddBlogComment
     {
         public required string Text { get;  set; }
 
-        public int BlogId { get;  set; }
+        public long BlogId { get;  set; }
 
         public required string UserName { get;  set; }
 

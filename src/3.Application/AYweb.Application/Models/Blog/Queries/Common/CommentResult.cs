@@ -16,5 +16,7 @@ namespace AYweb.Application.Models.Blog.Queries.Common
         public required string UserName { get; set; }
 
         public required string UserPhoneNumber { get; set; }
+
+        public DateTime CreateAt { get; set; }
     }
 }
