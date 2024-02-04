@@ -22,5 +22,6 @@ namespace AYweb.Application.Models.User.Queries.Common
 
         public bool EmailConfrimation { get; private set; }
         public required string VerificationCode { get; set; }
+        public string? Password { get; set; }
     }
 }
