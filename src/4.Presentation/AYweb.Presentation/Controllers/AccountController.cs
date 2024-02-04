@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
 using AYweb.Application.Models.User.Commands.ConfirmPhoneNumber;
 using AYweb.Application.Models.User.Commands.CreateUser;
+using AYweb.Application.Models.User.Commands.GetNewPassword;
 using AYweb.Application.Models.User.Commands.IsUserExisting;
 using AYweb.Application.Models.User.Commands.Login;
+using AYweb.Application.Models.User.Commands.SynchronizationCart;
 using AYweb.Application.Models.User.Queries.GetUserByPhoneNumber;
 using AYweb.Application.Models.User.Queries.GetVerificationCode;
 using AYweb.Application.Senders;
@@ -88,18 +90,9 @@ namespace AYweb.Presentation.Controllers
                         AllowRefresh = user.RemmemberMe,
 
                     };
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
-                    //_orderService.SynchronizationCart(userFound.UserId);
+                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, properties);
 
-
-                    if (user.ReturnUrl == "/")
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        return LocalRedirect(user.ReturnUrl);
-                    }
+                    return RedirectToAction("SynchronizationCart", new { returnUrl = user.ReturnUrl });                                        
                 }
                 else
                 {
@@ -111,6 +104,19 @@ namespace AYweb.Presentation.Controllers
                 ViewBag.NotFoundUser = true;
             }
             return View(user);
+        }
+
+        public IActionResult SynchronizationCart(string returnUrl)
+        {
+            _sender.Send(new SynchronizationCartCommand());
+            if (returnUrl == "/")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return LocalRedirect(returnUrl);
+            }
         }
 
         public IActionResult LogOut()
@@ -189,6 +195,21 @@ namespace AYweb.Presentation.Controllers
             //_orderService.SynchronizationCart(user.UserId);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Route("ForgotPassword")]
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [Route("ForgotPassword")]
+        [HttpPost]
+        public IActionResult ForgotPassword(GetNewPasswordCommand command)
+        {
+            _sender.Send(command);
+            return RedirectToAction("Login");
         }
     }
 }

@@ -33,7 +33,7 @@ public static class Sms
                    ",\"pass\":  \"Faraz@0702617881\"" +
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
-                   $",\"patternCode\": \"fo18id28zl0qrtt\"" +
+                   $",\"patternCode\": \"videdlas73zcard\"" +
                    ",\"inputData\" : [{\"code\":\"" + password + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
@@ -66,11 +66,11 @@ public static class Sms
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
                    $",\"patternCode\": \"7ufimbw9jx5hi00\"" +
-                   ",\"inputData\" : [{\"user-name\":\"" + username + "\"}]}"
+                   ",\"inputData\" : [{\"name\":\"" + username + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
     }
-    public static void SentCart(string mobile, string username)
+    public static void SentCart(string mobile, string username, string trackingCode)
     {
         var client = new RestClient("http://188.0.240.110/api/select");
         var request = new RestRequest(Method.POST);
@@ -82,7 +82,7 @@ public static class Sms
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
                    $",\"patternCode\": \"3706jtp1ms1fslk\"" +
-                   ",\"inputData\" : [{\"user-name\":\"" + username + "\"}]}"
+                   ",\"inputData\" : [{\"name\":\"" + username + "\" \"code\":\"" + trackingCode + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
     }

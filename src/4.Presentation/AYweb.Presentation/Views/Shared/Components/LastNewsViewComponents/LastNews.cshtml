@@ -1,5 +1,7 @@
-﻿@* @using AYweb.Core.Convertors
-@model List<AYweb.Core.DTOs.ShowBlogViewModel>
+﻿@using AYweb.Application.Convertors
+@using AYweb.Application.Models.Blog.Queries.Common
+
+@model List<BlogResult>
 
 <section class="blog-area ptb-100">
     <div class="container">
@@ -21,13 +23,13 @@
                         <div class="post-content">
                             <div class="post-meta">
                                 <ul>
-                                    <li>توسط: <a href="#">@item.UserName</a></li>
-                                    <li>@item.CreateDate.ToShamsi()</li>
+                                    <li>توسط: <a href="#">@(item.Author.FirstName + " " + item.Author.LastName)</a></li>
+                                    <li>@item.CreateAt.ToShamsi()</li>
                                 </ul>
                             </div>
 
                             <h3><a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@item.Id">@item.Title</a></h3>
-                            <p>@item.Summery</p>
+                            <p>@item.Summary</p>
 
                             <a asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@item.Id" class="read-more-btn">اطلاعات بیشتر <i class="flaticon-left-chevron"></i></a>
                         </div>
@@ -40,4 +42,4 @@
 
     <div class="shape-img2"><img src="/img/shape/2.svg" alt="image"></div>
     <div class="shape-img3"><img src="/img/shape/3.svg" alt="image"></div>
-</section> *@
+</section>
