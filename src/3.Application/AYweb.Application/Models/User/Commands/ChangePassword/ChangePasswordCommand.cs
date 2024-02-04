@@ -11,6 +11,8 @@ namespace AYweb.Application.Models.User.Commands.ChangePassword
     public class ChangePasswordCommand : AIPFramework.Commands.ICommand
     {
         public long Id { get; set; }
+        public required string OldPassword { get; set; }
         public required string Password { get; set; }
+        public required string Re_Password { get; set; }
     }
 }
