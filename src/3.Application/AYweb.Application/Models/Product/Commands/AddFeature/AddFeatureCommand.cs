@@ -13,7 +13,7 @@ namespace AYweb.Application.Models.Product.Commands.AddFeature
         public required string Title { get;  set; }
         public required string Value { get;  set; }
 
-        public int ProductId { get;  set; }
+        public long ProductId { get;  set; }
 
 
     }

@@ -24,8 +24,7 @@ namespace AYweb.Application.Models.Product.Commands.AddFeature
         public Task Handle(AddFeatureCommand request, CancellationToken cancellationToken)
         {
             Feature feature = Feature.Create();
-            feature = _mapper.Map<AddFeatureCommand, Feature>(request);
-
+            feature = _mapper.Map<AddFeatureCommand, Feature>(request);            
             _repository.Add(feature);
             _repository.Save();
 
