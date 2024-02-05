@@ -1,5 +1,6 @@
 ﻿using AIPFramework.Commands;
 using AYweb.Domain.Common.ValueObjects;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Blog.Commands.CreateBlog
 {
-    public class CreateBlogCommand : ICommand
+    public class CreateBlogCommand : ICommand<long>
     {
         public required string Title { get; set; }
 
@@ -22,6 +23,7 @@ namespace AYweb.Application.Models.Blog.Commands.CreateBlog
 
         public required string Tags { get; set; }
 
-        public required string ImageName { get; set; }
+        public required IFormFile Image { get; set; }
+        public required List<IFormFile> Pictures { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace AYweb.Application.Models.Blog.Commands.AddGroupToBlog
 {
     public class AddGroupToBlogCommand : ICommand
     {
-        public int BlogId { get; set; }
+        public long BlogId { get; set; }
         public int GroupId { get; set; }
     }
 }
