@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AYweb.Web.Controllers
+namespace AYweb.Presentation.Controllers
 {
     public class PlanController : Controller
     {

@@ -20,7 +20,7 @@ public class Blog : AggregateRoot
     
     public string ImageName { get; private set; }
 
-    public List<Gallery.Entities.Gallery> Galleries { get; set; }
+    public List<Gallery.Entities.Gallery> Galleries { get; set; } = new List<Gallery.Entities.Gallery>();
 
     public bool IsActive { get; set; }    
 
@@ -31,7 +31,7 @@ public class Blog : AggregateRoot
     #endregion
 
     #region Constructor And Factories
-    private Blog() {  }
+    private Blog() { CreateAt = DateTime.Now;  }
     public Blog(string title, string summery, string introduction, string text, int authorId, string? tags, string imageName)
     {
         Title = title;
@@ -102,11 +102,7 @@ public class Blog : AggregateRoot
         Tags.Concat("," + tags);
         Modified();
     }
-
-    public void AddGroup(long groupId)
-    {
-        Groups.Add(new Blog_Groups(groupId, Id));
-    }
+ 
 
     public void DeleteBlog()
     {

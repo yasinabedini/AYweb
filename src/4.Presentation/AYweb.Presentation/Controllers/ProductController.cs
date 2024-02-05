@@ -47,7 +47,10 @@ namespace AYweb.Presentation.Controllers
         [Route("Product/{id}")]
         public IActionResult ProductDetails(int id)
         {
-            return View(_sender.Send(new GetProductQuery { Id =id}).Result);
+            var product = _sender.Send(new GetProductQuery { Id = id }).Result;
+            if (product is null) return NotFound();
+
+            return View(product);
         }
 
         [HttpPost]

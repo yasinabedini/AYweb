@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDomain();
 builder.Services.AddApplication();
@@ -41,5 +42,5 @@ app.MapControllerRoute(
            name: "areas",
            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
          ).RequireAuthorization();
-
+app.MapRazorPages();
 app.Run();

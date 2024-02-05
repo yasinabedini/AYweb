@@ -1,0 +1,75 @@
+﻿@page
+@using AYweb.Application.Models.Blog.Queries.Common
+@using Polly
+@model AYweb.Presentation.Pages.Admin.Blog.CreateModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">News Release</h6>
+    <form method="post" enctype="multipart/form-data" asp-page="Create">
+        <input hidden asp-for="Blog.AuthorId" value="17" />
+        <div class="mb-5">
+            <label for="exampleInputEmail1" class="form-label">News Title</label>
+            <input type="text" class="form-control" asp-for="Blog.Title" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-5">
+            <label for="exampleInputEmail1" class="form-label">Select News Groups</label>
+            <br />
+            @foreach (var group in ViewData["blogGroups"] as List<BlogGroupResult> ?? new List<BlogGroupResult>())
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="groups" type="checkbox" id="inlineCheckbox1" value="@group.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@group.Title</label>
+                </div>
+            }
+        </div>
+        <div class="input-group mb-3 ">
+            <span class="input-group-text">News Summery</span>
+            <textarea class="form-control" asp-for="Blog.Summary" aria-label="Short Description"></textarea>
+        </div>
+        <div class="mb-3">
+            <span class="input-group-text">News Introduction</span>
+            <textarea class="form-control" asp-for="Blog.Introduction" aria-label="Main Description"></textarea>
+        </div>
+        <div class=" mb-3">
+            <span class="input-group-text">News Text</span>
+            <textarea class="form-control" asp-for="Blog.Text" aria-label="Short Description"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">News Tags</label>
+            <input type="text" class="form-control" asp-for="Blog.Tags" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
+
+        <div class="mb-5">
+            <label for="formFile" class="form-label">Main News Image</label>
+            <input class="form-control" name="blogPicture" type="file" id="formFile">
+        </div>
+        <div class="mb-5">
+            <label for="formFile" class="form-label">News Gallery</label>
+            <input class="form-control mb-2" name="pictures" type="file" id="formFile">
+            <input class="form-control mb-2" name="pictures" type="file" id="formFile">
+            <input class="form-control mb-2" name="pictures" type="file" id="formFile">
+        </div>
+        <button type="submit" class="btn btn-primary">News Release</button>
+    </form>
+</div>
+
+@section Scripts
+{
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Blog_Text', {
+            customConfig: '/js/Config.js'
+        });
+
+        CKEDITOR.replace('Blog_Introduction', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+}

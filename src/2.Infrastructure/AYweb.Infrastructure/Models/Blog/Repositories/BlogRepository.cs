@@ -67,10 +67,8 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     }
 
     public void AddGroupToBlog(long blogId, long groupId)
-    {
-        var blog = GetById(blogId);
-        blog.AddGroup(groupId);
-        Update(blog);
+    {        
+        _context.Blog_Groups.Add(Blog_Groups.Create(groupId, blogId));        
     }
 
     public void AddTagToBlog(long blogId, string tag)

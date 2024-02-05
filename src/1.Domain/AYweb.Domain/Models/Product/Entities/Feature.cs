@@ -10,7 +10,7 @@ public class Feature : Entity<long>
 
     public string Value { get; private set; }
 
-    public int ProductId { get; private set; }
+    public long ProductId { get; private set; }
 
     public Product Product { get; private set; } 
     #endregion

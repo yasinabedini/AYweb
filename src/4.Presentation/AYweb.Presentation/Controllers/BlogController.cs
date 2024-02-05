@@ -61,6 +61,8 @@ namespace AYweb.Presentation.Controllers
         {
             var news = _sender.Send(new GetBlogQuery { Id = id });
 
+            if (news is null) return NotFound();
+
             var newsList = _sender.Send(new GetBlogsQuery { PageSize = 8, PageNumber = 1,search=""}).Result;//test
 
             if (news == null)
