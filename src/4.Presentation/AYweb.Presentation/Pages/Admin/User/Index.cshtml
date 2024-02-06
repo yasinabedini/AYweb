@@ -1,0 +1,59 @@
+﻿@page
+@using AYweb.Application.Convertors
+@model AYweb.Presentation.Pages.Admin.User.IndexModel
+@{
+}
+
+<div class="col-12 p-5">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Products List</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Family</th>
+                        <th scope="col">PhoneNumber</th>
+                        <th scope="col">Registration Date</th>
+                        <th scope="col">Phone Confrimation</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users.QueryResult)
+                    {
+                        <tr>
+                            <th scope="row">@user.Id</th>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td class="text-center">@user.PhoneNumber</td>
+                            <td class="text-center">
+                                @if (user.PhoneNumberConfrimation)
+                                {
+                                    <i class="fa fa-check-square text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-window-close text-danger"></i>
+
+                                }
+                            </td>
+                            <td class="text-center">@user.CreateAt.ToShamsi()</td>
+                            <td>
+                                <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@user.Id" class="btn btn-primary">View</a>
+                                <a class="btn btn-primary">Edit</a>
+                                <a class="btn btn-danger">Delete</a>
+                                @if (!user.PhoneNumberConfrimation)
+                                {
+                                    <a class="btn btn-success">Confirm PhoneNumber</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
