@@ -1,0 +1,38 @@
+﻿@page
+@model AYweb.Presentation.Pages.Admin.Blog.IndexModel
+@{
+}
+
+<div class="col-12 p-5">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Blogs List</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Summery</th>                        
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var blog in Model.Blogs.QueryResult)
+                    {
+                        <tr>
+                            <th scope="row">@blog.Id</th>
+                            <td>@blog.Title</td>
+                            <td>@blog.Summary</td>                           
+                            <td>
+                                <a target="_blank" asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@blog.Id" class="btn btn-primary">View</a>
+                                <a class="btn btn-primary">Edit</a>
+                                <a class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
