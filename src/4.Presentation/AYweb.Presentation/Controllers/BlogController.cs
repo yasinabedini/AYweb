@@ -74,8 +74,7 @@ namespace AYweb.Presentation.Controllers
             ViewData["PopularNews"] = newsList.QueryResult;
             ViewData["NewsGroups"] = _sender.Send(new GetBlogGroupsQuery()).Result;
             ViewData["LastNews"] = newsList.QueryResult;
-            ViewData["LastComment"] = _sender.Send(new GetBlogsCommentsQuery()).Result;
-
+            ViewData["LastComment"] = _sender.Send(new GetBlogsCommentsQuery()).Result;            
             return View(news.Result);
         }
 

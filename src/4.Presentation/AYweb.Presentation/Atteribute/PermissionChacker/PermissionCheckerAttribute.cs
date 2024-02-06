@@ -2,22 +2,29 @@
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Polly;
 
 namespace AYweb.Presentation.Atteribute.PermissionChacker
 {
     public class PermissionCheckerAttribute : AuthorizeAttribute, IAuthorizationFilter
     {
-        private readonly ISender _sender;
+        
+        private ISender _sender;        
 
         public int PermissionId { get; set; }
-        public PermissionCheckerAttribute(int permissionId, ISender sender)
-        {
-            PermissionId = permissionId;
-            _sender = sender;
+
+        public PermissionCheckerAttribute(int permissionId)
+        {            
+            PermissionId = permissionId;            
         }
+
+       
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            _sender = context.HttpContext.RequestServices.GetService(typeof(ISender)) as ISender;
+
             if (context.HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
