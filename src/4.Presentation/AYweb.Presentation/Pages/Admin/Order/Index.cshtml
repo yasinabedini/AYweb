@@ -1,0 +1,65 @@
+﻿@page
+@using AYweb.Application.Convertors
+@using AYweb.Domain.Models.Order.Enums
+@model AYweb.Presentation.Pages.Admin.Order.IndexModel
+@{
+}
+
+<div class="col-12 p-5">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">All Orders List</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Price</th>
+                        <th scope="col" class="text-center">IsApproved</th>
+                        <th scope="col" class="text-center">Date</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders.QueryResult.OrderBy(t=>t.OrderStatus))
+                    {
+                        <tr>
+                            <th scope="row">@order.Id</th>
+                            <td>@order.OrderStatus</td>
+                            <td>@order.EndPrice</td>
+                            <td class="text-center">
+                                @if (order.OrderStatus == _OrderStatus.Packing.ToString() || order.OrderStatus == _OrderStatus.Posted.ToString())
+                                {
+                                    <i class="fa fa-check-square text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-window-close text-danger"></i>
+                                }
+                            </td>
+                            <td class="text-center">@order.CreateAt.ToShamsi()</td>
+                            <td>
+                                <a class="btn btn-primary">View Details</a>
+                                <a class="btn btn-primary">View User</a>
+                                
+                                @if (order.OrderStatus == _OrderStatus.Packing.ToString() || order.OrderStatus == _OrderStatus.Posted.ToString())
+                                {
+                                    <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@order.Id" class="btn btn-primary">View Transaction</a>
+                                }
+                                else if (order.OrderStatus == _OrderStatus.AwaitingPaymentConfirmation.ToString())
+                                {
+                                    <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@order.Id" class="btn btn-success">Approve Transaction</a>
+                                }                              
+                                @if (order.OrderStatus == _OrderStatus.Packing.ToString())
+                                {
+                                    <a class="btn btn-success">Sent</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
