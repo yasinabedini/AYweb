@@ -30,7 +30,7 @@ public class User : AggregateRoot
     public VerificationCode VerificationCode { get; set; }
 
     public bool IsActive { get; private set; }
-    
+
     public List<UserNotification> Notifications { get; set; }
 
     public List<Transaction.Entities.Transaction> Transactions { get; set; }
@@ -48,7 +48,7 @@ public class User : AggregateRoot
         IsActive = true;
         SetVerificationCode();
     }
-    public User(string firstName, string lastName, string phoneNumber, string hashPassword)
+    public User(string firstName, string lastName, string phoneNumber, string hashPassword, string? email)
     {
         FirstName = new FirstName(firstName);
         LastName = new LastName(lastName);
@@ -62,9 +62,13 @@ public class User : AggregateRoot
         MyOrders = new List<Order.Entities.Order>();
     }
 
-    public static User Create(string firstName, string lastName, string phoneNumber, string hashPassword)
+    public static User Create(string firstName, string lastName, string phoneNumber, string hashPassword, string? email)
     {
-        return new User(firstName, lastName, phoneNumber, hashPassword);
+        return new User(firstName, lastName, phoneNumber, hashPassword, email);
+    }
+    public static User Create()
+    {
+        return new User();
     }
     #endregion
 
@@ -179,9 +183,9 @@ public class User : AggregateRoot
 
     public Order.Entities.Order GetUserOrderWithCompletingStatus()
     {
-        return MyOrders.SingleOrDefault(t => t.OrderStatus.Value ==_OrderStatus.completing.ToString());
+        return MyOrders.SingleOrDefault(t => t.OrderStatus.Value == _OrderStatus.completing.ToString());
     }
-    
+
     public bool HasActiveOrder()
     {
         return MyOrders.Any(t => t.OrderStatus.Value == _OrderStatus.completing.ToString());

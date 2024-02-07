@@ -5,23 +5,22 @@ namespace AYweb.Domain.Models.Role.Entities;
 public class Role_Users : Entity<long>
 {
     #region Properties
-    public int RoleId { get; set; }
-    public int UserId { get; set; }
+    public long RoleId { get; set; }
+    public long UserId { get; set; }
 
     public Role Role { get; set; }
-    public User.Entities.User User { get; set; }
-    public bool IsDelete { get; set; }
+    public User.Entities.User User { get; set; }    
     #endregion
 
     #region Constructor And Factories
     private Role_Users() { }
-    public Role_Users(int roleId, int userId)
+    public Role_Users(long roleId, long userId)
     {
         RoleId = roleId;
         UserId = userId;
         CreateAt = DateTime.Now;
     }
-    public static Role_Users Create(int roleId, int userId)
+    public static Role_Users Create(long roleId, long userId)
     {
         return new Role_Users(roleId, userId);
     } 

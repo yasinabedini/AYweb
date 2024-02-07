@@ -31,4 +31,8 @@ public interface IUserRepository : IRepository<User.Entities.User>
     Plan.Entities.Plan GetUserActivePlan(long userId);
     #endregion
 
+    #region Role
+    void AddRoleToUser(long roleId, long userId);
+    #endregion
+
 }
