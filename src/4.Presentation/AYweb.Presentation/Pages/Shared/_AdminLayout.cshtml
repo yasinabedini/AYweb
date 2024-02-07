@@ -36,6 +36,9 @@
 
     <!-- Template Stylesheet -->
     <link href="/wwwroot-admin/css/style.css" rel="stylesheet">
+
+    <!-- Notif Styles -->
+    <link rel="stylesheet" href="/css/CustomStyle.css">
 </head>
 
 <body>
@@ -75,8 +78,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>User</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="typography.html" class="dropdown-item">View Users</a>
-                            <a href="button.html" class="dropdown-item">User Registration</a>
+                            <a href="/Admin/User/Index" class="dropdown-item">View Users</a>
+                            <a href="/Admin/User/Create" class="dropdown-item">User Registration</a>
                             <a href="#" class="dropdown-item">Role Managment</a>
                         </div>
                     </div>
@@ -219,7 +222,8 @@
     <script src="/wwwroot-admin/lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="/wwwroot-admin/lib/tempusdominus/js/moment.min.js"></script>
     <script src="/wwwroot-admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="/wwwroot-admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/wwwroot-admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>    
+    <script src="/js/notify.js"></script>
     @RenderSection("Scripts", false)
     <!-- Template Javascript -->
     <script src="/wwwroot-admin/js/main.js"></script>

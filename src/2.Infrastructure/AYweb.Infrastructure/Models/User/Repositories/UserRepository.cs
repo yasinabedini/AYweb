@@ -124,7 +124,7 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.User.Entities.User GetUSerByPhoneNumber(string phoneNumber)
     {
-        return _context.Users.Include(t => t.RolesList).Include(t => t.MyOrders).Include(t => t.Transactions).Include(t => t.Notifications).First(t => t.PhoneNumber == new Domain.Common.ValueObjects.PhoneNumber(phoneNumber));
+        return _context.Users.Include(t => t.RolesList).Include(t => t.MyOrders).Include(t => t.Transactions).Include(t => t.Notifications).FirstOrDefault(t => t.PhoneNumber == new Domain.Common.ValueObjects.PhoneNumber(phoneNumber));
     }
 
     public string GetUserVerificationCode(string phoneNumber)
@@ -174,5 +174,10 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
     public void Update(Counseling entity)
     {
         _context.Update(entity);
+    }
+
+    public void AddRoleToUser(long roleId, long userId)
+    {
+        _context.Role_Users.Add(Domain.Models.Role.Entities.Role_Users.Create(roleId, userId));
     }
 }
