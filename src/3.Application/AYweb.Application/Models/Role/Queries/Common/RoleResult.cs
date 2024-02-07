@@ -8,6 +8,7 @@ namespace AYweb.Application.Models.Role.Queries.Common
 {
     public class RoleResult
     {
-        public string Title { get; set; }
+        public long Id { get; set; }
+        public required string Title { get; set; }
     }
 }
