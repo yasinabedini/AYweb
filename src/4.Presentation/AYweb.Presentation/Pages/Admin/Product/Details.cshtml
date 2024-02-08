@@ -1,0 +1,68 @@
+﻿@page "{id}"
+@model AYweb.Presentation.Pages.Admin.Product.DetailsModel
+@{
+}
+
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Product Details</h6>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Product Name</label>
+        <input type="text" class="form-control" asp-for="Product.Name" disabled id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Short Description</span>
+        <textarea class="form-control" asp-for="Product.ShortDescription" disabled aria-label="Short Description"></textarea>
+    </div>
+    <div class="row input-group ">
+        <div class="mb-3 col-md-8">
+            <span class="input-group-text">Main Description</span>
+            <textarea class="form-control" asp-for="Product.MainDescription" rows="10" disabled aria-label="Main Description"></textarea>
+        </div>
+        <div class="col-md-4">
+            <img class="img-thumbnail" src="/img/shop-image/@Model.Product.ImageName" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Product Inventory</label>
+        <input type="number" class="form-control" disabled asp-for="Product.Inventory" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <label for="exampleInputEmail1" class="form-label">Price</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <input asp-for="Product.Price" type="text" disabled class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+    <label for="exampleInputEmail1" class="form-label">Price With Discount</label>
+    <div class="input-group mb-5">
+        <span class="input-group-text">$</span>
+        <input asp-for="Product.DiscountedPercent" disabled type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    </div>
+    <div class="form-check form-switch mb-3">
+        <input class="form-check-input" asp-for="Product.IsSpecial" disabled type="checkbox" role="switch"
+               id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">
+            is Special Product ?
+        </label>
+    </div>
+    <div class="row">
+        <label class="mb-4 mt-5">Features : </label>
+        @foreach (var feature in Model.Product.Features)
+        {
+            <div class="btn btn-primary d-inline">@feature.Title : @feature.Value</div>
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Product_MainDescription', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+}
+
