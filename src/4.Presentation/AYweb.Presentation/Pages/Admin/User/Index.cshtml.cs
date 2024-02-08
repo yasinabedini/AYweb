@@ -18,7 +18,7 @@ namespace AYweb.Presentation.Pages.Admin.User
             _sender = sender;
         }
 
-        public void OnGet(string search = "", int page = 1)
+        public void OnGet(string search = "", int page = 1,string notif = "")
         {
             Users = _sender.Send(new GetUsersQuery() { Search = search, PageNumber = page, PageSize = 50 }).Result;
         }

@@ -1,0 +1,47 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Role.Queries.Common
+@model AYweb.Presentation.Pages.Admin.User.DetailsModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4 m-5">
+    <h6 class="mb-4">User Details</h6>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">User FirstName</label>
+        <input type="text" disabled class="form-control" asp-for="User.FirstName" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">User LastName</label>
+        <input type="text" disabled class="form-control" asp-for="User.LastName" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">User PhoneNumber</label>
+        <input type="text" disabled class="form-control" asp-for="User.PhoneNumber" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">User Password</label>
+        <input type="password" disabled class="form-control" value="*************" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">User Email</label>
+        <input type="email" disabled class="form-control" asp-for="User.Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="row mb-3 pt-5">        
+        <legend class="col-form-label col-sm-2 pt-0 d-block"> Roles : </legend>
+        @foreach (var role in ViewData["roles"] as List<RoleResult> ?? new List<RoleResult>())
+        {            
+            <div>
+                <div class="form-check">
+                    <label class="form-check-label btn btn-primary" for="@role.Id">
+                        @role.Title
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+</div>

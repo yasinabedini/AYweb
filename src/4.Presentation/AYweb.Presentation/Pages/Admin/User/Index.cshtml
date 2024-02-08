@@ -1,12 +1,11 @@
 ﻿@page
 @using AYweb.Application.Convertors
 @model AYweb.Presentation.Pages.Admin.User.IndexModel
-@{
-}
+
 
 <div class="col-12 p-5">
     <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Products List</h6>
+        <h6 class="mb-4">Users List</h6>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -41,12 +40,12 @@
                             </td>
                             <td class="text-center">@user.CreateAt.ToShamsi()</td>
                             <td>
-                                <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@user.Id" class="btn btn-primary">View</a>
+                                <a href="/Admin/User/Details/@user.Id" class="btn btn-primary">View</a>
                                 <a class="btn btn-primary">Edit</a>
                                 <a class="btn btn-danger">Delete</a>
                                 @if (!user.PhoneNumberConfrimation)
                                 {
-                                    <a class="btn btn-success">Confirm PhoneNumber</a>
+                                    <a href="/Admin/User/ApprovePhoneNumber?phoneNumber=@user.PhoneNumber" class="btn btn-success">Confirm PhoneNumber</a>
                                 }
                             </td>
                         </tr>
@@ -56,4 +55,3 @@
         </div>
     </div>
 </div>
-
