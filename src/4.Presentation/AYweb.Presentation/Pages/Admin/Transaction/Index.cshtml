@@ -1,0 +1,61 @@
+﻿@page
+@using AYweb.Application.Convertors
+@using AYweb.Domain.Models.Transaction.Enums
+@model AYweb.Presentation.Pages.Admin.Transaction.IndexModel
+@{
+}
+
+<div class="col-12 p-5">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Transactions List</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="text-center">Total Price</th>
+                        <th scope="col" class="text-center">User</th>
+                        <th scope="col" class="text-center">Type</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col">Is Approved</th>
+                        <th scope="col" class="text-center">Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions.QueryResult)
+                    {
+                        <tr>
+                            <th scope="row">@transaction.Id</th>
+                            <td class="text-center">@transaction.Price.ToString("#,#")</td>
+                            <td class="text-center">@(transaction.User.FirstName + " " + transaction.User.LastName) </td>
+                            <td class="text-center">@transaction.Type</td>
+                            <td class="text-center">@transaction.Status</td>
+                            <td class="text-center">
+                                @if (transaction.IsApproved)
+                                {
+                                    <i class="fa fa-check-square text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-window-close text-danger"></i>
+
+                                }
+                            </td>
+                            <td class="text-center">@transaction.CreateAt.ToShamsi()</td>
+                            <td>
+                                <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@transaction.Id" class="btn btn-primary">View</a>
+                                <a class="btn btn-danger">Delete</a>
+                                @if (transaction.Status == _TransactionStatus.AwaitingApproval.ToString() && !transaction.IsApproved)
+                                {
+                                    <a href="/Admin/Transaction/ApproveTransaction/@transaction.Id" class="btn btn-success">Approve</a>
+                                }
+                            </td>                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
