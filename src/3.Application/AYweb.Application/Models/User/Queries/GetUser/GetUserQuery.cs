@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.User.Queries.GetUser
 {
-    public class GetUserQuery : IQuery<Domain.Models.User.Entities.User>
+    public class GetUserQuery : IQuery<UserResult>
     {
         public long Id { get; set; }
     }
