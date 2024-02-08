@@ -48,7 +48,7 @@
                                 }
                                 else if (order.OrderStatus == _OrderStatus.AwaitingPaymentConfirmation.ToString())
                                 {
-                                    <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@order.Id" class="btn btn-success">Approve Transaction</a>
+                                    <a href="/Admin/Transaction/ApproveTransaction/@order.TransactionId" class="btn btn-success">Approve Transaction</a>
                                 }                              
                                 @if (order.OrderStatus == _OrderStatus.Packing.ToString())
                                 {
