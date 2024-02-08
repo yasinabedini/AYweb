@@ -180,4 +180,9 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
     {
         _context.Role_Users.Add(Domain.Models.Role.Entities.Role_Users.Create(roleId, userId));
     }
+
+    public List<Domain.Models.Role.Entities.Role> GetUserRoles(long userId)
+    {
+        return _context.Users.Include(t => t.RolesList).ThenInclude(t => t.Role).FirstOrDefault(t => t.Id == userId).RolesList.Select(t => t.Role).ToList(); ;
+    }
 }

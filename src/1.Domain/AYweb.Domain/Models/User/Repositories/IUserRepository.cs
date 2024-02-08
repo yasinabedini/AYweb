@@ -33,6 +33,7 @@ public interface IUserRepository : IRepository<User.Entities.User>
 
     #region Role
     void AddRoleToUser(long roleId, long userId);
+    List<Role.Entities.Role> GetUserRoles(long userId);
     #endregion
 
 }
