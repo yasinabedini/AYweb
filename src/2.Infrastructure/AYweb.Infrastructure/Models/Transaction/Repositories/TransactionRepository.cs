@@ -37,6 +37,11 @@ namespace AYweb.Infrastructure.Models.Transaction.Repositories
             return _context.Transactions.Include(t => t.TransactionLines).First(t => t.Id == id);
         }
 
+        public List<Domain.Models.Transaction.Entities.Transaction> GetListWithRelations()
+        {
+            return _context.Transactions.Include(t => t.User).ToList();
+        }
+
         public List<Domain.Models.Transaction.Entities.Transaction> GetTransactionByUserId(long userId)
         {
             return _context.Transactions.Include(t=>t.TransactionLines).Where(t => t.UserId == userId).ToList();

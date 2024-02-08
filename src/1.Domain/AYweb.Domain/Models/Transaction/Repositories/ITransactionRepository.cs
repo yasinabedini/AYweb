@@ -11,6 +11,8 @@ public interface ITransactionRepository : IRepository<Entities.Transaction>
     void RequestForPayTransaction(long Id,int paymentMethod,string transactionScreenShot = "No Image");
     List<Entities.Transaction> GetTransactionByUserId(long userId);
     List<Entities.Transaction> GetUnApprovedTransaction();
+    List<Entities.Transaction> GetListWithRelations();
     Transaction.Entities.Transaction GetByIdWithRelations(long id);
+
 
 }
