@@ -1,4 +1,5 @@
-﻿using AYweb.Domain.Common.ValueObjects;
+﻿using AYweb.Application.Models.User.Queries.Common;
+using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Transaction.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -30,5 +31,7 @@ namespace AYweb.Application.Models.Transaction.Queries.Common
         public required DateTime CreateAt { get; set; }
 
         public List<TransactionLineResult>? TransactionLines { get; set; }
+
+        public required UserResult User { get; set; }
     }
 }

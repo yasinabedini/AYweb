@@ -23,7 +23,7 @@ namespace AYweb.Application.Models.Transaction.Queries.GetTransactions
 
         public Task<PagedData<TransactionResult>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
         {
-            var transactions = _repository.GetList();
+            var transactions = _repository.GetListWithRelations();
 
             var transactionList = _mapper.Map<List<Domain.Models.Transaction.Entities.Transaction>, List<TransactionResult>>(transactions.Skip(request.SkipCount).Take(request.PageSize).ToList());
 

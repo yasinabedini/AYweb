@@ -9,6 +9,7 @@ using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Application.Models.User.Queries.GetUser;
 using AYweb.Domain.Models.Order.Entities;
+using AYweb.Domain.Models.User.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Http; 
 using System.Text.Json;
@@ -20,13 +21,15 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
     {
         private readonly IHttpContextAccessor _httpContext;
         private readonly ISender _sender;
-        private readonly ISessionAdaptor _session;        
+        private readonly ISessionAdaptor _session;
+        private readonly IUserRepository _userRepository;
 
-        public AddProductToOrderCommandHandler(IHttpContextAccessor httpContext, ISender sender, ISessionAdaptor session)
+        public AddProductToOrderCommandHandler(IHttpContextAccessor httpContext, ISender sender, ISessionAdaptor session, IUserRepository userRepository)
         {
             _httpContext = httpContext;
             _sender = sender;
             _session = session;
+            _userRepository = userRepository;
         }
 
         public Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
@@ -39,7 +42,7 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
             if (_httpContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
-                var userFound = _sender.Send(new GetUserQuery { Id = user.Id }).Result;
+                var userFound = _userRepository.GetByIdWithGraph(user.Id);
 
                 //If User Has One Active Cart  
                 if (userFound.HasActiveOrder())

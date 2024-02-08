@@ -6,6 +6,7 @@ using AYweb.Application.Models.Order.Queries.Common;
 using AYweb.Application.Models.User.Queries.GetAuthenticatedUser;
 using AYweb.Application.Models.User.Queries.GetUser;
 using AYweb.Domain.Models.Order.Entities;
+using AYweb.Domain.Models.User.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -23,13 +24,15 @@ namespace AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpcontext;
         private readonly ISessionAdaptor _session;
+        private readonly IUserRepository _userRepository;
 
-        public GetCurrentUserCurrentOrderQueryHandler(ISender sender, IMapper mapper, IHttpContextAccessor httpcontext, ISessionAdaptor session)
+        public GetCurrentUserCurrentOrderQueryHandler(ISender sender, IMapper mapper, IHttpContextAccessor httpcontext, ISessionAdaptor session, IUserRepository userRepository)
         {
             _Sender = sender;
             _mapper = mapper;
             _httpcontext = httpcontext;
             _session = session;
+            _userRepository = userRepository;
         }
 
         public Task<OrderResult> Handle(GetCurrentUserCurrentOrderQuery request, CancellationToken cancellationToken)
@@ -39,7 +42,7 @@ namespace AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder
             if (_httpcontext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = _Sender.Send(new GetAuthenticatedUserQuery()).Result;
-                var userFound = _Sender.Send(new GetUserQuery { Id = user.Id }).Result;
+                var userFound = _userRepository.GetByIdWithGraph(user.Id);
 
                 order = userFound.GetUserOrderWithCompletingStatus() ;
             }
