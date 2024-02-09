@@ -10,5 +10,6 @@ namespace AYweb.Domain.Models.Order.Repositories
 {
     public interface IForwardRepository:IRepository<Forward>
     {
+        List<Forward> GetUnSendForwards();
     }
 }

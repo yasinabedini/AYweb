@@ -14,5 +14,6 @@ namespace AYweb.Domain.Models.Order.Repositories
         List<Entities.Order> GetOrdersByUserId(long userId);
 
         void ApproveOrder(long id);
+        void SendOrder(long orderId, string trackingCode);
     }
 }
