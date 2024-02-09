@@ -1,0 +1,116 @@
+﻿@page "{id}"
+@using AYweb.Application.Convertors
+@using AYweb.Domain.Models.Transaction.Enums
+@model AYweb.Presentation.Pages.Admin.Transaction.DetailsModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4 m-5">
+    <h6 class="mb-4">Transaction Information</h6>
+
+    <div class="row">
+        <div class="mb-3 col-md-6 ">
+            <label for="exampleInputEmail1" class="form-label">User Name : </label>
+            <input type="text" class="form-control" disabled value="@(Model.Transaction.User.FirstName+" "+Model.Transaction.User.LastName) " id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">Total Price : </label>
+            <input type="text" class="form-control" disabled asp-for="Transaction.Price" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-md-6 ">
+            <label for="exampleInputEmail1" class="form-label">Payment Method : </label>
+            <input type="text" class="form-control" disabled asp-for="Transaction.PaymentMethod" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">Transaction Type : </label>
+            <input type="text" class="form-control" disabled asp-for="Transaction.Type" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-md-6 ">
+            <label for="exampleInputEmail1" class="form-label">Status : </label>
+            <input type="text" class="form-control" disabled asp-for="Transaction.Status" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">Date : </label>
+            <input type="text" class="form-control" disabled value="@Model.Transaction.CreateAt.ToShamsi()" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Description : </label>
+            <input type="text" class="form-control" disabled asp-for="Transaction.Description" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="table-responsive mt-5 mb-5">
+        <h4 class="mb-4">Transaction details</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Sum Price</th>
+                    <th scope="col" class="text-center">Unit Price</th>
+                    <th scope="col" class="text-center">Amount</th>
+                    <th scope="col" class="text-center">Commodity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transactionLines in Model.Transaction.TransactionLines)
+                {
+                    <tr>
+                        <td class="text-center">@transactionLines.SumPrice.ToString("#,#")</td>
+                        <td class="text-center">@transactionLines.UnitPrice.ToString("#,#")</td>
+                        <td class="text-center">@transactionLines.Amount</td>
+                        <td class="text-center">@transactionLines.Commodity</td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="text-center">@Model.Transaction.Price.ToString("#,#")</td>
+                    <td class="text-center">: Total Price</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+
+    @if (Model.Transaction.PaymentMethod == _PaymentMethod.CardByCard.ToString())
+    {
+            <h4 class="mb-4">Transaction ScreenShot</h4>
+        <div class="col-md-12 mt-5 text-center">
+            <a href="/img/Transaction-ScreenShots/@Model.Transaction.TransactionScreenShot">
+                <img class="img-thumbnail" src="/img/Transaction-ScreenShots/@Model.Transaction.TransactionScreenShot" />
+            </a>
+        </div>
+    }
+
+
+    @if (Model.Transaction.Status == _TransactionStatus.AwaitingApproval.ToString())
+    {
+        <div class="text-center">
+            <a href="/admin/transaction/ApproveTransaction/@Model.Transaction.Id" class="btn btn-success m-3">Approve Transaction</a>
+            <a href="/admin/transaction/RejectTransaction/@Model.Transaction.Id" class="btn btn-danger m-3">Reject Transaction</a>
+        </div>
+    }
+
+</div>

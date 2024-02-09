@@ -44,7 +44,7 @@
                             </td>
                             <td class="text-center">@transaction.CreateAt.ToShamsi()</td>
                             <td>
-                                <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@transaction.Id" class="btn btn-primary">View</a>
+                                <a href="/Admin/Transaction/Details/@transaction.Id" class="btn btn-primary">View</a>
                                 <a class="btn btn-danger">Delete</a>
                                 @if (transaction.Status == _TransactionStatus.AwaitingApproval.ToString() && !transaction.IsApproved)
                                 {
