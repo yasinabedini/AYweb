@@ -65,7 +65,7 @@ public static class Sms
                    ",\"pass\":  \"Faraz@4421359831\"" +
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
-                   $",\"patternCode\": \"7ufimbw9jx5hi00\"" +
+                   $",\"patternCode\": \"d2wf25586uyfgvb\"" +
                    ",\"inputData\" : [{\"name\":\"" + username + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
@@ -81,8 +81,8 @@ public static class Sms
                    ",\"pass\":  \"Faraz@4421359831\"" +
                    ",\"fromNum\" : \"+98EVENT\"" +
                    $",\"toNum\": \"{mobile}\"" +
-                   $",\"patternCode\": \"3706jtp1ms1fslk\"" +
-                   ",\"inputData\" : [{\"name\":\"" + username + "\" \"code\":\"" + trackingCode + "\"}]}"
+                   $",\"patternCode\": \"dn5tyyx73c6dpug\"" +
+                   ",\"inputData\" : [{\"name\":\"" + username + "\",\"code\":\"" + trackingCode + "\"}]}"
                    , ParameterType.RequestBody);
         IRestResponse response = client.Execute(request);
     }
