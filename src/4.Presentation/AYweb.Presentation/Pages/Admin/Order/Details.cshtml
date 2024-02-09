@@ -1,0 +1,90 @@
+﻿@page "{id}"
+@using AYweb.Application.Convertors
+@using AYweb.Domain.Models.Order.Enums
+@model AYweb.Presentation.Pages.Admin.Order.DetailsModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4 m-5">
+    <h6 class="mb-4">Order Information</h6>
+
+    <div class="row">
+        <div class="mb-3 col-md-6 ">
+            <label for="exampleInputEmail1" class="form-label">User Name : </label>
+            <input type="text" class="form-control" disabled value="@(Model.Order.User.FirstName+" "+Model.Order.User.LastName) " id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">End Price : </label>
+            <input type="text" class="form-control" disabled asp-for="Order.EndPrice" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="mb-3 col-md-6 ">
+            <label for="exampleInputEmail1" class="form-label">Status : </label>
+            <input type="text" class="form-control" disabled asp-for="Order.OrderStatus" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3 col-md-6">
+            <label for="exampleInputEmail1" class="form-label">Date : </label>
+            <input type="text" class="form-control" disabled value="@Model.Order.CreateAt.ToShamsi()" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+    </div>
+
+   
+
+    <div class="table-responsive mt-5 mb-5">
+        <h4 class="mb-4">Order details</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Sum Price</th>
+                    <th scope="col" class="text-center">Unit Price</th>
+                    <th scope="col" class="text-center">Amount</th>
+                    <th scope="col" class="text-center">Product</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transactionLines in Model.Order.OrderLines)
+                {
+                    <tr>
+                        <td class="text-center">@transactionLines.SumPrice.ToString("#,#")</td>
+                        <td class="text-center">@transactionLines.UnitPrice.ToString("#,#")</td>
+                        <td class="text-center">@transactionLines.Count</td>
+                        <td class="text-center">@transactionLines.Product.Name</td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="text-center">@Model.Order.EndPrice.ToString("#,#")</td>
+                    <td class="text-center">: Total Price</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+   
+    @if (Model.Order.OrderStatus == _OrderStatus.AwaitingPaymentConfirmation.ToString())
+    {
+        <a href="/admin/transaction/ApproveTransaction/@Model.Order.TransactionId" class="btn btn-success m-3">Approve Transaction</a>
+    }
+
+    @if (Model.Order.OrderStatus == _OrderStatus.Packing.ToString())
+    {
+        <a href="/admin/transaction/ApproveTransaction/@Model.Order.TransactionId" class="btn btn-success m-3">Send Order</a>
+    }
+
+    @if (Model.Order.TransactionId is not 0)
+    {
+        <a href="/Admin/Transaction/Details/@Model.Order.TransactionId" class="btn btn-primary">View Transaction</a>
+    }
+</div>

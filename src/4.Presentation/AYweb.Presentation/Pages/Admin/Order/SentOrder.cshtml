@@ -1,0 +1,36 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Blog.Queries.Common
+@using Polly
+@model AYweb.Presentation.Pages.Admin.Order.SentOrderModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">News Release</h6>
+    <form method="post" enctype="multipart/form-data">
+        <input hidden asp-for="Order.OrderId" value="@Request.RouteValues.First(t=>t.Key=="id").Value" />
+        <div class="mb-5">
+            <label for="exampleInputEmail1" class="form-label">Tracking Code : </label>
+            <input type="text" class="form-control" asp-for="Order.TrackingCode" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-primary">Send Order</button>
+    </form>
+</div>
+
+@section Scripts
+{
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Blog_Text', {
+            customConfig: '/js/Config.js'
+        });
+
+        CKEDITOR.replace('Blog_Introduction', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+}

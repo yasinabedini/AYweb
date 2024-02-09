@@ -16,12 +16,12 @@
                         <th scope="col">Status</th>
                         <th scope="col">Price</th>
                         <th scope="col" class="text-center">IsApproved</th>
-                        <th scope="col" class="text-center">Date</th>
+                        <th scope="col" class="text-center">Need To Post</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var order in Model.Orders.QueryResult.OrderBy(t=>t.OrderStatus))
+                    @foreach (var order in Model.Orders.QueryResult.OrderBy(t => t.OrderStatus))
                     {
                         <tr>
                             <th scope="row">@order.Id</th>
@@ -37,22 +37,38 @@
                                     <i class="fa fa-window-close text-danger"></i>
                                 }
                             </td>
-                            <td class="text-center">@order.CreateAt.ToShamsi()</td>
+                            <td class="text-center">
+                                @if (order.InPersonDelivery)
+                                {
+                                    <i class="fa fa-check-square text-success"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-window-close text-danger"></i>
+                                }
+                            </td>
                             <td>
-                                <a class="btn btn-primary">View Details</a>
-                                <a class="btn btn-primary">View User</a>
-                                
+                                <a href="/admin/order/details/@order.Id" class="btn btn-primary">Details</a>
+                                <a href="/admin/user/details/@order.UserId" class="btn btn-primary">View User</a>
+
                                 @if (order.OrderStatus == _OrderStatus.Packing.ToString() || order.OrderStatus == _OrderStatus.Posted.ToString())
                                 {
-                                    <a target="_blank" asp-controller="Product" asp-action="ProductDetails" asp-route-id="@order.Id" class="btn btn-primary">View Transaction</a>
+                                    <a href="/admin/Transaction/details/@order.TransactionId" class="btn btn-primary">View Transaction</a>
                                 }
                                 else if (order.OrderStatus == _OrderStatus.AwaitingPaymentConfirmation.ToString())
                                 {
                                     <a href="/Admin/Transaction/ApproveTransaction/@order.TransactionId" class="btn btn-success">Approve Transaction</a>
-                                }                              
+                                }
                                 @if (order.OrderStatus == _OrderStatus.Packing.ToString())
                                 {
-                                    <a class="btn btn-success">Sent</a>
+                                    @if (!order.InPersonDelivery)
+                                    {
+                                        <a href="/admin/order/SentInPersonOrder/@order.Id" class="btn btn-success">Sent</a>                                        
+                                    }
+                                    else
+                                    {
+                                        <a href="/admin/order/sentOrder/@order.Id" class="btn btn-success">Sent</a>
+                                    }
                                 }
                             </td>
                         </tr>

@@ -1,0 +1,46 @@
+﻿@page
+@using AYweb.Application.Convertors
+@using AYweb.Domain.Models.Order.Enums
+@model AYweb.Presentation.Pages.Admin.Order.OrderReadyToShipModel
+@{
+}
+
+<div class="col-12 p-5">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Order Ready To Ship</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">In Person Delivery</th>
+                        <th scope="col" class="text-center">Transferee</th>
+                        <th scope="col" class="text-center">Province</th>
+                        <th scope="col" class="text-center">City</th>
+                        <th scope="col" class="text-center">Postal Code</th>
+                        <th scope="col" class="text-center">Address</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var forward in Model.Forwards)
+                    {
+                        <tr>
+                            <th scope="row">@forward.Id</th>                            
+                            <td class="text-center">@forward.TransfereeName</td>
+                            <td class="text-center">@forward.Province</td>
+                            <td class="text-center">@forward.City</td>
+                            <td class="text-center">@forward.PostalCode</td>
+                            <td>@forward.Address</td>
+                            <td>
+                                <a href="/admin/order/SentOrder/@forward.Id" class="btn btn-primary">Sent</a>
+                                <a href="/admin/order/details/@forward.OrderId" class="btn btn-primary">View Order</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
