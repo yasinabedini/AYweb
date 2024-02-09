@@ -24,7 +24,7 @@
                             <td>@blog.Title</td>
                             <td>@blog.Summary</td>                           
                             <td>
-                                <a target="_blank" asp-controller="Blog" asp-action="BlogDetails" asp-route-id="@blog.Id" class="btn btn-primary">View</a>
+                                <a href="/Admin/Blog/Details/@blog.Id" class="btn btn-primary">View</a>
                                 <a class="btn btn-primary">Edit</a>
                                 <a class="btn btn-danger">Delete</a>
                             </td>

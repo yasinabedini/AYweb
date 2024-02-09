@@ -30,7 +30,7 @@ namespace AYweb.Presentation.Atteribute.PermissionChacker
                 var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
                 if (!_sender.Send(new CheckPermissionCommand { UserId = user.Id, PermissionId = PermissionId }).Result)
                 {
-                    context.HttpContext.Response.Redirect("/Login");
+                    context.HttpContext.Response.Redirect("/NotPermission");
                 }
             }
             else

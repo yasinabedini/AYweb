@@ -1,0 +1,79 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Blog.Queries.Common
+
+@model AYweb.Presentation.Pages.Admin.Blog.DetailsModel
+@{
+}
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Blog Details</h6>
+    <div class="mb-5">
+        <label for="exampleInputEmail1" class="form-label">Blog Title</label>
+        <input type="text" class="form-control" disabled asp-for="Blog.Title" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+    <div class="mb-5">
+        <label for="exampleInputEmail1" class="form-label">Blog Groups : </label>
+        <br />
+        @foreach (var group in ViewData["blogGroups"] as List<BlogGroupResult> ?? new List<BlogGroupResult>())
+        {
+            <div class="row">
+                <div class="form-check">
+                    <label class="form-check-label btn btn-primary">
+                        @group.Title
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="input-group mb-3 ">
+        <span class="input-group-text">Blog Summery</span>
+        <textarea class="form-control" asp-for="Blog.Summary" disabled aria-label="Short Description"></textarea>
+    </div>
+    <div class="mb-3">
+        <span class="input-group-text">Blog Introduction</span>
+        <textarea class="form-control" asp-for="Blog.Introduction" disabled aria-label="Main Description"></textarea>
+    </div>
+    <div class=" mb-3">
+        <span class="input-group-text">Blog Text</span>
+        <textarea class="form-control" asp-for="Blog.Text" disabled aria-label="Short Description"></textarea>
+    </div>
+    <div class="mb-5">
+        <label for="exampleInputEmail1" class="form-label">Blog Tags</label>
+        <input type="text" class="form-control" disabled asp-for="Blog.Tags" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+
+    <h4 class="mb-4">Blog Gallery</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-thumbnail mb-2" src="/img//blog-image/@Model.Blog.ImageName" />            
+        </div>
+
+        <div class="col-md-6 row">
+            @foreach (var image in Model.Blog.Galleries)
+            {
+
+                <div class="col-md-4">
+                    <img class="img-thumbnail mb-5" src="/img/blog-gallery/@image.ImageName" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Blog_Text', {
+            customConfig: '/js/Config.js'
+        });
+
+        CKEDITOR.replace('Blog_Introduction', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+}
