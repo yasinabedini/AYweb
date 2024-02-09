@@ -23,7 +23,7 @@
                 <tbody>
                     @foreach (var user in Model.Users.QueryResult)
                     {
-                        <tr id="User[@user.Id]">
+                        <tr id="user[@user.Id]">
                             <th scope="row">@user.Id</th>
                             <td>@user.FirstName</td>
                             <td>@user.LastName</td>
@@ -65,7 +65,7 @@
             if (confirm("Are you sure to delete the user? ")) {
                 $.ajax({
                     type: "Get",
-                    url: '@(_config.GetValue<string>("MySetting:DomainAddress"))/Admin/User/Delete/' + id,
+                    url: 'https://@(_config.GetValue<string>("MySetting:DomainAddress"))/Admin/User/Delete/' + id,
                     success: function () {
                         document.getElementById("user[" + id + "]").setAttribute("style", "display:none");
                     },

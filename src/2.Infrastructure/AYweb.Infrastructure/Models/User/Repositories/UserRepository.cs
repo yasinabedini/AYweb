@@ -144,7 +144,7 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public bool IsUserExisting(string phoneNumber)
     {
-        return GetList().Any(t => t.PhoneNumber.Value == phoneNumber);
+        return _context.Users.IgnoreQueryFilters().Any(t => t.PhoneNumber.Value == phoneNumber);
     }
 
     public Domain.Models.User.Entities.User Login(string phoneNumber, string password)

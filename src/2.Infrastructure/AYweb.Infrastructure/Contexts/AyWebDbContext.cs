@@ -1,4 +1,5 @@
-﻿using AIPFramework.ValueObjects;
+﻿using AIPFramework.Entities;
+using AIPFramework.ValueObjects;
 using AYweb.Domain.Models.Academy.Entities;
 using AYweb.Domain.Models.Blog.Entities;
 using AYweb.Domain.Models.Gallery.Entities;
@@ -14,6 +15,8 @@ using AYweb.Domain.Models.Transaction.Entities;
 using AYweb.Domain.Models.User.Entities;
 using AYweb.Infrastructure.Models.Academy.Configs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace AYweb.Infrastructure.Contexts
 {
@@ -99,6 +102,40 @@ namespace AYweb.Infrastructure.Contexts
             modelBuilder.Ignore(typeof(BusinessId));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AcademyConfig).Assembly);
+
+            #region Query Filter
+            Expression<Func<AggregateRoot, bool>> filterExprForAggregate = bm => !bm.IsDelete;
+            foreach (var mutableEntityType in modelBuilder.Model.GetEntityTypes())
+            {
+                // check if current entity type is child of BaseModel
+                if (mutableEntityType.ClrType.IsAssignableTo(typeof(AggregateRoot)))
+                {
+                    // modify expression to handle correct child type
+                    var parameter = Expression.Parameter(mutableEntityType.ClrType);
+                    var body = ReplacingExpressionVisitor.Replace(filterExprForAggregate.Parameters.First(), parameter, filterExprForAggregate.Body);
+                    var lambdaExpression = Expression.Lambda(body, parameter);
+
+                    // set filter
+                    mutableEntityType.SetQueryFilter(lambdaExpression);
+                }
+            }
+
+            Expression<Func<Entity, bool>> filterExprForEntity = bm => !bm.IsDelete;
+            foreach (var mutableEntityType in modelBuilder.Model.GetEntityTypes())
+            {
+                // check if current entity type is child of BaseModel
+                if (mutableEntityType.ClrType.IsAssignableTo(typeof(Entity)))
+                {
+                    // modify expression to handle correct child type
+                    var parameter = Expression.Parameter(mutableEntityType.ClrType);
+                    var body = ReplacingExpressionVisitor.Replace(filterExprForEntity.Parameters.First(), parameter, filterExprForEntity.Body);
+                    var lambdaExpression = Expression.Lambda(body, parameter);
+
+                    // set filter
+                    mutableEntityType.SetQueryFilter(lambdaExpression);
+                }
+            } 
+            #endregion
 
             base.OnModelCreating(modelBuilder);
         }

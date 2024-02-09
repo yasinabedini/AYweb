@@ -1,7 +1,6 @@
 ﻿@page
 @model AYweb.Presentation.Pages.Admin.Blog.IndexModel
-@{
-}
+@inject IConfiguration _config;
 
 <div class="col-12 p-5">
     <div class="bg-light rounded h-100 p-4">
@@ -19,14 +18,14 @@
                 <tbody>
                     @foreach (var blog in Model.Blogs.QueryResult)
                     {
-                        <tr>
+                        <tr id="blog[@blog.Id]">
                             <th scope="row">@blog.Id</th>
                             <td>@blog.Title</td>
                             <td>@blog.Summary</td>                           
                             <td>
                                 <a href="/Admin/Blog/Details/@blog.Id" class="btn btn-primary">View</a>
                                 <a class="btn btn-primary">Edit</a>
-                                <a class="btn btn-danger">Delete</a>
+                                <a onclick="Delete(@blog.Id)" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     }
@@ -36,3 +35,22 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        function Delete(id) {
+
+            if (confirm("Are you sure to delete the Blog? ")) {
+                $.ajax({
+                    type: "Get",
+                    url: 'https://@(_config.GetValue<string>("MySetting:DomainAddress"))/Admin/Blog/Delete/' + id,
+                    success: function () {
+                        document.getElementById("blog[" + id + "]").setAttribute("style", "display:none");
+                    },
+                    error: function () {
+                        alert("خطایی رخ داده است!");
+                    }
+                });
+            }
+        }
+    </script>
+}

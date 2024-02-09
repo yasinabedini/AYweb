@@ -9,6 +9,6 @@ namespace AYweb.Application.Models.Product.Commands.DeleteProduct
 {
     public class DeleteProductCommand:ICommand
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }
