@@ -19,7 +19,7 @@ namespace AYweb.Application.Models.Blog.Commands.UpdateBlog
 
         public Task Handle(UpdateBlogCommand request, CancellationToken cancellationToken)
         {
-            _repository.Update(request.Blog);
+            
             _repository.Save();
 
             return Task.CompletedTask;
