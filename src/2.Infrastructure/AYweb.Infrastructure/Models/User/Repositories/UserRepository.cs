@@ -1,4 +1,5 @@
 ﻿using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.Transaction.Enums;
 using AYweb.Domain.Models.Transaction.Repositories;
 using AYweb.Domain.Models.User.Entities;
 using AYweb.Domain.Models.User.Repositories;
@@ -103,12 +104,21 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
 
     public Domain.Models.Plan.Entities.Plan GetUserActivePlan(long userId)
     {
-        var userplans = _context.User_Plans.Include(t => t.Plan).OrderBy(t => t.Id).LastOrDefault(t => t.UserId == userId);
-        var transaction = _transactionRepository.GetById(userplans.TransactionId);
-        if (userplans is not null && !userplans.ActivateCheck() || userplans is null||!transaction.IsAccepted())
+        var userplans = _context.User_Plans.Include(t => t.Plan).OrderBy(t => t.Id).FirstOrDefault(t => t.UserId == userId);
+
+        if (userplans is not null)
         {
-            userplans = User_Plans.Create(userId, 4, 0);
+            var transaction = _transactionRepository.GetById(userplans.TransactionId);
+
+            if (transaction is not null)
+            {
+                if (userplans is not null && !userplans.ActivateCheck() || userplans is null || !transaction.IsAccepted())
+                {
+                    userplans = User_Plans.Create(userId, 4, 0);
+                }
+            }
         }
+
         return userplans.Plan ?? Domain.Models.Plan.Entities.Plan.Create("کاربر عادی", "Normal", 0);
     }
 

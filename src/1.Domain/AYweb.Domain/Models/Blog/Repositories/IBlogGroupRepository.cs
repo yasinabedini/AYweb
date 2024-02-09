@@ -10,5 +10,6 @@ namespace AYweb.Domain.Models.Blog.Repositories
 {
     public interface IBlogGroupRepository:IRepository<BlogGroup>
     {
+        List<BlogGroup> GetBlogGroupsByBlogId(long blogId);
     }
 }

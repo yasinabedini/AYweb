@@ -3,6 +3,7 @@ using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Order.ValueObjects;
 using AIPFramework.Exceptions;
 using AYweb.Domain.Models.Transaction.Enums;
+using AYweb.Domain.Models.Order.Enums;
 
 namespace AYweb.Domain.Models.Order.Entities;
 
@@ -62,6 +63,12 @@ public class Order : AggregateRoot
     private void Modified()
     {
         ModifiedAt = DateTime.Now;
+    }
+
+    public void Delete()
+    {
+        IsDelete = true;
+        Modified();
     }
 
     public void SetUserId(int userId)
@@ -128,13 +135,19 @@ public class Order : AggregateRoot
     public void ApproveOrder()
     {
         IsApproved = true;
-        OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.Packing.ToString());
-        Modified();
+        OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.Packing.ToString());        
     }
 
-    public void FailedOrder()
+    public void RejectOrder()
     {
-        OrderStatus = new ValueObjects.OrderStatus(Enums._OrderStatus.TransactionFailed.ToString());
+        IsApproved = false;
+        OrderStatus = new OrderStatus(_OrderStatus.TransactionFailed.ToString()); ;
+        Delete();
+    }
+
+    public void SendOrder()
+    {
+        OrderStatus = new OrderStatus(_OrderStatus.Posted.ToString());
         Modified();
     }
 

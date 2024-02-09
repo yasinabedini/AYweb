@@ -143,4 +143,9 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     {
         return blogList.Where(t => t.Tags.Contains(search) || t.Title.Value.Contains(search) || t.Text.Contains(search) || t.Introduction.Value.Contains(search) || t.Summary.Value.Contains(search) || (t.Author.FirstName + " " + t.Author.LastName).Contains(search)||t.Groups.Any(t=>t.BlogGroup.Title.Value.Contains(search))).ToList();
     }
+
+    public List<BlogGroup> GetBlogGroupsByBlogId(long blogId)
+    {
+        return _context.Blog_Groups.Include(t => t.BlogGroup).Where(t => t.BlogId == blogId).Select(t => t.BlogGroup).ToList();
+    }
 }
