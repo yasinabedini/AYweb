@@ -1,4 +1,5 @@
-﻿using AYweb.Domain.Common.ValueObjects;
+﻿using AYweb.Application.Models.User.Queries.Common;
+using AYweb.Domain.Common.ValueObjects;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.Order.ValueObjects;
 using System;
@@ -22,8 +23,12 @@ namespace AYweb.Application.Models.Order.Queries.Common
 
         public required List<OrderLinesResult> OrderLines { get; set; }
 
+        public bool InPersonDelivery { get; private set; }
+
         public DateTime CreateAt { get; set; }
 
         public long TransactionId { get; set; }
+
+        public UserResult? User { get; set; }
     }
 }
