@@ -4,6 +4,7 @@ using AYweb.Domain.Models.Role.Entities;
 using AYweb.Domain.Models.Role.Repositories;
 using AYweb.Infrastructure.Common.Repository;
 using AYweb.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,7 @@ public class RoleRepository : BaseRepository<Domain.Models.Role.Entities.Role>, 
 
     public void AddPermissionToRole(long roleId, long permissionId)
     {
-        var role = GetById(roleId);
-        role.AddPermissionToRole(permissionId);
-        Update(role);
+        _context.Role_Permissions.Add(Role_Permission.Create(roleId, permissionId));
     }
 
     public void DeletePermissionFromRole(long roleId, long permissionId)
@@ -53,5 +52,10 @@ public class RoleRepository : BaseRepository<Domain.Models.Role.Entities.Role>, 
     List<Role_Permission> IRepository<Role_Permission>.GetList()
     {
         return _context.Role_Permissions.ToList();
+    }
+
+    public List<Domain.Models.Permission.Entities.Permission> GetRolePermission(long roleId)
+    {
+        return _context.Role_Permissions.Include(t => t.Permission).ThenInclude(t=>t.Parent).Where(t => t.RoleId == roleId).Select(t => t.Permission).ToList();
     }
 }

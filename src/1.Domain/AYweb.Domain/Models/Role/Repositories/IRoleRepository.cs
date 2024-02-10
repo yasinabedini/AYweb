@@ -1,4 +1,5 @@
 ﻿using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.Permission.Entities;
 using System.Net.Sockets;
 
 namespace AYweb.Domain.Models.Role.Repositories
@@ -7,5 +8,6 @@ namespace AYweb.Domain.Models.Role.Repositories
     {
         void AddPermissionToRole(long roleId, long permissionId);
         void DeletePermissionFromRole(long roleId, long permissionId);
+        List<Permission.Entities.Permission> GetRolePermission(long roleId);
     }
 }
