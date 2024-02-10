@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AYweb.Application.Models.Role.Commands.CreateRole
 {
-    public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand>
+    public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand,long>
     {
         private readonly IRoleRepository _repository;
 
@@ -17,12 +17,13 @@ namespace AYweb.Application.Models.Role.Commands.CreateRole
             _repository = repository;
         }
 
-        public Task Handle(CreateRoleCommand request, CancellationToken cancellationToken)
+        public Task<long> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
-            _repository.Add(Domain.Models.Role.Entities.Role.Create(request.Title));
+            var role = Domain.Models.Role.Entities.Role.Create(request.Title);
+            _repository.Add(role);
             _repository.Save();
 
-            return Task.CompletedTask;
+            return Task.FromResult(role.Id);
         }
     }
 }
