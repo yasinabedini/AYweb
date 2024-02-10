@@ -8,7 +8,7 @@ public class Permission : AggregateRoot
     #region Properties
     public Title Title { get; private set; }
 
-    public int? ParentId { get; private set; }
+    public long? ParentId { get; private set; }
 
     public Permission? Parent { get; private set; }
     
