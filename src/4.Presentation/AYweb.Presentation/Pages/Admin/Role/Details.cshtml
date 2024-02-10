@@ -1,0 +1,33 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Permission.Queries.Common
+
+@model AYweb.Presentation.Pages.Admin.Role.DetailsModel
+@{
+    List<PermissionResult> permissions = ViewData["permissions"] as List<PermissionResult> ?? new List<PermissionResult>();
+}
+
+<div class="bg-light rounded h-100 p-4 m-5">
+    <h6 class="mb-4">Role Details</h6>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Role Title</label>
+        <input type="text" disabled class="form-control" asp-for="Role.Title" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Permissions : </label>
+        <br />
+        @foreach (var parentPermission in permissions.Where(t => t.Parent.ParentId==1000).Select(t=>t.Parent).Distinct())
+        {
+            <h6 class="btn btn-primary">@parentPermission.Title</h6>
+            <ul>
+                @foreach (var permission in permissions.Where(t => t.ParentId == parentPermission.Id))
+                {
+                    <li class="ms-4"><p class="btn btn-primary">@permission.Title</p></li>
+                }
+            </ul>
+        }
+    </div>
+
+</div>
