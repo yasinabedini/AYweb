@@ -11,6 +11,7 @@ namespace AYweb.Application.Models.Blog.Commands.UpdateBlog
 {
     public class UpdateBlogCommand:ICommand
     {
+        public long Id { get; set; }
         public required string Title { get; set; }
 
         public required string Summary { get; set; }
@@ -20,9 +21,6 @@ namespace AYweb.Application.Models.Blog.Commands.UpdateBlog
         public required string Text { get; set; }
         
         public required string Tags { get; set; }
-
-        public required IFormFile Image { get; set; }
-
-        public required List<IFormFile> Pictures { get; set; }
+       
     }
 }
