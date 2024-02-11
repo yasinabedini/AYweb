@@ -9,6 +9,10 @@ namespace AYweb.Application.Models.User.Commands.UpdateUser
 {
     public class UpdateUserCommand:ICommand
     {
-        public required Domain.Models.User.Entities.User User { get; set; }
+        public long Id { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }        
+        public string? Password { get; set; }
+        public string? Email { get; set; }
     }
 }
