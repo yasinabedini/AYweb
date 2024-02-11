@@ -115,7 +115,7 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
 
     public Domain.Models.Blog.Entities.Blog GetByIdWithRelations(long id)
     {
-        return _context.Blogs.Include(t => t.Galleries).Include(t => t.Author).Include(t => t.Groups).Include(t=>t.Comments).First(t => t.Id == id);
+        return _context.Blogs.Include(t => t.Galleries).Include(t => t.Author).Include(t => t.Groups).Include(t=>t.Comments).FirstOrDefault(t => t.Id == id);
     }
 
     #endregion
@@ -147,5 +147,10 @@ public class BlogRepository : BaseRepository<Domain.Models.Blog.Entities.Blog>, 
     public List<BlogGroup> GetBlogGroupsByBlogId(long blogId)
     {
         return _context.Blog_Groups.Include(t => t.BlogGroup).Where(t => t.BlogId == blogId).Select(t => t.BlogGroup).ToList();
+    }
+
+    public void DeleteBlogsGroups(long blogId)
+    {
+        _context.Blog_Groups.RemoveRange(_context.Blog_Groups.Where(t => t.BlogId == blogId));
     }
 }
