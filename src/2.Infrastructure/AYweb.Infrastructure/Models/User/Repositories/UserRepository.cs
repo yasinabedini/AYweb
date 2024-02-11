@@ -195,4 +195,9 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
     {
         return _context.Users.Include(t => t.RolesList).ThenInclude(t => t.Role).FirstOrDefault(t => t.Id == userId).RolesList.Select(t => t.Role).ToList(); ;
     }
+
+    public void DeleteAllUserRoles(long userId)
+    {
+        _context.Role_Users.RemoveRange(_context.Role_Users.Where(t => t.UserId == userId));
+    }
 }

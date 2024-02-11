@@ -1,0 +1,48 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Role.Queries.Common
+@model AYweb.Presentation.Pages.Admin.User.EditModel
+@{
+    var userRoles = ViewData["userRoles"] as List<RoleResult> ?? new List<RoleResult>();
+}
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Register User</h6>
+    <form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="User.Id" value="@Request.RouteValues.First(t=>t.Key=="id").Value"/>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User FirstName</label>
+            <input type="text" class="form-control" asp-for="User.FirstName" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User LastName</label>
+            <input type="text" class="form-control" asp-for="User.LastName" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User Password</label>
+            <input type="text" class="form-control" asp-for="User.Password" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+            <span>If you want chnage password, fill this section.</span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">User Email</label>
+            <input type="email" class="form-control" asp-for="User.Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="row mb-3">
+            <legend class="col-form-label col-sm-2 pt-0 d-block">Select Roles : </legend>
+            @foreach (var role in ViewData["Roles"] as List<RoleResult> ?? new List<RoleResult>())
+            {
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" @((userRoles.Any(t=>t.Id==role.Id)?"checked":"")) name="RoleList" value="@role.Id" id="@role.Id">
+                        <label class="form-check-label" for="@role.Id">
+                            @role.Title
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary">Update User</button>
+    </form>
+</div>  

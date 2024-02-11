@@ -42,7 +42,7 @@
                             <td class="text-center">@user.CreateAt.ToShamsi()</td>
                             <td>
                                 <a href="/Admin/User/Details/@user.Id" class="btn btn-primary">View</a>
-                                <a class="btn btn-primary">Edit</a>
+                                <a href="/Admin/User/Edit/@user.Id" class="btn btn-primary">Edit</a>
                                 <a class="btn btn-danger" onclick="Delete(@user.Id)">Delete</a>
                                 @if (!user.PhoneNumberConfrimation)
                                 {
