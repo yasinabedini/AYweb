@@ -19,7 +19,10 @@ namespace AYweb.Application.Models.Role.Commands.UpdateRole
 
         public Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
-            _repository.Update(request.Role);
+            var role = _repository.GetById(request.Id);
+            role.ChangeTitle(request.Title);
+            
+            _repository.Update(role);
             _repository.Save();
 
             return Task.CompletedTask; 

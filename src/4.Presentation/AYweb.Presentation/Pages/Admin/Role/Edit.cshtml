@@ -1,0 +1,40 @@
+﻿@page "{id}"
+@using AYweb.Application.Models.Permission.Queries.Common
+
+@model AYweb.Presentation.Pages.Admin.Role.EditModel
+@{
+    List<PermissionResult> permissions = ViewData["permissions"] as List<PermissionResult> ?? new List<PermissionResult>();
+
+    List<PermissionResult> rolePermissions = ViewData["rolePermissions"] as List<PermissionResult> ?? new List<PermissionResult>();
+
+}
+
+
+<div class="bg-light rounded h-100 p-4">
+    <h6 class="mb-4">Register User</h6>
+    <form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Role.Id"/>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Role title</label>
+            <input type="text" class="form-control" asp-for="Role.Title" id="exampleInputEmail1"
+                   aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <legend class="col-form-label col-sm-2 pt-0 d-block">Select Permissions : </legend>
+            <br />
+            @foreach (var parentPermission in permissions.Where(t => t.ParentId == 1000))
+            {
+                <h6 class="btn btn-primary m-2">@parentPermission.Title</h6>
+                <ul>
+                    @foreach (var permission in permissions.Where(t => t.ParentId == parentPermission.Id))
+                    {
+                        <li class="ms-4 mt-1 d-inline"><p class="btn">@permission.Title</p></li>
+                        <input type="checkbox" value="@permission.Id" @((rolePermissions.Any(t => t.Id == permission.Id) ? "checked" : "")) name="permissions" />
+                    }
+                </ul>
+            }
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-success m-5">Register Role</button>
+    </form>
+</div>

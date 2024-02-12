@@ -9,5 +9,6 @@ namespace AYweb.Domain.Models.Role.Repositories
         void AddPermissionToRole(long roleId, long permissionId);
         void DeletePermissionFromRole(long roleId, long permissionId);
         List<Permission.Entities.Permission> GetRolePermission(long roleId);
+        void DeleteRolePermissions(long roleId);
     }
 }

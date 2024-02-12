@@ -58,4 +58,12 @@ public class RoleRepository : BaseRepository<Domain.Models.Role.Entities.Role>, 
     {
         return _context.Role_Permissions.Include(t => t.Permission).ThenInclude(t=>t.Parent).Where(t => t.RoleId == roleId).Select(t => t.Permission).ToList();
     }
+
+    public void DeleteRolePermissions(long roleId)
+    {
+        var permissions = _context.Role_Permissions.Where(t => t.RoleId == roleId);
+
+        _context.Role_Permissions.RemoveRange(permissions);
+        _context.SaveChanges();
+    }
 }
