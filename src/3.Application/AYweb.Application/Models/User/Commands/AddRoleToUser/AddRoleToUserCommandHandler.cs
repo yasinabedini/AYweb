@@ -19,7 +19,7 @@ namespace AYweb.Application.Models.User.Commands.AddRoleToUser
         }
 
         public Task Handle(AddRoleToUserCommand request, CancellationToken cancellationToken)
-        {
+        {            
             _repository.AddRoleToUser(request.RoleId, request.UserId);
             _repository.Save();
 

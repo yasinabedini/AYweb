@@ -148,7 +148,19 @@ namespace AYweb.Infrastructure.Models.Product.Repositories
 
         public Domain.Models.Product.Entities.Product GetByIdWithRelations(long id)
         {
-            return GetListWithRelations().First(t=>t.Id==id);
+            return _context.Products.Include(t=>t.Features).Include(t=>t.Comments).FirstOrDefault(t=>t.Id==id);
+        }
+
+        public List<Feature> GetProductFeatures(long productId)
+        {
+            return _context.Products.Include(t => t.Features).FirstOrDefault(t => t.Id == productId).Features.ToList()?? new List<Feature>();
+        }
+
+        public void DeleteProductFeatures(long productId)
+        {
+            var productFeatures = _context.Features.Where(t => t.ProductId == productId);
+            _context.RemoveRange(productFeatures);
+            _context.Update(productFeatures);            
         }
 
         #endregion

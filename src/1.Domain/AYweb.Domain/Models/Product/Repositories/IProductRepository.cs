@@ -1,4 +1,6 @@
-﻿using AYweb.Domain.Common.Repositories;
+﻿using AutoMapper.Features;
+using AYweb.Domain.Common.Repositories;
+using AYweb.Domain.Models.Product.Entities;
 using System.ComponentModel;
 
 namespace AYweb.Domain.Models.Product.Repositories
@@ -17,6 +19,10 @@ namespace AYweb.Domain.Models.Product.Repositories
         void DecreaseInventory(long productId, int amount);
         void EnableIsSpecial(long productId);
         void DisableIsSpecial(long productId);
-        void IncreaseInventory(long productId, int amount);        
+        void IncreaseInventory(long productId, int amount);
+
+        List<Feature> GetProductFeatures(long productId);
+        void DeleteProductFeatures(long productId);
+        
     }
 }

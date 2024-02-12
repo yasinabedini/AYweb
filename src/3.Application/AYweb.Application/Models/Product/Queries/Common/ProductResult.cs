@@ -15,6 +15,7 @@ public class ProductResult
     public required string ShortDescription { get; set; }
 
     public required string MainDescription { get; set; }
+    public required string SeoDescription { get; set; }
 
     public bool IsActive { get; set; }
 
