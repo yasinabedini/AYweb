@@ -23,7 +23,6 @@ namespace AYweb.Application.Models.Blog.Commands.DeleteBlogGroup
             _repository.Save();
 
             return Task.CompletedTask;
-
         }
     }
 }
