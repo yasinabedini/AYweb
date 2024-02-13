@@ -31,7 +31,7 @@
             <p>نوآوری های واقعی و تجربه مثبت مشتری ، هسته اصلی ارتباط موفق است.</p>
         </div>
 
-        <form asp-controller="Account" asp-action="Register" id="userFormRegister" method="post">
+        <form asp-controller="Account" asp-action="Register" id="userFormRegister" method="post" asp-antiforgery="true">
             <div class="form-group">
                 <label>نام</label>
                 <input type="text" asp-for="FirstName" class="form-control" id="first-name" placeholder="نام">

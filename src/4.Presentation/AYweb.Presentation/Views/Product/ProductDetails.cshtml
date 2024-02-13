@@ -63,7 +63,7 @@
                     <p>@Model.ShortDescription</p>
 
                     <div class="product-add-to-cart">
-                        <form asp-controller="Product" asp-action="AddProductToCart" method="post">
+                        <form asp-controller="Product" asp-action="AddProductToCart" method="post" asp-antiforgery="true">
                             <input type="hidden" name="addproduct.ProductId" value="@Model.Id" />
                         <div class="input-counter">
                             <span class="minus-btn"><i class="fas fa-minus"></i></span>

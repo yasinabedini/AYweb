@@ -1,7 +1,5 @@
-/* Notify.js - http://notifyjs.com/ Copyright (c) 2015 MIT */
-(function (factory) {
-	// UMD start
-	// https://github.com/umdjs/umd/blob/master/jqueryPluginCommonjs.js
+
+(function (factory) {	
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(['jquery'], factory);

@@ -78,7 +78,7 @@
 
                                                 <td class="product-quantity">
                                                     <div class="input-counter">
-                                                        <form id="productInfo[@product.Id]" asp-controller="Order" asp-action="ChangeOrderLineCount">
+                                                        <form id="productInfo[@product.Id]" asp-controller="Order" asp-action="ChangeOrderLineCount" asp-antiforgery="true">
                                                             <input type="hidden" name="productId" value="@product.Id" />
                                                             <span class="minus-btn"><i class="fas fa-minus"></i></span>
                                                             <input type="text" min="1" value="@orderLine.Count" id="productCount[@product.Id]" onchange="changeOrderLineCount(@product.Id)">

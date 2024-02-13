@@ -20,6 +20,7 @@ namespace AYweb.Presentation.Controllers
 
         [HttpPost]
         [Route("Counseling")]
+        [ValidateAntiForgeryToken]
         public IActionResult Counseling([FromServices]ISender sender,CounselingUserCommand counseling)
         {
             if (!ModelState.IsValid) return View();

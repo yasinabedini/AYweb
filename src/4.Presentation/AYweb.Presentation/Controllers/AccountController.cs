@@ -34,6 +34,7 @@ namespace AYweb.Presentation.Controllers
 
         [HttpPost]
         [Route("Register")]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(CreateUserCommand user)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace AYweb.Presentation.Controllers
 
         [HttpPost]
         [Route("Login")]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(LoginCommand user)
         {
             if (!ModelState.IsValid)
@@ -160,6 +162,7 @@ namespace AYweb.Presentation.Controllers
 
         [HttpPost]
         [Route("VerificationPhoneNumber")]
+        [ValidateAntiForgeryToken]
         public IActionResult VerificationPhoneNumber(ConfirmPhoneNumberCommand verification)
         {
             if (!ModelState.IsValid)
@@ -206,6 +209,7 @@ namespace AYweb.Presentation.Controllers
 
         [Route("ForgotPassword")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ForgotPassword(GetNewPasswordCommand command)
         {
             _sender.Send(command);

@@ -79,6 +79,7 @@ namespace AYweb.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddComment(AddBlogCommentCommand commentCommand)
         {
             var req = Request;

@@ -31,7 +31,7 @@
             <h3>اعتبار سنجی</h3>
             <p>اگر حساب کاربری دارید ، وارد شوید</p>
         </div>
-        <form asp-controller="Account" asp-action="VerificationPhoneNumber" method="post">
+        <form asp-controller="Account" asp-action="VerificationPhoneNumber" method="post" asp-antiforgery="true">
 
             <div class="form-group">
                 <label>تلفن همراه</label>

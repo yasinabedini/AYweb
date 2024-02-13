@@ -54,8 +54,10 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
             ViewData["Order"] = order;
             return View();
         }
+
         [HttpPost]
         [Route("CheckOut")]
+        [ValidateAntiForgeryToken]
         public IActionResult CheckOut(PayOrderCommand order, IFormFile? transactionPicture)
         {
             if (!ModelState.IsValid && order.InPersonDelivery == false || order.PaymentMethod == 0 || order.PaymentMethod == null || string.IsNullOrEmpty(order.CustomerName) || transactionPicture == null && order.PaymentMethod == 1)

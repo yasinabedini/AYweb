@@ -3,6 +3,7 @@ using AYweb.Infrastructure;
 using AYweb.Application;
 using AYweb.Domain.Models.Service.Entities;
 using AYweb.Presentation;
+using NWebsec;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,12 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 builder.Services.AddPresentation();
 
+builder.Services.AddHsts(t =>
+{
+    t.MaxAge = TimeSpan.FromDays(30);
+    t.Preload = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +31,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
+app.UseCors(t =>
+{
+    t.DisallowCredentials();
+});
+
+app.UseHsts();
 
 app.UseSession();
 app.UseHttpsRedirection();

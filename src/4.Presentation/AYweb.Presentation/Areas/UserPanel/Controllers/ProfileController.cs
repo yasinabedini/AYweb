@@ -54,6 +54,7 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
 
         [Route("Profile/ChangePassword")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ChangePassword(ChangePasswordCommand changePassword)
         {
             var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;
@@ -89,6 +90,7 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
 
         [Route("Profile/ChangeInfo")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ChangeInfo(UpdateUserInformationCommmand updateUser)
         {
             var user = _sender.Send(new GetAuthenticatedUserQuery()).Result;

@@ -21,6 +21,7 @@ namespace AYweb.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public void ChangeOrderLineCount(long productId, int count)
         {
             //  _service.ChangeOrderLineCount(productId, count, HttpContext);

@@ -54,6 +54,7 @@ namespace AYweb.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddProductToCart(AddProductToOrderCommand addproduct)
         {
             _sender.Send(addproduct);
@@ -62,6 +63,7 @@ namespace AYweb.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddComment(AddCommentCommand commentCommand)
         {
             _sender.Send(commentCommand);

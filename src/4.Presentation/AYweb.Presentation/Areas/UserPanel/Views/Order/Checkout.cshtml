@@ -43,7 +43,7 @@
             </div>
 
         }
-        <form method="post" asp-controller="Order" asp-action="CheckOut" enctype="multipart/form-data">
+        <form method="post" asp-controller="Order" asp-action="CheckOut" enctype="multipart/form-data" asp-antiforgery="true">
             <div class="row pt-3">
                 <div class="col-lg-6 col-md-12">
                     <div class="billing-details">

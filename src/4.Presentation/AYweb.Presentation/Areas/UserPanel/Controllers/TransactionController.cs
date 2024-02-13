@@ -41,6 +41,7 @@ namespace AYweb.Presentation.Areas.UserPanel.Controllers
 
         [Route("CheckOut/{id}")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CheckOut(RequestForPayTransactionCommand transaction,IFormFile? screenshot)
         {
             if (screenshot is not null)

@@ -4,7 +4,7 @@
     long blogId = Convert.ToInt64(Context.Request.RouteValues.First(t=>t.Key=="id").Value);
 }
 
-<form class="comment-form" asp-controller="Blog" asp-action="AddComment" method="post">
+<form class="comment-form" asp-controller="Blog" asp-action="AddComment" method="post" asp-antiforgery="true">
     <input type="hidden" asp-for="BlogId" value="@blogId" />
     <p class="comment-notes">
         <span id="email-notes">آدرس ایمیل شما منتشر نخواهد شد.</span>

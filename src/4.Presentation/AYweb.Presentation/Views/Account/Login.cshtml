@@ -29,7 +29,7 @@
             <h3>ورود</h3>
             <p>اگر حساب کاربری دارید ، وارد شوید</p>
         </div>
-        <form asp-controller="Account" asp-action="Login" method="post">
+        <form asp-controller="Account" asp-action="Login" method="post" asp-antiforgery="true">
             <input type="hidden" asp-for="ReturnUrl" />
             <div class="form-group">
                 <label>شماره موبایل</label>
