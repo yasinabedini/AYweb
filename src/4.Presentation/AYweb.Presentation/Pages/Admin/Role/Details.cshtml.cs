@@ -1,6 +1,7 @@
 using AYweb.Application.Models.Role.Queries.Common;
 using AYweb.Application.Models.Role.Queries.GetRole;
 using AYweb.Application.Models.Role.Queries.GetRolePermissions;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

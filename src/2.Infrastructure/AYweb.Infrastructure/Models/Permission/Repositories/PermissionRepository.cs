@@ -24,8 +24,9 @@ namespace AYweb.Infrastructure.Models.Permission.Repositories
 
         public bool CheckPermission(long userId, long permissionId)
         {
-            var userRoles = _context.Role_Users.Include(t => t.Role).Where(t => t.UserId == userId).Select(t=>t.Role);
+            var userRoles = _context.Role_Users.Include(t => t.Role).Where(t => t.UserId == userId).Select(t=>t.Role).ToList();
             bool permission = false;
+
             foreach (var role in userRoles)
             {
                 permission = _context.Role_Permissions.Any(t => t.PermissionId == permissionId && t.RoleId == role.Id);
