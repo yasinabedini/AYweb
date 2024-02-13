@@ -2,12 +2,14 @@ using AYweb.Application.Models.Role.Queries.GetRoles;
 using AYweb.Application.Models.User.Commands.AddRoleToUser;
 using AYweb.Application.Models.User.Commands.CreateUser;
 using AYweb.Application.Models.User.Queries.GetUserByPhoneNumber;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AYweb.Presentation.Pages.Admin.User
 {
+    [PermissionChecker(31)]
     public class CreateModel : PageModel
     {
         private readonly ISender _sender;

@@ -3,12 +3,14 @@ using AYweb.Application.Models.Product.Commands.DeleteProductFeatures;
 using AYweb.Application.Models.Product.Commands.UpdateProduct;
 using AYweb.Application.Models.Product.Queries.GetProduct;
 using AYweb.Application.Models.Product.Queries.GetProductFeatures;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AYweb.Presentation.Pages.Admin.Product
 {
+    [PermissionChecker(15)]
     public class EditModel : PageModel
     {
 

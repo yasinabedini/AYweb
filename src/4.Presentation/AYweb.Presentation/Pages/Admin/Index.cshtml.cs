@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AYweb.Presentation.Pages.Admin
 {
+    [PermissionChecker(1110)]
     public class IndexModel : PageModel
     {
 

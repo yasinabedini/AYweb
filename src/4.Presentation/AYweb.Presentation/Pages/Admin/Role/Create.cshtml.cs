@@ -2,6 +2,7 @@ using AYweb.Application.Models.Permission.Queries.GetPermissions;
 using AYweb.Application.Models.Role.Commands.AddPermissionToRole;
 using AYweb.Application.Models.Role.Commands.CreateRole;
 using AYweb.Application.Models.Role.Queries.GetRolePermissions;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace AYweb.Presentation.Pages.Admin.Role
 {
+    [PermissionChecker(41)]
     public class CreateModel : PageModel
     {
         private readonly ISender _sender;

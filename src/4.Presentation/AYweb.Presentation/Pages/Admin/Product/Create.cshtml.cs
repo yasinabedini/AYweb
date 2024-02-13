@@ -1,11 +1,13 @@
 using AYweb.Application.Models.Product.Commands.AddFeature;
 using AYweb.Application.Models.Product.Commands.CreateProduct;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AYweb.Presentation.Pages.Admin.Product
 {
+    [PermissionChecker(11)]
     public class CreateModel : PageModel
     {
         private readonly ISender _sender;

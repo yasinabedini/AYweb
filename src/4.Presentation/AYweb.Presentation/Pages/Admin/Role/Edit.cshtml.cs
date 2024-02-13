@@ -4,6 +4,7 @@ using AYweb.Application.Models.Role.Commands.DeleteRolePermissions;
 using AYweb.Application.Models.Role.Commands.UpdateRole;
 using AYweb.Application.Models.Role.Queries.GetRole;
 using AYweb.Application.Models.Role.Queries.GetRolePermissions;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using Pipelines.Sockets.Unofficial.Arenas;
 
 namespace AYweb.Presentation.Pages.Admin.Role
 {
+    [PermissionChecker(42)]
     public class EditModel : PageModel
     {
         private readonly ISender _sender;

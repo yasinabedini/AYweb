@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AYweb.Presentation.Pages.Admin.Role
 {
+    [PermissionChecker(44)]
     public class DetailsModel : PageModel
     {
         private readonly ISender _sender;

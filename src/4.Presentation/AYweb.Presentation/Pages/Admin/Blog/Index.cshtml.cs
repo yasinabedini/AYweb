@@ -1,6 +1,7 @@
 using AIPFramework.Queries;
 using AYweb.Application.Models.Blog.Queries.Common;
 using AYweb.Application.Models.Blog.Queries.GetBlogs;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,6 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace AYweb.Presentation.Pages.Admin.Blog
 {
+    [PermissionChecker(23)]
     public class IndexModel : PageModel
     {
         private readonly ISender _sender;

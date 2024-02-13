@@ -6,6 +6,7 @@ using AYweb.Application.Models.Blog.Queries.GetBlog;
 using AYweb.Application.Models.Blog.Queries.GetBlogGroups;
 using AYweb.Application.Models.Blog.Queries.GetBlogsGroups;
 using AYweb.Domain.Models.Blog.Entities;
+using AYweb.Presentation.Atteribute.PermissionChacker;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AYweb.Presentation.Pages.Admin.Blog
 {
+    [PermissionChecker(22)]
     public class EditModel : PageModel
     {
         private readonly ISender _sender;
