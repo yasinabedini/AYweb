@@ -3,8 +3,16 @@
 @using AYweb.Application.Models.Product.Queries.GetProduct
 @using MediatR
 @inject ISender _sender;
+@inject IConfiguration _config;
 @model OrderResult
+@{
+    bool error = false;
+}
+@section Styles {
+    <title>آی وب - سبد خرید</title>
 
+    <meta name=googlebot content=noindex,nofollow>
+}
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg2">
     <div class="d-table">
@@ -61,7 +69,7 @@
                                         @foreach (var orderLine in Model.OrderLines ?? new List<OrderLinesResult>())
                                         {
                                             var product = _sender.Send(new GetProductQuery { Id = orderLine.ProductId }).Result;
-                                            <tr>
+                                            <tr id="product[@product.Id]">
                                                 <td class="product-thumbnail">
                                                     <a asp-controller="Product" asp-action="ProductDetails" asp-route-Id="@product.Id">
                                                         <img src="/img/shop-image/@product.ImageName" alt="item">
@@ -70,10 +78,16 @@
 
                                                 <td class="product-name">
                                                     <a asp-controller="Product" asp-action="ProductDetails" asp-route-Id="@product.Id">@product.Name</a>
+                                                    @if (product.Inventory < orderLine.Count)
+                                                    {
+                                                        <br />
+                                                        <span class="text-danger">موجودی فعلی کالا : @product.Inventory. لطفا تعداد درخواستی را ویرایش کنید</span>
+                                                        error = true;
+                                                    }
                                                 </td>
 
                                                 <td class="product-price">
-                                                    <span class="unit-amount">@product.Price   تومان</span>
+                                                    <span class="unit-amount">@orderLine.UnitPrice   تومان</span>
                                                 </td>
 
                                                 <td class="product-quantity">
@@ -81,8 +95,8 @@
                                                         <form id="productInfo[@product.Id]" asp-controller="Order" asp-action="ChangeOrderLineCount" asp-antiforgery="true">
                                                             <input type="hidden" name="productId" value="@product.Id" />
                                                             <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                                            <input type="text" min="1" value="@orderLine.Count" id="productCount[@product.Id]" onchange="changeOrderLineCount(@product.Id)">
-                                                            <span class="plus-btn"><i class="fas fa-plus" ></i></span>
+                                                            <input type="text" min="1" value="@orderLine.Count" max="@product.Inventory" id="productCount[@product.Id]" onchange="changeOrderLineCount(@product.Id)">
+                                                            <span class="plus-btn"><i class="fas fa-plus"></i></span>
                                                         </form>
                                                     </div>
                                                 </td>
@@ -90,9 +104,10 @@
                                                 <td class="product-subtotal">
                                                     <span class="subtotal-amount">@orderLine.SumPrice تومان</span>
 
-                                                    <a href="#" class="remove"><i class="far fa-trash-alt"></i></a>
+                                                    <a  onclick="deleteOrderLine(@product.Id)" class="remove"><i class="far fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>
+
                                         }
                                     </tbody>
                                 </table>
@@ -122,7 +137,14 @@
                                 <li>کرایه <span>35000 تومان</span></li>
                                 <li>مجموع <span><b>@(@Model.EndPrice + 35000) تومان</b></span></li>
                             </ul>
-                            <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut" class="default-btn">پرداخت <span></span></a>
+                            @if (!error)
+                            {
+                                <a asp-area="UserPanel" asp-controller="Order" asp-action="CheckOut" class="default-btn">پرداخت <span></span></a>
+                            }
+                            else
+                            {
+                                <a class="default-btn text-white">برای پرداخت موجودی کالاهای درخوستی را ویرایش کنید. <span></span></a>
+                            }
                         </div>
                     </form>
                 </div>
@@ -138,9 +160,18 @@
             const productCount = document.getElementById("productCount[" + productId + "]").value;
             const xhr = new XMLHttpRequest();
             var params = "productId=" + productId + "&" + "count=" + productCount;
-            xhr.open("POST", "@ConfigurationManager.AppSettings["Domain"]/Order/ChangeOrderLineCount?productId=" + productId + "&count=" + productCount);
+            xhr.open("POST", "https://@(_config.GetValue<string>("MySetting:DomainAddress"))/Order/ChangeOrderLineCount?productId=" + productId + "&count=" + productCount);
             xhr.setRequestHeader('context-type', 'application/w-xxx-fomr-urlencoded');
             xhr.send(params);
+        }
+
+        function deleteOrderLine(productId) {            
+            const xhr = new XMLHttpRequest();
+            var params = "productId=" + productId;
+            xhr.open("POST", "https://@(_config.GetValue<string>("MySetting:DomainAddress"))/Order/DeleteOrderLine?productId=" + productId);
+            xhr.setRequestHeader('context-type', 'application/w-xxx-fomr-urlencoded');
+            xhr.send(params);
+            document.getElementById("product[" + productId + "]").setAttribute("style", "display:none");
         }
 
 
