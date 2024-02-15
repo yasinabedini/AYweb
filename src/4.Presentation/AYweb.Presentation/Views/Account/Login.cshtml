@@ -1,6 +1,15 @@
 ﻿@using AYweb.Application.Models.User.Commands.Login
 @model LoginCommand
 
+@section Styles {
+    <title>آی وب - ورود</title>
+    
+    <meta name=googlebot content=noindex,nofollow>
+
+    <meta property="og:title" content="آی وب - ورود" />
+    <meta property="og:image" content="/img/fav.png" />    
+    <meta property="og:url" content="https://ayweb.work/login" />
+}
 
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg2">
@@ -82,6 +91,13 @@
     {
         <script>
             $.notify("شماره موبایل یا رمز عبور اشتباه است!", "error");
+        </script>
+    }
+
+    @if (ViewBag.WrongInfo != null && (bool)ViewBag.WrongInfo == true)
+    {
+        <script>
+            $.notify("اطلاعات را به درستی پر کنید!!", "error");
         </script>
     }
 }

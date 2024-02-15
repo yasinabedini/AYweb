@@ -1,7 +1,11 @@
 ﻿@using AYweb.Application.Models.Transaction.Commands.RequestForPayTransaction
 @using AYweb.Application.Models.Transaction.Queries.Common
 @model RequestForPayTransactionCommand
+@section Styles {
+    <title>آی وب - پرداخت فاکتور </title>
 
+    <meta name=googlebot content=noindex,nofollow>
+}
 @{
     var transaction = ViewData["transaction"] as TransactionResult;
 }

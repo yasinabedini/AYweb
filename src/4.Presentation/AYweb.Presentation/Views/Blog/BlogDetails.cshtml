@@ -1,7 +1,18 @@
 ﻿@using AYweb.Application.Convertors
 @using AYweb.Application.Models.Blog.Queries.Common
 @model BlogResult
+@section Styles {
+    <title>آی وب - @Model.Title</title>
 
+    <meta name="description" content="@Model.Summary" />
+
+    <meta name=googlebot content=index,follow>
+
+    <meta property="og:title" content="آی وب - اخبار روز تکنولوژی و برنامه نویسی" />
+    <meta property="og:image" content="/img/blog-image/@Model.ImageName" />
+    <meta property="og:description" content="@Model.Summary" />
+    <meta property="og:url" content="https://ayweb.work/blog/@Model.Id" />
+}
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg1">
     <div class="d-table">

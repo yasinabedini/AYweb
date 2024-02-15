@@ -1,6 +1,19 @@
 ﻿@using AYweb.Application.Models.Project.Queries.Common
 @model ProjectResult
 
+@section Styles {
+    <title>آی وب - @Model.Title</title>
+
+    <meta name="description" content="@Model.Description" />
+
+    <meta name=googlebot content=index,follow>
+
+    <meta property="og:title" content="آی وب - @Model.Title" />
+    <meta property="og:image" content="/img/projects-image/@Model.FirstImage" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:url" content="https://ayweb.work/project/@Model.Id" />
+}
+
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg1">
     <div class="d-table">

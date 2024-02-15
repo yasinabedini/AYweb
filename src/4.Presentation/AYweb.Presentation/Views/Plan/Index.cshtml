@@ -1,1 +1,13 @@
-﻿@await Component.InvokeAsync("PlansViewComponents")
+﻿@section Styles {
+    <title>آی وب - پلن های کاربری</title>
+
+    <meta name="description" content="با خرید هر کدام از پلن های سایت به شما یه سری ویژگی و خدمات ارائه میشود. چنانچه پلنی را خریداری نکنید. حساب کاربری شما به صورت عادی خواهد بود."/>
+
+    <meta name=googlebot content=index,follow>
+
+    <meta property="og:title" content="آی وب - پلن های کاربری" />
+    <meta property="og:image" content="/img/fav.png" />
+    <meta property="og:url" content="https://ayweb.work/Plan" />
+}
+
+@await Component.InvokeAsync("PlansViewComponents")
