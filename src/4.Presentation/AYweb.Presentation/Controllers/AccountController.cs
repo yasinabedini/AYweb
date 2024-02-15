@@ -61,7 +61,7 @@ namespace AYweb.Presentation.Controllers
         [Route("Login")]
         public IActionResult Login(string returnUrl = "/")
         {
-            return View(new LoginCommand { ReturnUrl = returnUrl });
+            return View(new LoginCommand { ReturnUrl = returnUrl  });
         }
 
         [HttpPost]
@@ -69,8 +69,9 @@ namespace AYweb.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginCommand user)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid||user.PhoneNumber is null||user.Password is null)
             {
+                ViewBag.WrongInfo = true;
                 return View();
             }
 

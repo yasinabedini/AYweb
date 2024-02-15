@@ -1,4 +1,5 @@
 ﻿using AYweb.Application.Models.Order.Commands.ChnageOrderLineAmount;
+using AYweb.Application.Models.Order.Commands.DeleteOrderLineFromOrder;
 using AYweb.Application.Models.Order.Queries.GetCurrentUserCurrentOrder;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +21,17 @@ namespace AYweb.Presentation.Controllers
             return View(_sender.Send(new GetCurrentUserCurrentOrderQuery()).Result);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]        
         public void ChangeOrderLineCount(long productId, int count)
         {
             //  _service.ChangeOrderLineCount(productId, count, HttpContext);
             _sender.Send(new ChnageOrderLineAmountCommand { ProductId = productId, Amount = count });
         }
 
-        public IActionResult DeleteOrderLine(int productId)
+        [HttpPost]
+        public IActionResult DeleteOrderLine(long productId)
         {
-            //_service.DeleteOrderLine(productId, HttpContext);
+            _sender.Send(new DeleteOrderLineFromOrderCommand() { productId = productId });
             return RedirectToAction("MyCart", "Index", new { area = "UserPanel" });
         }
 

@@ -45,7 +45,7 @@ namespace AYweb.Presentation.Controllers
 
         [HttpGet]
         [Route("Product/{id}")]
-        public IActionResult ProductDetails(int id)
+        public IActionResult ProductDetails(int id, bool addSuccess)
         {
             var product = _sender.Send(new GetProductQuery { Id = id }).Result;
             if (product is null) return NotFound();
@@ -59,7 +59,7 @@ namespace AYweb.Presentation.Controllers
         {
             _sender.Send(addproduct);
 
-            return RedirectToAction("ProductDetails", "Product", new { Id = addproduct.ProductId });
+            return RedirectToAction("ProductDetails", "Product", new { Id = addproduct.ProductId,addSuccess = true });
         }
 
         [HttpPost]
