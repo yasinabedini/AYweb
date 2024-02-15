@@ -9,6 +9,8 @@ namespace AYweb.Application.Models.Order.Queries.Common
 {
     public class OrderLinesResult
     {
+        public long Id { get; set; }
+
         public long ProductId { get;  set; }
 
         public int Count { get;  set; }

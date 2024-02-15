@@ -25,7 +25,12 @@ namespace AYweb.Application.Models.Product.Queries.GetProduct
 
         public Task<ProductResult> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
-            var product = _mapper.Map<Domain.Models.Product.Entities.Product, ProductResult>(_repository.GetByIdWithRelations(request.Id));
+            var productModel = _repository.GetByIdWithRelations(request.Id);
+
+            var product = _mapper.Map<Domain.Models.Product.Entities.Product, ProductResult>(productModel);
+
+            float discount = product.DiscountedPercent;
+            product.Price = (int)(productModel.Price - (productModel.Price * (discount / 100)));
 
             return Task.FromResult(product);
         }

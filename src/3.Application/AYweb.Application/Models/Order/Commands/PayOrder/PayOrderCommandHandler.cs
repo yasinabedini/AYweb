@@ -1,6 +1,7 @@
 ﻿using AIPFramework.Commands;
 using AYweb.Application.Generators;
 using AYweb.Application.Models.Order.Commands.CreateForward;
+using AYweb.Application.Models.Order.Commands.DecreaseProductInventory;
 using AYweb.Application.Models.Transaction.Commands.AddTransactionLine;
 using AYweb.Application.Models.Transaction.Commands.ApproveTransaction;
 using AYweb.Application.Models.Transaction.Commands.CreateTransaction;
@@ -63,6 +64,9 @@ namespace AYweb.Application.Models.Order.Commands.PayOrder
                 
                 
                 _repository.ApproveOrder(request.Id);
+
+                _sender.Send(new DecreaseProductInventoryCommand { OrderId = mainOrder.Id });
+                
                 mainOrder.OrderLines.ForEach(t => _transactionLineRepository.Add(TransactionLine.Create(transaction, t.Product.Name, t.Count, t.UnitPrice)));
                 _repository.Save();
             }
