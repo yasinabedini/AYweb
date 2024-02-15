@@ -1,6 +1,18 @@
 ﻿@using AYweb.Application.Models.Product.Queries.Common
 @model ProductResult
 
+@section Styles {
+    <title>آی وب - @Model.Name</title>
+
+    <meta name="description" content="@Model.SeoDescription" />
+
+    <meta name=googlebot content=index,follow>
+
+    <meta property="og:title" content="آی وب - @Model.Name" />
+    <meta property="og:image" content="/img/shop-image/@Model.ImageName" />
+    <meta property="og:description" content="@Model.SeoDescription" />
+    <meta property="og:url" content="https://ayweb.work/product/@Model.Id" />
+}
 
 <!-- Start Page Title Area -->
 <div class="page-title-area page-title-bg2">
@@ -41,7 +53,7 @@
                         {
                             float discount = Model.DiscountedPercent;
                             <span class="new">@((Model.Price - (Model.Price * (discount / 100))).ToString("#,0 تومان"))</span>
-                            <span class="old">@Model.Price.ToString("#,0 تومان") </span>
+                            <span class="old text-secondary">@Model.Price.ToString("#,0 تومان") </span>
                         }
                         else
                         {
@@ -65,47 +77,26 @@
                     <div class="product-add-to-cart">
                         <form asp-controller="Product" asp-action="AddProductToCart" method="post" asp-antiforgery="true">
                             <input type="hidden" name="addproduct.ProductId" value="@Model.Id" />
-                        <div class="input-counter">
-                            <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                <input type="text" name="addproduct.Amount" min="1" value="1">
-                            <span class="plus-btn"><i class="fas fa-plus"></i></span>
-                        </div>
+                            <div class="input-counter">
+                                <span class="minus-btn"><i class="fas fa-minus"></i></span>
+                                <input type="text" name="addproduct.Amount" min="1" value="@((Model.Inventory == 0 || Model.Inventory <= 0) ? "0" : "1")" @((Model.Inventory == 0 || Model.Inventory <= 0) ? "disable" : "") max="@Model.Inventory">
+                                <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                            </div>
 
-                        <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> افزودن سبد خرید <span></span></button>
+
+                            @if (Model.Inventory is 0)
+                            {
+                                <button type="button" class="default-btn btn-danger "><i class="fas fa-cart-plus"></i> کالا موجود نیست <span></span></button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> افزودن سبد خرید <span></span></button>
+                            }
+
                         </form>
                     </div>
 
-                    <div class="buy-checkbox-btn">
-                        <div class="item">
-                            <input class="inp-cbx" id="cbx" type="checkbox">
-                            <label class="cbx" for="cbx">
-                                <span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg>
-                                </span>
-                                <span>من با شرایط و ضوابط موافقم</span>
-                            </label>
-                        </div>
-
-                        <div class="item">
-                            <a href="#" class="btn btn-light">اکنون بخرید!</a>
-                        </div>
-                    </div>
-
-                    <div class="custom-payment-options">
-                        <span>پرداخت امن:</span>
-
-                        <div class="payment-methods">
-                            <a href="#"><img src=" /img/payment/1.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/2.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/3.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/4.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/5.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/6.svg" alt="image"></a>
-                            <a href="#"><img src=" /img/payment/7.svg" alt="image"></a>
-                        </div>
-                    </div>
+            
                 </div>
             </div>
 
@@ -166,101 +157,110 @@
         </div>
     </div>
 
+    @section Scripts {
+        @if (Context.Request.Query["addSuccess"].ToString().ToLower() == "true")
+        {
+            <script>
+                $.notify("کالا به سبد خرید اضافه شد!", "success");
+            </script>
+        }
+    }
+
     @* <div class="related-products">
-        <div class="container">
-            <div class="section-title">
-                <span class="sub-title">فروشگاه</span>
-                <h2>محصولات مرتبط</h2>
-            </div>
+    <div class="container">
+    <div class="section-title">
+    <span class="sub-title">فروشگاه</span>
+    <h2>محصولات مرتبط</h2>
+    </div>
 
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-product-box">
-                        <div class="product-image">
-                            <a href="#">
-                                <img src=" /img/shop-image/1.jpg" alt="image">
-                                <img src=" /img/shop-image/1-1.jpg" alt="image">
-                            </a>
+    <div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="single-product-box">
+    <div class="product-image">
+    <a href="#">
+    <img src=" /img/shop-image/1.jpg" alt="image">
+    <img src=" /img/shop-image/1-1.jpg" alt="image">
+    </a>
 
-                            <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
-                        </div>
+    <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+    </div>
 
-                        <div class="product-content">
-                            <h3><a href="#">کتاب داستان</a></h3>
-                            <div class="price">
-                                <span class="new">45500 تومان</span>
-                                <span class="old">46000 تومان</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="product-content">
+    <h3><a href="#">کتاب داستان</a></h3>
+    <div class="price">
+    <span class="new">45500 تومان</span>
+    <span class="old">46000 تومان</span>
+    </div>
+    <div class="rating">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    </div>
+    </div>
+    </div>
+    </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-product-box">
-                        <div class="product-image">
-                            <a href="#">
-                                <img src=" /img/shop-image/2.jpg" alt="image">
-                                <img src=" /img/shop-image/2-1.jpg" alt="image">
-                            </a>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="single-product-box">
+    <div class="product-image">
+    <a href="#">
+    <img src=" /img/shop-image/2.jpg" alt="image">
+    <img src=" /img/shop-image/2-1.jpg" alt="image">
+    </a>
 
-                            <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+    <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
 
-                            <div class="sale-btn">ویژه!</div>
-                        </div>
+    <div class="sale-btn">ویژه!</div>
+    </div>
 
-                        <div class="product-content">
-                            <h3><a href="#">کتاب رمان</a></h3>
-                            <div class="price">
-                                <span class="new">54100 تومان</span>
-                                <span class="old">65200 تومان</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="product-content">
+    <h3><a href="#">کتاب رمان</a></h3>
+    <div class="price">
+    <span class="new">54100 تومان</span>
+    <span class="old">65200 تومان</span>
+    </div>
+    <div class="rating">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star-half-alt"></i>
+    </div>
+    </div>
+    </div>
+    </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-0 offset-md-3">
-                    <div class="single-product-box">
-                        <div class="product-image">
-                            <a href="#">
-                                <img src=" /img/shop-image/3.jpg" alt="image">
-                                <img src=" /img/shop-image/3-1.jpg" alt="image">
-                            </a>
+    <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-0 offset-md-3">
+    <div class="single-product-box">
+    <div class="product-image">
+    <a href="#">
+    <img src=" /img/shop-image/3.jpg" alt="image">
+    <img src=" /img/shop-image/3-1.jpg" alt="image">
+    </a>
 
-                            <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
-                        </div>
+    <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+    </div>
 
-                        <div class="product-content">
-                            <h3><a href="#">کتاب دیوها</a></h3>
-                            <div class="price">
-                                <span class="new">14100 تومان</span>
-                                <span class="old">24200 تومان</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="product-content">
+    <h3><a href="#">کتاب دیوها</a></h3>
+    <div class="price">
+    <span class="new">14100 تومان</span>
+    <span class="old">24200 تومان</span>
+    </div>
+    <div class="rating">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="far fa-star"></i>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div> *@
 </section>
 <!-- End Product Details Area -->

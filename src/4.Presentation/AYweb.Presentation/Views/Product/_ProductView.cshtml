@@ -1,5 +1,6 @@
 ﻿@using AYweb.Application.Models.Product.Queries.Common
 @model ProductResult
+@inject IConfiguration _config;
 
 <div class="col-lg-4 col-md-6 col-sm-6">
     <div class="single-product-box">
@@ -9,7 +10,17 @@
                 <img style="transform:rotateY(180deg)" src="img/shop-image/@Model.ImageName" alt="image">
             </a>
 
-            <a href="#" class="add-to-cart-btn">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+            <form>
+                @if (Model.Inventory is 0)
+                {
+                    <a asp-controller="product" asp-action="productDetails" asp-route-id="@Model.Id" class="add-to-cart-btn">کالا موجود نیست <i class="flaticon-shopping-cart"></i></a>
+                }
+                else
+                {
+                    <a asp-controller="product" asp-action="productDetails" asp-route-id="@Model.Id" class="add-to-cart-btn table-borderless">افزودن سبد خرید <i class="flaticon-shopping-cart"></i></a>
+
+                }
+            </form>
 
             @if (Model.IsSpecial)
             {
