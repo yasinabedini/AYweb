@@ -11,7 +11,7 @@ using AYweb.Application.Models.User.Queries.GetUser;
 using AYweb.Domain.Models.Order.Entities;
 using AYweb.Domain.Models.User.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Http; 
+using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
 
@@ -54,14 +54,14 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
                 else
                 {
                     order = _sender.Send(new CreateOrderCommand { UserId = user.Id }).Result;
-                    
+
                 }
 
                 var orderline = order.AddOrderLine(product.Id, product.Price, request.Amount);
 
                 _sender.Send(new UpdateOrderLineCommand { OrderLine = orderline });
 
-                _sender.Send(new UpdateOrderCommand { Order = order });              
+                _sender.Send(new UpdateOrderCommand { Order = order });
             }
 
             //If User Is Not Authenticated
@@ -82,9 +82,9 @@ namespace AYweb.Application.Models.Order.Commands.AddProductToOrder
                     order = Domain.Models.Order.Entities.Order.Create();
                 }
 
-           
+
                 order.AddOrderLine(product.Id, product.Price, request.Amount);
-                
+
                 _session.Add("UserCart", order, 10800, 10800);
             }
 

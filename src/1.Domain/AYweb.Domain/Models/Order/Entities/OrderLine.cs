@@ -43,6 +43,12 @@ public class OrderLine : Entity<long>
         ModifiedAt = DateTime.Now;
     }
 
+    public void Delete()
+    {
+        IsDelete = true;
+        Modified();
+    }
+
     public void SetOrderId(long orderId)
     {
         OrderId = orderId;

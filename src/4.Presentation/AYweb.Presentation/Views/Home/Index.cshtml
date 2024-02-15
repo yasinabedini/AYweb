@@ -1,29 +1,41 @@
-﻿
-    <partial name="_Banner" />
+﻿@section Styles {
+    <title>آی وب - دنیای وب و برنامه نویسی</title>
 
-    @*<partial name="_Services"/>*@
+    <meta name="description" content="با یک کلیک کسب و کار خودتو آنلاین کن. در اولین فرصت کارشناسان ما با تماس با شما نیاز ها و ضعف های کسب و کار شما را شناسایی و رفع خواهند کرد " />
 
-   <partial name="_Overview"/>
+    <meta name=googlebot content=index,follow>
 
-    <partial name="_SolutionArea"/>
+    <meta property="og:title" content="آی وب - دنیای وب و برنامه نویسی" />
+    <meta property="og:image" content="/img/fav.png" />
+    <meta property="og:description" content="دنیای وب و برنامه نویسی. " />
+    <meta property="og:url" content="https://ayweb.work" />
+}
 
-    @await Component.InvokeAsync("ProjectViewComponents");
+<partial name="_Banner" />
 
-    <partial name="_FunFacts"/>
+@*<partial name="_Services"/>*@
 
-    @* <partial name="_FeedbackArea"/> *@
+<partial name="_Overview" />
 
-    @await Component.InvokeAsync("PlansViewComponents")
+<partial name="_SolutionArea" />
 
-    @* <partial name="_TeamArea"/> *@
-    
-    <partial name="_LetsWorkArea"/>
-   
-    @* <partial name="_PartnerArea"/> *@
+@await Component.InvokeAsync("ProjectViewComponents");
 
-    @await Component.InvokeAsync("LastNewsViewComponents")
+<partial name="_FunFacts" />
 
-    <partial name="_SubscribeArea"/>
-    
+@* <partial name="_FeedbackArea"/> *@
 
-    <div class="go-top"><i class="fas fa-chevron-up"></i></div>
+@await Component.InvokeAsync("PlansViewComponents")
+
+@* <partial name="_TeamArea"/> *@
+
+<partial name="_LetsWorkArea" />
+
+@* <partial name="_PartnerArea"/> *@
+
+@await Component.InvokeAsync("LastNewsViewComponents")
+
+<partial name="_SubscribeArea" />
+
+
+<div class="go-top"><i class="fas fa-chevron-up"></i></div>

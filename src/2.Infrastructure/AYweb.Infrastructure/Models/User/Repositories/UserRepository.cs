@@ -118,7 +118,10 @@ public class UserRepository : BaseRepository<Domain.Models.User.Entities.User>, 
                 }
             }
         }
-
+        else
+        {
+            userplans = User_Plans.Create(userId, 0, 0);
+        }
         return userplans.Plan ?? Domain.Models.Plan.Entities.Plan.Create("کاربر عادی", "Normal", 0);
     }
 
